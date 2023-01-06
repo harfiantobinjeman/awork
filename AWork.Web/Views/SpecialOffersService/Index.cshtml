@@ -1,0 +1,142 @@
+﻿@model X.PagedList.IPagedList<AWork.Contracts.Dto.Sales.SpecialOffer.SpecialOfferDto>
+@using X.PagedList.Mvc.Core;
+
+<link href="~/css/PageList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@using (Html.BeginForm("Index", "SpecialOffersService", FormMethod.Get))
+{
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="mb-3" style="text-align: center">SPECIAL OFFER</h2>
+            <a class="btn btn-primary text-end mb-3" asp-action="Create"><span class="tf-icons bx bx-book-add"></span>&nbsp; Create New</a>
+            <div class="table-responsive text-nowrap">
+                <table class="table">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <br />
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                        </div>
+                                        <div class="input-group mb-1">
+                                            @Html.TextBox("SearchString",ViewBag.CurrentFilter as string, new{@InputType="text", placeholder="Search...", @class="form-control", @id="search", @name="search"})
+                                            <button type="submit" class="btn btn-info" id="button-addon2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="col-sm-2">
+                            Sort By : @Html.DropDownList("PageSize",
+                        ViewBag.PageSize as SelectList,
+                        new{
+                        @class="form-control search-slt",
+                        @placeholder="Page Size",
+                        @onchange="getPagedSize(this.value)"
+                        })
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+}
+
+<thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().DiscountPct)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().MinQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().MaxQty)
+        </th>
+        <th>
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.SpecialOfferId">
+            </a>
+        </th>
+        <th></th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscountPct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxQty)
+            </td>
+            <td>
+                <div class="dropdown">
+                    <button type="button"
+                        class="btn p-0 dropdown-toggle hide-arrow"
+                        data-bs-toggle="dropdown">
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.SpecialOfferId"><i class="bx bx-edit-alt me-1"></i>Edit</a>
+                        <a class="dropdown-item" asp-action="Details" asp-route-id="@item.SpecialOfferId"><i class="bx bx-detail me-1"></i>Details</a>
+                        <a class="dropdown-item" asp-action="Delete" asp-route-id="@item.SpecialOfferId"><i class="bx bx-trash me-1"></i>Delete</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
+</tbody>
+                    </table>
+
+@Html.PagedListPager(Model,
+ page => Url.Action("Index", new {page, PageSize = ViewBag.psize, currentFilter = ViewBag.CurrentFilter, sortOrder = ViewBag.CurrentSort}))
+
+    <script>
+    function getPagedSize(value){
+        document.location.href = "/SpecialOffersService?&PageSize=" + value + "&currentFilter=@ViewBag.CurrentFilter&sortOrder=@ViewBag.CurrentSort"
+    }
+    </script>

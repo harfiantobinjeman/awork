@@ -1,0 +1,121 @@
+﻿@model AWork.Contracts.Dto.Purchasing.PurchaseOrderHeaderForCreateDto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h2>Create Purchase Order Header</h2>
+
+<div class="col-xxl">
+    <div class="card mb-4">
+            
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<select type="hidden" asp-for="PurchaseOrderId" class="form-control"></select>*@
+            <div class="card-body">
+                <div class="row">
+                <div class="col md-6">
+                    <label class="col-form-label" >REVISION NUMBER</label>
+                    <div class="col-sm-10">
+                        <div class="input-group input-group-merge">
+                            <input asp-for="RevisionNumber" class="form-control" placeholder="Revision Number"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col md-6">
+                    <label class="col-form-label" >EMPLOYEE NAME</label>
+                    <div class="col-sm-10">
+                        <div class="input-group input-group-merge">
+                                <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col md-6">
+                        <label class="col-form-label">VENDOR NAME</label>
+                        <div class="col-sm-10">
+                            <select asp-for="VendorId" class="form-control" asp-items="ViewBag.VendorId"></select>
+                        </div>
+                    </div>
+                    <div class="col md-6">
+                        <label class="col-form-label">STATUS</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <input asp-for="Status" class="form-control" placeholder="Status" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col md-6">
+                        <label class="col-form-label">FREIGHT</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <input asp-for="Freight" class="form-control" placeholder="Freight" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col md-6">
+                        <label class="col-form-label">SUB TOTAL</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <input asp-for="SubTotal" class="form-control" placeholder="Sub Total" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col md-6">
+                        <label class="col-form-label">TAX AMT</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <input asp-for="TaxAmt" class="form-control" placeholder="Tax Amnesty"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col md-6">
+                        <label class="col-form-label">TOTAL DUE</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <input asp-for="TotalDue" class="form-control" placeholder="Total Due" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col md-6">
+                        <label class="col-form-label">SHIP METHOD</label>
+                        <div class="col-sm-5">
+                            <div class="input-group input-group-merge">
+                                <select asp-for="ShipMethodId" class="form-control" asp-items="ViewBag.ShipMethodId"></select>
+                            </div>
+                        </div>
+                     </div>
+                    <div class="col md-6">
+                        <label class="col-form-label">SHIP DATE</label>
+                        <div class="col-sm-5">
+                            <div class="input-group input-group-merge">
+                                <input asp-for="ShipDate" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <br />
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

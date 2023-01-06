@@ -1,0 +1,85 @@
+﻿@model AWork.Contracts.Dto.PersonModule.PersonDto
+
+@{
+    ViewData["Title"] = "Details";
+}
+<h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light">Account /</span> Detail
+</h4>
+
+
+  <div class="col-md-12">
+    <div class="card mb-4">
+      <h5 class="card-header">Profile Details</h5>
+      <!-- Account -->
+      <hr class="my-0">
+      <div class="card-body">
+        <form id="formAccountSettings" method="POST" onsubmit="return false">
+          <div class="row">
+            <div class="mb-3 col-md-6">
+              <label class="form-label" >@Html.DisplayNameFor(model => model.PersonType) </label>
+              <label class="form-control"/>@Html.DisplayFor(model => model.PersonType)
+            </div>
+            <div class="mb-3 col-md-6">
+              <label class="form-label">@Html.DisplayNameFor(model => model.NameStyle)</label>
+              <label class="form-control"/>@Html.DisplayFor(model => model.NameStyle)
+            </div>
+            <div class="mb-3 col-md-6">
+              <label class="form-label">@Html.DisplayNameFor(model => model.Title)</label>
+              <label class="form-control"/>@Html.DisplayFor(model => model.Title)
+            </div>
+            <div class="mb-3 col-md-6">
+              <label class="form-label">@Html.DisplayNameFor(model => model.FirstName)</label>
+              <label class="form-control"/>@Html.DisplayFor(model => model.FirstName)
+            </div>
+            <div class="mb-3 col-md-6">
+              <label class="form-label">@Html.DisplayNameFor(model => model.MiddleName)</label>
+              <label class="form-control"/>@Html.DisplayFor(model => model.MiddleName)  
+            </div>
+            <div class="mb-3 col-md-6">
+              <label class="form-label">@Html.DisplayNameFor(model => model.LastName)</label>
+              <label class="form-control"/>@Html.DisplayFor(model => model.LastName)
+            </div>
+            <div class="mb-3 col-md-6">
+              <label class="form-label">@Html.DisplayNameFor(model => model.Suffix)</label>
+              <label class="form-control"/>@Html.DisplayFor(model => model.Suffix)
+            </div>
+            <div class="mb-3 col-md-6">
+              <label class="form-label">@Html.DisplayNameFor(model => model.EmailPromotion)</label>
+              <label class="form-control"/>@Html.DisplayFor(model => model.EmailPromotion)
+            </div>
+            <div class="mb-3 col-md-6">
+              <label class="form-label">@Html.DisplayNameFor(model => model.AdditionalContactInfo)</label>
+              <label class="form-control"/>@Html.DisplayFor(model => model.AdditionalContactInfo)
+            </div>
+            <div class="mb-3 col-md-6">
+             <label class="form-label">@Html.DisplayNameFor(model => model.Demographics)</label>
+              <label class="form-control"/>@Html.DisplayFor(model => model.Demographics)
+            </div>
+            <div class="mb-3 col-md-6">
+              <label class="form-label">@Html.DisplayNameFor(model => model.Rowguid)</label>
+              <label class="form-control"/> @Html.DisplayFor(model => model.Rowguid)
+            </div>
+            <div class="mb-3 col-md-6">
+              <label class="form-label">@Html.DisplayNameFor(model => model.ModifiedDate)</label>
+              <label class="form-control"/> @Html.DisplayFor(model => model.ModifiedDate)
+            </div>
+          </div>
+        </form>
+      </div>
+
+        <div class="mt-2">
+            <button type="reset" class="btn btn-outline-secondary">
+                <a asp-action="Edit" asp-route-id="@Model.BusinessEntityId">Edit</a>
+            </button>
+            <button type="reset" class="btn btn-outline-secondary">
+                <a asp-action="Index">Back to List</a>
+            </button>
+        </div>
+
+    @*<div>
+        <a asp-action="Edit" asp-route-id="@Model.BusinessEntityId">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+
+

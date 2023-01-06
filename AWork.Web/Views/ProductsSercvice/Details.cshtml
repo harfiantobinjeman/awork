@@ -1,0 +1,162 @@
+@model AWork.Contracts.Dto.Production.ProductDto
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details Product</h1>
+
+
+    <hr />
+  
+
+    
+<body>
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">
+                @Html.HiddenFor(model => model.ProductId)
+
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="col-md">
+                      <div style="display:flex">
+        
+                                <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        @foreach (var item in Model.ProductProductPhotos)
+                                        {
+                                            if (Model.ProductProductPhotos.FirstOrDefault() == item)
+                                            {
+                                                <div class="carousel-item active">
+                                                    <img class="card-img-top" style="height:300px" src="@Url.Content("~/Resources/Images/"+item.ProductPhoto.ThumbnailPhotoFileName)" alt="Card image cap">
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="carousel-item">
+                                                    <img class="card-img-top" style="height:300px" src="@Url.Content("~/Resources/Images/"+item.ProductPhoto.ThumbnailPhotoFileName)" alt="Card image cap">
+                                                </div>
+                                            }
+                                        }
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                
+                            </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h3>Details Product</h3>
+
+                    <h5>@Html.DisplayNameFor(model => model.Name)</h5>
+                    <h5>
+                        @Html.DisplayNameFor(model => model.ProductNumber)
+                    </h5>
+                    <h5>
+                        @Html.DisplayNameFor(model => model.MakeFlag)
+                    </h5>
+                    <h5>@Html.DisplayNameFor(model => model.FinishedGoodsFlag)</h5>
+                    <h5>@Html.DisplayNameFor(model => model.Color)</h5>
+                    <h5>@Html.DisplayNameFor(model => model.SafetyStockLevel)</h5>
+                    <h5>@Html.DisplayNameFor(model => model.ReorderPoint)</h5>
+                    <h5>@Html.DisplayNameFor(model => model.StandardCost)</h5>
+                    <h5>@Html.DisplayNameFor(model => model.ListPrice)</h5>
+                    <h5>@Html.DisplayNameFor(model => model.Size)</h5>
+                    <h5>@Html.DisplayNameFor(model => model.Weight)</h5>
+                    <h5>@Html.DisplayNameFor(model => model.DaysToManufacture)</h5>
+                    <h5>@Html.DisplayNameFor(model => model.ProductLine)</h5>
+                    <h5>@Html.DisplayNameFor(model => model.Class)</h5>
+                    <h5>@Html.DisplayNameFor(model => model.Style)</h5>
+                    <h5>@Html.DisplayNameFor(model => model.SellStartDate)</h5>
+                    <h5>@Html.DisplayNameFor(model => model.SellEndDate)</h5>
+                    <h5>@Html.DisplayNameFor(model => model.DiscontinuedDate)</h5>
+                    <h5>Category Name</h5>
+                    <h5>SizeUnitMeasureCode</h5>
+                    <h5>WeightUnitMeasureCode</h5>
+                </div>
+                <div class="col-md-6 col-lg-1">
+                    <h3><br /></h3>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                    <h5>:</h5>
+                </div>
+                <div class="cold-md-6 col-lg-4">
+                    <h3><br /></h3>
+                    <h5>@Html.DisplayFor(model => model.Name)</h5>
+                    <h5>
+                        @Html.DisplayFor(model => model.ProductNumber)
+                    </h5>
+                    <h5>
+                        @Html.DisplayFor(model => model.MakeFlag)
+                    </h5>
+                    <h5>@Html.DisplayFor(model => model.FinishedGoodsFlag)</h5>
+                    <h5>@Html.DisplayFor(model => model.Color)</h5>
+                    <h5>@Html.DisplayFor(model => model.SafetyStockLevel)</h5>
+                    <h5>@Html.DisplayFor(model => model.ReorderPoint)</h5>
+                    <h5>@Html.DisplayFor(model => model.StandardCost)</h5>
+                    <h5>@Html.DisplayFor(model => model.ListPrice)</h5>
+                    <h5>@Html.DisplayFor(model => model.Size)</h5>
+                    <h5>@Html.DisplayFor(model => model.Weight)</h5>
+                    <h5>@Html.DisplayFor(model => model.DaysToManufacture)</h5>
+                    <h5>@Html.DisplayFor(model => model.ProductLine)</h5>
+                    <h5>@Html.DisplayFor(model => model.Class)</h5>
+                    <h5>@Html.DisplayFor(model => model.Style)</h5>
+                    <h5>@Html.DisplayFor(model => model.SellStartDate)</h5>
+                    <h5>@Html.DisplayFor(model => model.SellEndDate)</h5>
+                    <h5>@Html.DisplayFor(model => model.DiscontinuedDate)</h5>
+                    <h5>@Html.DisplayFor(model => model.ProductSubcategory.Name)</h5>
+                    <h5>@Html.DisplayFor(model => model.SizeUnitMeasureCodeNavigation.UnitMeasureCode)</h5>
+                    <h5>@Html.DisplayFor(model => model.WeightUnitMeasureCodeNavigation.UnitMeasureCode)</h5>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</body>
+
+
+<hr />
+<br/>
+<br/>
+<div>
+    <a class="btn btn-secondary text-end mb-2" asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a>
+    <a class="btn btn-primary text-end mb-2" asp-action="Index">Back</a>
+</div>
+
+
+
+
+
+
+
+
+
+
+

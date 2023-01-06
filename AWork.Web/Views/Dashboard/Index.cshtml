@@ -1,0 +1,212 @@
+﻿<div>
+    <style type="text/css">
+        body {
+            font-family: roboto;
+        }
+
+        td {
+            width: 50%;
+        }
+
+        row {
+            max-width: 300px;
+            border: solid 1px black;
+            background-color: blue;
+            color: white;
+        }
+    </style>
+    <h2 align="center">Person Dashboard</h2>
+    <div>
+        <table style="width:100%">
+            <tr>
+                <td rowspan="7">
+                    <div id="chart"></div>
+                </td>
+                <td>
+                    <div><b>PERSONTYPE</b></div>
+                </td>
+                <td>
+                    <div><b>TOTAL PERSON</b></div>
+                </td>
+            </tr>
+            <tr>
+                <td>EMPLOYEE (EM)</td>
+                <td>282</td>
+            </tr>
+            <tr>
+                <td>SALES PERSON (SP)</td>
+                <td>17</td>
+            </tr>
+            <tr>
+                <td>INDIVIDUAL CUSTOMER (IN)</td>
+                <td>18485</td>
+            </tr>
+            <tr>
+                <td>STORE CONTACT (SC)</td>
+                <td>760</td>
+            </tr>
+            <tr>
+                <td>GENERAL CONTACT (GC)</td>
+                <td>289</td>
+            </tr>
+            <tr>
+                <td>VENDOR CONTACT (VC)</td>
+                <td>159 </td>
+            </tr>
+            <tr>
+                <td rowspan="7"><div id="chart2"></div></td>
+                <td><b>COUNTRY</b></td>
+                <td><b>TOTAL PERSON</b></td>
+            </tr>
+            <tr>
+                <td>AMERICA SAMOA (AS)</td>
+                <td>1879</td>
+            </tr>
+            <tr>
+                <td>AUSTRALIA (AU)</td>
+                <td>9805</td>
+            </tr>
+            <tr>
+                <td>CANADA (CA)</td>
+                <td>11882</td>
+            </tr>
+            <tr>
+                <td>GENMARY (DE)</td>
+                <td>6573</td>
+            </tr>
+            <tr>
+                <td>MICRONESIA (FM)</td>
+                <td>1961</td>
+            </tr>
+            <tr>
+                <td>FRANCE (FR)</td>
+                <td> 89952</td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+
+@section scripts{
+<script>
+
+$(document).ready(function () {
+ //renderChart();
+    let totalProduct =[];
+    let categories =[];
+    let xotalProduct =[];
+    let xategories =[];
+    let personType = $('#personType').val();
+    let countryRegionCode = $('#countryRegionCode').val();
+    
+        $.ajax({
+            type : 'GET',
+            url: '/Dashboard/GetTotalPersonByPersonType/?personType='+personType,
+            success : function (result){
+                    console.log(result);
+        
+                    for (let i=0; i < result.length; i++){
+                            totalProduct.push(result[i].totalPerson);
+                            categories.push(result[i].personType);
+                    }
+                    console.log(totalProduct);
+                    console.log(categories);
+                    
+                    renderBarChart(totalProduct,categories);
+                    //renderPieChart(totalProduct,categories);
+                     $.ajax({
+                                 type : 'GET',
+                                 url: '/Dashboard/GetTotalPersonByCountry/?countryRegionCode='+countryRegionCode,
+                                 success : function(result){
+                                     console.log(result);
+                                            for (let i=0; i < result.length; i++){
+                                                xotalProduct.push(result[i].totalPerson);
+                                                xategories.push(result[i].countryRegionCode);
+                                            }
+                                            console.log(xotalProduct);
+                                            console.log(xategories);
+                                         // renderBarChart(totalProduct,categories);
+                                            renderPieChart(xotalProduct,xategories);
+                                 }
+                             })
+                },
+                error : function (result){
+                    console.log('failed to fetch data');
+                }
+             })
+        })
+
+
+       function renderBarChart(dataSeries, dataCategories) {
+           var options = {
+               series: [{
+                   data: dataSeries
+               }],
+               chart: {
+                   height: 350,
+                   type: 'bar',
+                   events: {
+                   click: function(chart, w, e) {
+                   // console.log(chart, w, e)
+                   }
+                   }
+                   },
+                   plotOptions: {
+                        bar: {
+                          columnWidth: '45%',
+                          distributed: true,
+                          }
+                          },
+                          dataLabels: {
+                          enabled: false
+                          },
+                          legend:
+                          {
+                          show: false
+                          },
+                      xaxis: {
+                      categories: dataCategories,
+                      }
+                      };
+                      var chart = new ApexCharts(document.querySelector("#chart"), options);
+                      chart.render();
+        }
+         function renderPieChart(dataSeries, dataCategories) {
+           var options = {
+               series: [{
+                   data: dataSeries
+               }],
+               chart: {
+                   height: 350,
+                   type: 'bar',
+                   events: {
+                   click: function(chart, w, e) {
+                   // console.log(chart, w, e)
+                   }
+                   }
+                   },
+                   plotOptions: {
+                        bar: {
+                          columnWidth: '45%',
+                          distributed: true,
+                          }
+                          },
+                          dataLabels: {
+                          enabled: false
+                          },
+                          legend:
+                          {
+                          show: false
+                          },
+                      xaxis: {
+                      categories: dataCategories,
+                      }
+                      };
+                      var chart = new ApexCharts(document.querySelector("#chart2"), options);
+                      chart.render();
+        }
+        
+        
+ </script>
+}

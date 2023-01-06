@@ -1,0 +1,108 @@
+﻿@model AWork.Contracts.Dto.Sales.SalesPerson.SalesPersonDto
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container p-3 my-3">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="text-center mb-3">DETAILS SALES PERSON</h3>
+        </div>
+        <div class="card-body">
+            <form class="row g-3" method="post" asp-controller="SalesPersonsService" asp-action="EditSalesPerson">
+                <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Employee Name</label>
+                    <div class="input-group input-group-merge">
+                        @Html.TextBoxFor(Model => Model.BusinessEntity.BusinessEntity.FirstName, Model.BusinessEntity.BusinessEntity.FirstName +" "+ Model.BusinessEntity.BusinessEntity.LastName,
+                        new{@class="form-control", @readonly="readonly"})
+                    </div>
+                </div>
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model=> model.BusinessEntityId, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBoxFor(Model => Model.BusinessEntityId, Model.BusinessEntityId.ToString(),
+                    new{@class="form-control", @readonly="readonly"})
+                </div>
+                <div class="col-md-3">
+                    <label for="inputAddress" class="form-label">Fullname</label>
+                    @Html.TextBoxFor(Model => Model.BusinessEntity.BusinessEntity.FirstName, Model.BusinessEntity.BusinessEntity.FirstName +" "+ Model.BusinessEntity.BusinessEntity.LastName,
+                    new{@class="form-control", @readonly="readonly"})
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model=> model.BusinessEntity.NationalIdnumber, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBoxFor(Model => Model.BusinessEntity.NationalIdnumber, Model.BusinessEntity.NationalIdnumber.ToString(),
+                    new{@class="form-control", @readonly="readonly"})
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model=> model.BusinessEntity.JobTitle, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBoxFor(Model => Model.BusinessEntity.JobTitle, Model.BusinessEntity.JobTitle,
+                    new{@class="form-control", @readonly="readonly"})
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Territory</label>
+                    <div class="input-group input-group-merge">
+                        @Html.TextBoxFor(Model => Model.TerritoryId, Model.TerritoryId.ToString(),
+                        new{@class="form-control", @readonly="readonly"})
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model=> model.Territory.Name, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBoxFor(Model => Model.Territory.Name, Model.Territory.Name,
+                    new{@class="form-control", @readonly="readonly"})
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model=> model.Territory.CountryRegionCode, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBoxFor(Model => Model.Territory.CountryRegionCode, Model.Territory.CountryRegionCode.ToString(),
+                    new{@class="form-control", @readonly="readonly"})
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model=> model.Territory.Group, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBoxFor(Model => Model.Territory.Group, Model.Territory.Group,
+                    new{@class="form-control", @readonly="readonly"})
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model=> model.Bonus, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("Bonus",Model.Bonus,
+                    new{@placeholder="Bonus",@class="form-control", @readonly="readonly"})
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model=> model.CommissionPct, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("CommissionPct",Model.CommissionPct,
+                    new{@placeholder="CommissionPct",@class="form-control", @readonly="readonly"})
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model=> model.SalesYtd, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("SalesYtd",Model.SalesYtd,
+                    new{@placeholder="SalesYtd",@class="form-control", @readonly="readonly"})
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model=> model.SalesLastYear, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("SalesLastYear",Model.SalesLastYear,
+                    new{@placeholder="SalesLastYear",@class="form-control", @readonly="readonly"})
+                </div>
+                <br />
+                @{
+                    foreach (var item in Model.Stores)
+                    {
+                        <div class="col-md-4">
+                            <label class="form-label">Store</label>
+                            <div class="input-group input-group-merge">
+                                @Html.TextBoxFor(modelItem => item.Name,item.Name,new{@class="form-control", @placeholder="Search", @readonly="readonly"})
+                            </div>
+                        </div>
+                    }
+                }
+                <div class="col-12">
+                    <a asp-action="Edit" asp-route-id="@Model.BusinessEntityId">
+                        <input type="button" class="btn btn-primary" value="Edit" />
+                    </a>
+                    <a asp-action="Index">
+                        <input type="button" class="btn btn-secondary" value="Back" />
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,144 @@
+﻿@model X.PagedList.IPagedList<AWork.Contracts.Dto.Sales.SalesPerson.SalesPersonDto>
+@using X.PagedList.Mvc.Core
+
+<link href="~/css/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@using (Html.BeginForm("Index", "SalesPersonsService", FormMethod.Get))
+{
+    <div class="container p-3 my-3">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center mb-3">LIST SALES PERSON</h2>
+                <a class="btn btn-primary" asp-action="Create"><span class="tf-icons bx bx-book-add"></span>&nbsp; Create New</a>
+                <div class="row">
+                    <div class="col-sm-10">
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="input-group mb-1">
+                                            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new{@class="form-control", @placeholder="First Name or Job Title"})
+                                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        Show Data @Html.DropDownList("PageSize",
+                    ViewBag.PageSize as SelectList,
+                    new{
+                    @class="form-control search-slt",
+                    @placeholder="Page Size",
+                    @onchange="getPagedSize(this.value)"
+                    }
+                    )
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-body">
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Fullname
+                                </th>
+                                <th>
+                                    Job Title
+                                </th>
+                                <th>
+                                    Sales Quota
+                                </th>
+                                <th>
+                                    Bonus
+                                </th>
+                                <th>
+                                    Commission
+                                </th>
+                                <th>
+                                    SalesYTD
+                                </th>
+                                <th>
+                                    Sales Last Year
+                                </th>
+                                <th>
+                                    <a asp-action="Index" asp-route-sortOrder="@ViewBag.Territory">
+                                        Territory
+                                    </a>
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BusinessEntity.BusinessEntity.FirstName)
+                                        @Html.DisplayFor(modelItem => item.BusinessEntity.BusinessEntity.LastName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BusinessEntity.JobTitle)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SalesQuota)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Bonus)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CommissionPct)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SalesYtd)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SalesLastYear)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Territory.CountryRegionCode)
+                                    </td>
+                                    <td>
+                                        <button class="btn p-0" type="button" id="cardOpt4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4" style="">
+                                            <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.BusinessEntityId">
+                                                <i class='bx bxs-edit'> Edit</i>
+                                            </a>
+                                            <a class="dropdown-item" asp-action="Details" asp-route-id="@item.BusinessEntityId">
+                                                <i class='bx bxs-detail'> Details</i>
+                                            </a>
+                                            <a class="dropdown-item" asp-action="Delete" asp-route-id="@item.BusinessEntityId">
+                                                <i class='bx bxs-trash'> Delete</i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <center>
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new{page, PageSize = ViewBag.psize, currentFilter = ViewBag.CurrentFilter, sortOrder = ViewBag.CurrentSort}))
+                </center>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function getPagedSize(value) {
+        document.location.href = "/SalesPersonsService?&PageSize=" + value + "&currentFilter=@ViewBag.CurrentFilter&sortOrder=@ViewBag.CurrentSort";
+    }
+</script>

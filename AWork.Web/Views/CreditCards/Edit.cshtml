@@ -1,0 +1,59 @@
+@model AWork.Contracts.Dto.Sales.CreditCard.CreditCardDto
+
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+
+<h1>
+    <box-icon name='credit-card' animation='tada'> Edit Credit Card</box-icon>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAAVdJREFUaEPtmusNwjAMhK+TARswAhswAjAJIyA2gMlAlqiA1q3iug8nvfzhT0Lv/NlWH66wslWtzC9ouHTiJEzChUWAKV0Y0JYdEm6EZA/gCGCbCfkHgAsA+VVXH+ErgEMmRpsyxfRZ095lWMjeMjVby95ppLsMS0psMjf81Eqxy/Arc7O1/JY/i+HoHV2DRMMk/En+pPQIVudJmkm4h3AwoElyXE0r6QrBNtGwpYaDwUuSQ8IkzC6dVCphN7GGWcO8l/6WJ5+Hg7UqPi0B7c/BlqbFlAbgedk3dgBnSWkaNjQyEjYES9vKlGaX1iLAW0veWjpby3THZ2la08m3//Pohu0Slj+R/MajhA/idwAyyfC3OPLwEw4ZCjktn5WDFJiHWuqryLiSGM9l3kPmOkTvoLGlQaGNfmjsJ5bofjkRH56QVyBT2hvB6OdJODohrz4S9kYw+vk32MpLPfcTyNwAAAAASUVORK5CYII=" />
+</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CreditCardId" />
+            <div class="form-group">
+                <label asp-for="CardType" class="control-label"></label>
+                <input asp-for="CardType" class="form-control" />
+                <span asp-validation-for="CardType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <label asp-for="CardNumber" class="control-label"></label>
+                <input asp-for="CardNumber" class="form-control" />
+                <span asp-validation-for="CardNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExpMonth" class="control-label"></label>
+                <input asp-for="ExpMonth" class="form-control" />
+                <span asp-validation-for="ExpMonth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExpYear" class="control-label"></label>
+                <input asp-for="ExpYear" class="form-control" />
+                <span asp-validation-for="ExpYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifiedDate" class="control-label"></label>
+                <input asp-for="ModifiedDate" class="form-control" />
+                <span asp-validation-for="ModifiedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

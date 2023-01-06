@@ -1,0 +1,266 @@
+﻿@model AWork.Contracts.Dto.Purchasing.VendorDto
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+@using (Html.BeginForm("Edit", "Vendors", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(Model => Model.BusinessEntityId)
+    <div class="col-xxl">
+        <div class="card mb-4">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">Vendor</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">ACCOUNT NUMBER</label>
+                    <div class="col-sm-10">
+                        <div class="input-group input-group-merge">
+                            <span id="basic-icon-default-fullname2" class="input-group-text">
+                                <i class="bx bx-user"></i>
+                            </span>
+                            <input asp-for="AccountNumber" id="accountNumber" class="form-control" placeholder="AccountNumber" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="basic-icon-default-company">VENDOR NAME</label>
+                    <div class="col-sm-10">
+                        <div class="input-group input-group-merge">
+                            <span id="basic-icon-default-company2" class="input-group-text">
+                                <i class="bx bx-buildings"></i>
+                            </span>
+                            <input asp-for="Name" id="vendorName" class="form-control" placeholder="Vendor Name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">CREDIT RATING</label>
+                    <div class="col-sm-10">
+                        <input asp-for="CreditRating" type="range" class="form-range" min="0" max="5" id="formRange2" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 form-label" for="basic-icon-default-phone">PURCHASING WEB SERVICE URL</label>
+                    <div class="col-sm-10">
+                        <div class="input-group input-group-merge">
+                            <span id="basic-icon-default-phone2" class="input-group-text">
+                                <i class="bx bx-link"></i>
+                            </span>
+                            <input asp-for="PurchasingWebServiceUrl"
+                               class="form-control"
+                               placeholder="PurchasingWebServiceUrl" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-end">
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            @Html.CheckBox("PreferredVendorStatus", Model.PreferredVendorStatus)
+                            <label class="form-check-label" for="PreferredVendorStatus"> PreferredVendorStatus </label>
+
+                            @Html.CheckBox("ActiveFlag", Model.ActiveFlag)
+                            <label class="form-check-label"> Set Active Vendor </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xxl">
+        <div class="card mb-4">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">Product Vendor</h5>
+                <input type="button" value="Add New" class="btn btn-primary text-end createNew" />
+            </div>
+            <div class="card-body">
+                <div class="table-responsive text-nowrap">
+                    <table id="ExpTable" class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th width="30%">Product ID</th>
+                                <th width="20%">Standart Price</th>
+                                <th width="10%">Min Order Qty</th>
+                                <th width="10%">Max Order Qty</th>
+                                <th width="10%">On Order Qty</th>
+                                <th width="10%">Unit Measure</th>
+                                <th width="10%"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @for (var i = 0; i < Model.ProductVendors.Count; i++)
+                            {
+                                <tr class="form-group fieldGroupCopy">
+                                    <td>
+                                        @*@Html.DropDownListFor(modelItem => item.ProductId, (IEnumerable<SelectListItem>)ViewBag.ProductId,string.Empty,
+                                new{@class="form-control", data_live_search="true"})*@
+                                        @Html.DropDownListFor(m => m.ProductVendorDto[i].ProductId, (IEnumerable<SelectListItem>)ViewBag.ProductId,string.Empty,
+                                new{@class="form-control", data_live_search="true"})
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-10">
+                                            <div class="input-group input-group-merge">
+                                                <span id="basic-icon-default-company2" class="input-group-text">
+                                                    <i class="bx bx-money"></i>
+                                                </span>
+                                                   @* @Html.TextBoxFor(m => m.ProductVendorDto[i].StandardPrice, new{@class="form-control", @type="number", @min=0})*@
+                                                <input asp-for="ProductVendorDto[i].StandardPrice" asp-format="{0:0}" class="form-control" type="number" />
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(m => m.ProductVendorDto[i].MinOrderQty, new{@class="form-control", @type="number", @id="html5-number-input", @min=0})
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(m => m.ProductVendorDto[i].MaxOrderQty, new{@class="form-control", @type="number", @id="html5-number-input", @min=0})
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(m => m.ProductVendorDto[i].OnOrderQty, new{@class="form-control", @type="number", @id="html5-number-input", @min=0})
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-12">
+                                            @Html.DropDownListFor(m => m.ProductVendorDto[i].UnitMeasureCode, (IEnumerable<SelectListItem>)ViewBag.UnitMeasureCode,"-Unit-",
+                                    new{@class="form-control"})
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+
+                        <tbody id="addform">
+                            @for (int i = 0; i < Model.ProductVendorForCreateDtos.Count; i++)
+                            {
+                                <tr class="form-group fieldGroupCopy">
+                                    <td>
+                                        @Html.DropDownListFor(m => m.ProductVendorForCreateDtos[i].ProductId, (IEnumerable<SelectListItem>)ViewBag.ProductId,string.Empty,
+                                new{@class="form-control", data_live_search="true"})
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-10">
+                                            <div class="input-group input-group-merge">
+                                                <span id="basic-icon-default-company2" class="input-group-text">
+                                                    <i class="bx bx-money"></i>
+                                                </span>
+                                                @Html.TextBoxFor(m => m.ProductVendorForCreateDtos[i].StandardPrice, "0", new{@class="form-control", @type="number", @id="html5-number-input", @min=0})
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(m => m.ProductVendorForCreateDtos[i].MinOrderQty, "0", new{@class="form-control", @type="number", @id="html5-number-input", @min=0})
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(m => m.ProductVendorForCreateDtos[i].MaxOrderQty, "0", new{@class="form-control", @type="number", @id="html5-number-input", @min=0})
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(m => m.ProductVendorForCreateDtos[i].OnOrderQty, "0", new{@class="form-control", @type="number", @id="html5-number-input", @min=0})
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-12">
+                                            @Html.DropDownListFor(m => m.ProductVendorForCreateDtos[i].UnitMeasureCode, (IEnumerable<SelectListItem>)ViewBag.UnitMeasureCode,"-Unit-",
+                                    new{@class="form-control"})
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @*<a href="javascript:void(0)" class="btn btn-danger remove"><i class="fas fa-trash"></i></a>*@
+                                        <button id="btndummy-@i" type="button" class="btn btn-md invisible">Dummy</button>
+                                        <button id="btnadd-@i" type="button" class="btn btn-md btn-secondary visible"
+                                        onclick="AddItem(this)" style="left:90%;position:absolute">
+                                            Add
+                                        </button>
+                                        <button id="btnremove-@i" type="button" class="btn btn-md btn-danger invisible"
+                                        onclick="DeleteItem(this)" style="left:90%;position:absolute">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="hdnLastIndex" value="0" />
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+    </div>
+}
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("tbody#addform").hide();
+        });
+        $(".createNew").on('click', () => {
+            $("tbody#addform").show();
+        });
+
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+
+        function DeleteItem(btn) {
+            $(btn).closest('tr').remove();
+        }
+
+        function AddItem(btn) {
+
+            var table = document.getElementById('ExpTable');
+            var rows = table.getElementsByTagName('tr');
+
+            var rowOuterHtml = rows[rows.length - 1].outerHTML;
+
+            var lastrowIdx = document.getElementById('hdnLastIndex').value;
+
+            var nextrowIdx = eval(lastrowIdx) + 1;
+
+            document.getElementById('hdnLastIndex').value = nextrowIdx;
+
+            rowOuterHtml = rowOuterHtml.replaceAll('_' + lastrowIdx + '_', '_' + nextrowIdx + '_');
+            rowOuterHtml = rowOuterHtml.replaceAll('[' + lastrowIdx + ']', '[' + nextrowIdx + ']');
+            rowOuterHtml = rowOuterHtml.replaceAll('-' + lastrowIdx, '-' + nextrowIdx);
+
+            var newRow = table.insertRow();
+            newRow.innerHTML = rowOuterHtml;
+
+            var btnAddID = btn.id;
+            var btnDeleteid = btnAddID.replaceAll('btnadd', 'btnremove');
+
+            var delbtn = document.getElementById(btnDeleteid);
+            delbtn.classList.add("visible");
+            delbtn.classList.remove("invisible");
+
+
+            var addbtn = document.getElementById(btnAddID);
+            addbtn.classList.remove("visible");
+            addbtn.classList.add("invisible");
+
+        }
+
+    </script>
+    }

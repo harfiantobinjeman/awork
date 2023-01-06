@@ -1,0 +1,48 @@
+﻿@model AWork.Contracts.Dto.Production.ProductPhotoForCreateDto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ProductPhoto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+                <label asp-for="ThumbNailPhoto" class="control-label"></label>
+                <input asp-for="ThumbNailPhoto" class="form-control" type="file" />
+                <span asp-validation-for="ThumbNailPhoto" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="FilePhoto" class="control-label"></label>
+                <input asp-for="FilePhoto" class="form-control" type="file" multiple/>
+                <span asp-validation-for="FilePhoto" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="LargePhoto" class="control-label"></label>
+                <input asp-for="LargePhoto" class="form-control" />
+                <span asp-validation-for="LargePhoto" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="LargePhotoFileName" class="control-label"></label>
+                <input asp-for="LargePhotoFileName" class="form-control" />
+                <span asp-validation-for="LargePhotoFileName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

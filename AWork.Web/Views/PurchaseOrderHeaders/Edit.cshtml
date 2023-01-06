@@ -1,0 +1,402 @@
+﻿@model AWork.Contracts.Dto.Purchasing.PurchaseOrderHeaderDto
+
+@{
+	ViewData["Title"] = "Edit";
+}
+
+<h2 class="text-center">Cart Purchase Items Vendors</h2>
+
+@*@using(Html.BeginForm("EditPurchase", "PurchaseOrderDetails", FormMethod.Post, new))
+{
+}
+*@
+<div class="col-xxl">
+	<input type="hidden" asp-for="PurchaseOrderId" />
+	<div class="card mb-4">
+		<div class="card-body">
+			<div class="row g-3">
+				<div class="col md-4">
+					<div class="text-align">@Html.DisplayNameFor(model=>model.PurchaseOrderId) : @Html.DisplayFor(model=>model.PurchaseOrderId)</div>
+				</div>
+				<div class="col md-4">
+					<div class="text-align">@Html.DisplayNameFor(model=>model.OrderDate) : @Html.DisplayFor(model=>model.OrderDate)</div>
+				</div>
+				<div style="display : flex"></div>
+				<div class="col md-4">
+					<div class="text-align">@Html.DisplayNameFor(model=>model.Vendor.AccountNumber) : @Html.DisplayFor(model=>model.Vendor.AccountNumber)</div>
+				</div>
+				<div class="col md-4">
+					<div class="text-align">@Html.DisplayNameFor(model=>model.Vendor.Name) : @Html.DisplayFor(model=>model.Vendor.Name)</div>
+				</div>
+			</div>
+		</div>
+		<hr class="accordion-flush" />
+		<div class="card-body">
+			<div class="row g-3">
+
+				
+				<table class="table" id="detailsTable">
+					<thead>
+						<input id="purchaseOrderId" type="hidden" asp-for="PurchaseOrderId" />
+						<input id="modifieddate" type="hidden" asp-for="ModifiedDate"/>		
+						<input id="orderdate" type="hidden" asp-for="OrderDate" />
+						<input id="shipdate" type="hidden" asp-for="ShipDate"/>
+						<input id="status" type="hidden" asp-for="Status" />
+						<input id="employeeid" type="hidden" asp-for="EmployeeId" />
+						<input id="vendorid" type="hidden" asp-for="VendorId" />
+
+						<tr id="row_@Model.PurchaseOrderId">
+							<th>Product Photo</th>
+							<th>Product Name</th>
+							<th>Quantity</th>
+							<th>Unit Price</th>
+							<th>Line Total</th>
+							@*<th>PurchaseOrderDetail ID</th>
+							<th>Product ID</th>*@
+						</tr>
+					</thead>
+					<tbody>
+						@{
+							@foreach (var item in Model.PurchaseOrderDetails)
+							{
+							<tr>
+								<td><img class="card-img-top" style="width:200px;height:200px" src="@Url.Content("~/Resources/Images/" +  item.Product.ProductProductPhotos.FirstOrDefault().ProductPhoto.ThumbnailPhotoFileName)" alt="Card image cap"></td>
+										@*@{
+											var base64 = Convert.ToBase64String(item.Product.ProductProductPhotos.FirstOrDefault().ProductPhoto.ThumbNailPhoto);
+											var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+										}
+										<img src="@Url.Content(imgSrc)" alt="" class="img-fluid" style="max-width:100px; max-height:100px;"></td>*@
+								<td class="productidd">@item.Product.Name</td>
+								<td>
+									<input value="@item.OrderQty" class="order-qty" />
+									<span><button class="btnMin">-</button></span>
+									<span><button class="btnAdd">+</button></span>
+								</td>
+								<td class="unit-price">@item.UnitPrice</td>
+								<td class="line-total">@item.LineTotal</td>
+								<td><span hidden> @item.PurchaseOrderDetailId</span></td>
+								<td><span hidden> @item.ProductId</span></td>
+							</tr>
+							
+							}
+
+						}
+
+					</tbody>
+				</table>
+				@*<div>
+
+					<div class="text-end">
+						<span id="SubTotal">@Html.DisplayNameFor(model=>model.SubTotal) : @Html.DisplayFor(model=>model.SubTotal)</span>
+					</div>
+					<br />
+					<div class="text-end">
+						<span>@Html.DisplayNameFor(model=>model.TaxAmt) : </span> <span id="TaxAmt"> @Html.DisplayFor(model=>model.TaxAmt)</span>
+					</div>
+					<br />
+					<div class="text-end">
+						<span>@Html.DisplayNameFor(model=>model.Freight) : </span> <span id="Freight"> @Html.DisplayFor(model=>model.Freight)</span>
+					</div>
+					<br />
+					<div class="text-end">
+						<span id="TotalDue">@Html.DisplayNameFor(model=>model.TotalDue) : @Html.DisplayFor(model=>model.TotalDue)</span>
+					</div>
+				</div>*@
+				<table class="table">
+					
+					<thead>
+						<tr>
+							<th> </th>
+							<th> </th>
+							<th> </th>
+							<th> </th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<span class="text-capitalize">SHIP METHOD</span>
+								<select asp-for="ShipMethod.ShipMethodId" id="name" class="form-control" asp-items="ViewBag.ShipMethodId"></select>
+							</td>
+							<td>
+								<span class="text-capitalize">SHIP RATE</span>
+								<input asp-for="ShipMethod.ShipRate" id="rate" class="form-control"  readonly />
+							</td>
+							<td>
+								<span class="text-capitalize">SHIP BASE</span>
+								<input asp-for="ShipMethod.ShipBase" id="base" class="form-control" readonly />
+							</td>
+							<td>
+								<div class="text-end">
+									<span>@Html.DisplayNameFor(model=>model.SubTotal) : </span> <span id="SubTotal"> @Html.DisplayFor(model=>model.SubTotal)</span>
+								</div>
+								<br />
+								<div class="text-end">
+									<span>@Html.DisplayNameFor(model=>model.TaxAmt) : </span> <span id="TaxAmt"> @Html.DisplayFor(model=>model.TaxAmt)</span>
+								</div>
+								<br />
+								<div class="text-end">
+									<span>@Html.DisplayNameFor(model=>model.Freight) : </span> <span id="Freight"> @Html.DisplayFor(model=>model.Freight)</span>
+								</div>
+								<br />
+								<div class="text-end">
+									<span>@Html.DisplayNameFor(model=>model.TotalDue) :  </span> <span id="TotalDue"> @Html.DisplayFor(model=>model.TotalDue)</span>
+								</div>
+							</td>
+						</tr>
+						@*<tr>
+							<td>
+								<input type="submit" value="Approve" class="btn btn-primary" />  <input type="submit" value="Rejected" class="btn btn-danger" />  <input type="submit" value="Ship" class="btn btn-primary" />
+							</td>
+						</tr>*@
+					</tbody>
+				</table>
+				<div class="form-group center">
+					<input id="submitBtn" value="Approve" class="btn btn-primary" />  <input id="btnReject" value="Rejected" class="btn btn-danger" />  <input id="btnShip" value="Ship" class="btn btn-primary" />
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+<div>
+	<a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script type="text/javascript">
+
+		$('.btnAdd').on('click', function (e) {
+		//alert('cool')
+			let qty = $(this).closest('tr').find('td:eq(2) input').val();
+			let price = $(this).closest('tr').find('td:eq(3)').text();
+			let linetotal = $(this).closest('tr').find('td:eq(4)').text();
+			let counter = qty;
+			counter++;
+			$(this).closest('tr').find('td:eq(2) input').val(counter);
+			linetotal = ((parseInt(counter) * parseFloat(price)).toFixed(2))
+			$(this).closest('tr').find('td:eq(4)').text(linetotal);
+
+			UpdateTotal();
+		});
+
+		$('.btnMin').on('click', function (e) {
+			//alert('cool')
+			let qty = $(this).closest('tr').find('td:eq(2) input').val();
+			let price = $(this).closest('tr').find('td:eq(3)').text();
+			let linetotal = $(this).closest('tr').find('td:eq(4)').text();
+			let counter = qty;
+			counter--;
+			$(this).closest('tr').find('td:eq(2) input').val(counter);
+			linetotal = ((parseInt(counter) * parseFloat(price)).toFixed(2))
+			$(this).closest('tr').find('td:eq(4)').text(linetotal);
+
+			UpdateTotal();
+		});
+
+		function UpdateTotal() {
+			let sum = 0;
+			$('.line-total').each(function () {
+
+				let value = $(this).text();
+				if (!isNaN(value) && value.length != 0) {
+					sum += parseFloat(value);
+				}
+			});
+			$("#SubTotal").text(sum.toFixed(2));
+
+			let taxAmnt = $("#TaxAmt").text();
+			let freight = $("#Freight").text();
+			//let totaldue =  $("#TotalDue").text();
+			let totaldue = 0;
+			totaldue = (parseFloat(sum) + parseFloat(taxAmnt) + parseFloat(freight));
+			$("#TotalDue").text(totaldue.toFixed(2));
+		}
+
+			$("#btnReject").click(function(e){
+				e.preventDefault();
+				let purchaseOrderHeaderDto = {
+					PurchaseOrderId: $("#purchaseOrderId").val(),
+					Status: $("#status").val(),
+					EmployeeId: $("#employeeid").val(),
+					TaxAmt: parseFloat($("#TaxAmt").text().replace(" ","")),
+					Freight: parseFloat($("#Freight").text().replace(" ","")),
+					SubTotal: parseFloat($("#SubTotal").text().replace(" ","")),
+					TotalDue: parseFloat($("#TotalDue").text().replace(" ","")),
+					Vendorid: $("#vendorid").val(),
+					ShipMethodId: $("#name").val(),
+				}
+				$.ajax({
+				type: "POST",
+				url: "/PurchaseOrderHeaders/PostReject/?purchaseOrderId=" + $("#purchaseOrderId").val(),
+				data: JSON.stringify(purchaseOrderHeaderDto),
+				dataType: "json",
+				contentType: "application/json",
+				success: function (result) {
+					console.log(result)
+					alert("Data has been Rejected")
+				},
+				error: function (result) {
+					console.log(result)
+					alert("Data failed to database")
+				}
+				})
+			})
+
+			$("#btnShip").click(function (e) {
+				e.preventDefault();
+				var orderArr = [];
+				orderArr.length = 0;
+				$.each($("#detailsTable tbody tr"), function () {
+					orderArr.push({
+						OrderQty: parseInt($(this).closest('tr').find('td:eq(2) input').val()),
+						UnitPrice: parseFloat($(this).closest('tr').find('td:eq(3)').text()),
+						LineTotal: parseFloat($(this).closest('tr').find('td:eq(4)').text()),
+						PurchaseOrderId: $("#purchaseOrderId").val(),
+						PurchaseOrderDetailId: parseInt($(this).closest('tr').find('td:eq(5)').text()),
+						ProductId: parseInt($(this).closest('tr').find('td:eq(6)').text()),
+						//DueDate: $("#duedate").val(),
+						//ModifiedDate: $("#modified").val(),
+
+					});
+				});
+			let PurchaseOrderHeaderDtoss = {
+					PurchaseOrderId: $("#purchaseOrderId").val(),
+					Status: $("#status").val(),
+					EmployeeId: $("#employeeid").val(),
+					TaxAmt: parseFloat($("#TaxAmt").text().replace(" ", "")),
+					Freight: parseFloat($("#Freight").text().replace(" ", "")),
+					SubTotal: parseFloat($("#SubTotal").text().replace(" ", "")),
+					TotalDue: parseFloat($("#TotalDue").text().replace(" ", "")),
+					Vendorid: $("#vendorid").val(),
+					ShipMethodId: $("#name").val(),
+				}
+
+				let cartPurchaseItemDto = {
+					PurchaseOrderHeaderDtoss,
+					PurchaseOrderDetailsDtoss: orderArr
+				};
+				$.ajax({
+					type: "POST",
+					url: "/PurchaseOrderHeaders/PostShip/?purchaseOrderId=" + $("#purchaseOrderId").val(),
+					data: JSON.stringify(cartPurchaseItemDto),
+					dataType: "json",
+					contentType: "application/json",
+					success: function (result) {
+						console.log(result)
+						alert("The item will be shipped immediately")
+					},
+					error: function (result) {
+						console.log(result)
+						alert("Data failed to database")
+					}
+				})
+			})
+			// send data via ajax
+			$("#submitBtn").click(function(e){
+				e.preventDefault();
+				var orderArr = [];
+				orderArr.length = 0;
+				$.each($("#detailsTable tbody tr"), function(){
+					orderArr.push({
+						OrderQty: parseInt($(this).closest('tr').find('td:eq(2) input').val()),
+						UnitPrice: parseFloat($(this).closest('tr').find('td:eq(3)').text()),
+						LineTotal: parseFloat($(this).closest('tr').find('td:eq(4)').text()),
+						PurchaseOrderId: $("#purchaseOrderId").val(),
+						PurchaseOrderDetailId: parseInt($(this).closest('tr').find('td:eq(5)').text()),
+						ProductId: parseInt($(this).closest('tr').find('td:eq(6)').text()),
+						//DueDate: $("#duedate").val(),
+						//ModifiedDate: $("#modified").val(),
+						
+					});
+				});
+				let PurchaseOrderHeaderDtoss = {
+					PurchaseOrderId: $("#purchaseOrderId").val(),
+					Status: $("#status").val(),
+					EmployeeId: $("#employeeid").val(),
+					TaxAmt: parseFloat($("#TaxAmt").text().replace(" ","")),
+					Freight: parseFloat($("#Freight").text().replace(" ","")),
+					SubTotal: parseFloat($("#SubTotal").text().replace(" ","")),
+					TotalDue: parseFloat($("#TotalDue").text().replace(" ","")),
+					Vendorid: $("#vendorid").val(),
+					ShipMethodId: $("#name").val(),
+					//OrderDate: $("#orderdate").val(),
+					//ShipDate: $("#shipdate").val(),
+					//ModifiedDate: $("#modifieddate").val(),
+				}
+				let cartPurchaseItemDto = {
+					PurchaseOrderHeaderDtoss,
+					PurchaseOrderDetailsDtoss : orderArr
+				};
+
+				$.ajax({
+				type: "POST",
+				url: "/PurchaseOrderHeaders/PostPurchase/?purchaseOrderId=" + $("#purchaseOrderId").val(),
+				data: JSON.stringify(cartPurchaseItemDto),
+				dataType: "json",
+				contentType : "application/json",
+				success: function (result) {
+					console.log(result)
+					alert("Data has been Approve!")
+					
+					$(".order-qty").each(function () {
+						let qty = $(this).closest('td').find('input').val()
+						console.log(qty)
+					})
+					$("#purchaseodetid").each(function () {
+						let or = $(this).val()
+						console.log(or)
+					})
+					$(".unit-price").each(function(){
+						let price = $(this).closest('tr').find('td:eq(3)').text()
+						console.log(price)
+					})
+					$(".line-total").each(function(){
+						let line = $(this).closest('tr').find('td:eq(4)').text()
+						console.log(line)
+					})
+				},
+				error: function (result) {
+					console.log(result)
+					alert("Data failed to database")
+				}
+				})
+			})
+
+
+		/*$('.order-qty, .unit-price').on('blur', function (e) {
+			var row = $(this).closest('div');
+			var order = $('.order-qty', row),
+				price = $('.unit-price', row),
+				total = $('.line-total', row);
+			orders = parseFloat(order.val());
+			prices = parseFloat(price.val());
+			if (!isNaN(orders) && !isNan(prices)) {
+				total.text((orders * prices).toFixed(2));
+			}
+		});*/
+
+		var names = $("#name");
+		names.change(function () {
+			$.ajax({
+				type: "GET",
+				url: "/PurchaseOrderHeaders/GetData/?shipMethodId=" + names.val(),
+				success: function (result) {
+					console.log(result)
+					for (let i = 0; i < result.length; i++) {
+						$("#rate").val(result[i].shipRate)
+						$("#base").val(result[i].shipBase)
+					}
+				},
+				error: function (result) {
+					console.log(result)
+				}
+			})
+		})
+	</script>
+
+	}

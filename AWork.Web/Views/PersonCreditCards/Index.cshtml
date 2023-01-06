@@ -1,0 +1,99 @@
+@model X.PagedList.IPagedList<AWork.Contracts.Dto.Sales.PersonCreditCard.PersonCreditCardDto>
+@using X.PagedList.Mvc.Core
+<link href="~/css/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1><box-icon name='id-card'>Person CreditCard</box-icon>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAAkBJREFUaEPtmr0uBUEUx3/eQKGWeAI8gKDRUlGiEh2NFg1RaXU+Kho8Al4ACT29Rk1CjuwNd3dmd/aandmPcxJR3Pk4v/M/O3t2ZobomA11jBcFbrviqrAq3LIIaEq3TNAMjiqcCskysALMNET5G+AEOLX5m6fwcQLbENY+NwV61eS4DVhUFeAmmwALeJ/ZgO+BiSbTAg/ApCvwV8Nhe+5nBLUpbAKu+4ru5LMCJ7ngFK2apb2Tz6qwKvybt2UWrSlgHZgFRoBn4BLYAz4rehSipfQacGSBkvf7HPBWAXQU4FHgtQDmDJAa3WQ7gEsNsGvoHAV4CzhwUG8YeHd02rUkjgJ8Diw5AE8Dd20AvgAWuwTcuZT2sWg5JAiyuKUtyjMsTnTqtdSLerrweAKugH3gw0XCAdpEU3gAX710UWDIHhb6/lqSgkKqqAXDTucLILuKsqMo//NMdknlXW2zWlRaG8A2INBFJsCbyb6TrcSUsWxmEipYSgvg4YBbusadRfh57dQW+BqYL5I053f5hEyneG2Bfexfy7M9lgpIbYFFmbzFxVX4dGrLopV3vBOt0nL5dnWBllXXBOHSt9cmyKLVOeAyClTdNojCVUOUGV+BQ5SWZRTx3VYV/q/CvhUJMZ7zcakcJo+H8KjCOR5Nh/p65eFPxOV+hO2EoEJhvAwt39xS52es6IBMOsmfj3rZC0nBILfJRZbMZZZevyLgEE4GnUOBg4Y7wmSqcISgB51SFQ4a7giTqcIRgh50ys4p/A3XzIo9qaOhdQAAAABJRU5ErkJggg=="/></h1>
+@using (Html.BeginForm("Index", "PersonCreditCards", FormMethod.Get))
+{
+    <div class="input-group mb-1">
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new{@class="form-control", @placeholder="CreditCardId"})
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+    </div>
+}
+@*<p>
+    <a asp-action="Create">
+      <button class="btn btn-success me-md-2" type="button">Create</button>
+
+    </a>
+</p>*@
+<table class="table">
+    <thead>
+        <tr>
+            @*<th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().BusinessEntity)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().BusinessEntity.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().CreditCard.CardNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ModifiedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().CreditCard.ExpMonth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().CreditCard.ExpYear)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.BusinessEntity.BusinessEntityId)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.BusinessEntity.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreditCard.CardNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreditCard.ExpMonth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreditCard.ExpYear)
+                </td>
+                <td>
+                   @* <a asp-action="Edit" asp-route-id="@item.CreditCardId">
+                        <button class="btn btn-success me-md-2" type="button">Edit</button>
+                    </a> 
+                    <a asp-action="Details" asp-route-id="@item.CreditCardId">
+                        <button class="btn btn-success me-md-2" type="button">Detail</button>
+                    </a> 
+                    <a asp-action="Delete" asp-route-id="@item.CreditCardId">
+                        <button class="btn btn-secondary me-md-2" type="button">Delete</button>
+                    </a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    Page Size : @Html.DropDownList("PageSize",
+    ViewBag.PageSize as SelectList,
+    new{
+    @placeholder="Page Size",
+    @onchange="getPagedSize(this.value)"
+    }
+    )
+</div>
+@Html.PagedListPager(Model, page => Url.Action("Index", new{page, PageSize = ViewBag.psize, currentFilter = ViewBag.CurrentFilter, sortOrder = ViewBag.CurrentSort}))
+
+<script>
+    function getPagedSize(value) {
+        document.location.href = "/PersonCreditCards?&PageSize=" + value + "&currentFilter=@ViewBag.CurrentFilter&sortOrder=@ViewBag.CurrentSort";
+    }
+</script>

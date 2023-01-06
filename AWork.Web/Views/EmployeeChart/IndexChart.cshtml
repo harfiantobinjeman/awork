@@ -1,0 +1,110 @@
+﻿<div class="card">
+    <div class="card-header">
+        <h2 class="mb-3" style="text-align: center">Employee Dashboard</h2>
+        <div id="chart"></div>
+        <div id="chart2"></div>
+    </div>
+</div>
+
+@section scripts{
+<script>
+    $(document).ready(function ()
+    {
+        //renderChart();
+        let Name = [];
+        let Jumlah_Employee = [];
+
+        let Rate = [];
+        let TotalEmployee = [];
+
+        $.ajax({
+            type : 'GET',
+            url: '/EmployeeChart/GetEmployeeTiapDepartement',
+            success : function (result){
+                console.log(result);
+                for (let i=0; i < result.length; i++){
+                    Name.push(result[i].name);
+                    Jumlah_Employee.push(result[i].jumlah_Employee);
+                }
+                console.log(Name);
+                console.log(Jumlah_Employee);
+                renderBarChart(Jumlah_Employee, Name);
+            },
+            error : function (result){
+                console.log('failed')
+            }
+        });
+        $.ajax({
+            type : 'GET',
+            url: '/EmployeeChart/GetSalaryRateEmp',
+            success: function (result) {
+                console.log(result);
+                for (let i = 0; i < result.length; i++) {
+                    Rate.push(result[i].rate);
+                    TotalEmployee.push(result[i].totalEmployee);
+                }
+                console.log(Rate);
+                console.log(TotalEmployee);
+                renderBarChart2(TotalEmployee, Rate);
+            },
+            error : function (result){
+                console.log('failed')
+            }
+        });
+    });
+
+    function renderBarChart (dataSeries, dataCategories){
+    var options = {
+            series: [{
+                data: dataSeries
+            }],
+            chart: {
+                type: 'bar',
+                height: 350
+            },
+            plotOptions: {
+                bar: {
+                    borderRadius: 4,
+                    horizontal: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            xaxis: {
+                categories: dataCategories,
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    }
+
+    function renderBarChart2 (dataSeries, dataCategories){
+        var options = {
+            series: [{
+                data: dataSeries
+            }],
+            chart: {
+                type: 'bar',
+                height: 350
+            },
+            plotOptions: {
+                bar: {
+                    borderRadius: 4,
+                    horizontal: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            xaxis: {
+                categories: dataCategories,
+            }
+        };
+        var chart2 = new ApexCharts(document.querySelector("#chart2"), options);
+        chart2.render();
+
+    }
+
+</script>
+        }

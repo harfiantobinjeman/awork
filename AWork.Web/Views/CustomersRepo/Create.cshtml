@@ -1,0 +1,175 @@
+﻿@model AWork.Contracts.Dto.Sales.SalesCustomer.CustomerForCreateDto
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+@using (Html.BeginForm("CreateCustomer", "CustomersRepo", FormMethod.Post))
+{
+    <div class="container p-3 my-3">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center mb-3">ADD NEW CUSTOMER</h3>
+            </div>
+            <div class="card-body">
+                <form class="row g-3">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col-md-11">
+                        <div class="form-group">
+                            <label asp-for="PersonId" class="control-label">Person</label>
+                            @Html.DropDownList("customerForCreateDto.PersonId",ViewBag.PersonId,"--Choose Person--",
+                        new{@class="form-control",id="id"})
+                            @*<select asp-for="PersonId" class="form-control" asp-items="ViewBag.PersonId"></select>*@
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label for="inputPassword4" class="form-label">ID</label>
+                            @Html.TextBox("PersonId",String.Empty,
+                        new{@placeholder="ID",@class="form-control", id="businessEntityId", @readonly="readonly"})
+                            @*<input type="text" class="readonly form-control" placeholder="BussinessEntityID">*@
+                        </div>
+                        <br>
+
+                        <div class="col-md-4">
+                            <label for="inputPassword4" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" placeholder="Full Name" id="firstName" readonly>
+                        </div>
+@*                        <div class="col-md-2">
+                            <label for="inputPassword4" class="form-label">MiddleName</label>
+                            <input type="text" class="form-control" placeholder="MiddleName">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="inputPassword4" class="form-label">LastName</label>
+                            <input type="text" class="form-control" placeholder="LastName">
+                        </div>*@
+                        <div class="col-md-3">
+                            <label for="inputPassword4" class="form-label">Title</label>
+                            @Html.TextBox("Suffix",String.Empty,
+                        new{@placeholder="Junior,Phd",@class="form-control", id="suffix", @readonly="readonly"})
+                            @*<input type="text" class="form-control" placeholder="(Junior,Phd)">*@
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label for="inputPassword4" class="form-label">Territory</label>
+                            <div class="input-group input-group-merge">
+                                @Html.DropDownList("customerForCreateDto.TerritoryId",ViewBag.TerritoryId,"--Choose Territory--",
+                            new{@class="form-control",id="territory"})
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="inputAddress2" class="form-label">Name</label>
+                            @Html.TextBox("Territory.Name",string.Empty,
+                        new{@placeholder="Name",@class="form-control", id="name", @readonly="readonly"})
+                            @*<input type="text" class="form-control" placeholder="Name">*@
+                        </div>
+                        <div class="col-md-2">
+                            <label for="inputAddress2" class="form-label">Country Code</label>
+                            @Html.TextBox("Territory.CountryRegionCode",string.Empty,
+                        new{@placeholder="Country Region Code",@class="form-control", id="countryRegionCode", @readonly="readonly"})
+                            @*<input type="text" class="form-control" placeholder="Country Code">*@
+                        </div>
+                        <div class="col-md-2">
+                            <label for="inputZip" class="form-label">Group</label>
+                            @Html.TextBox("Territory.Group",string.Empty,
+                        new{@placeholder="Group",@class="form-control", id="group", @readonly="readonly"})
+                            @*<input type="text" class="form-control" placeholder="Group">*@
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="col-md-11">
+                        <label for="inputPassword4" class="form-label">Store</label>
+                        <div class="form-group">
+                            @Html.DropDownList("customerForCreateDto.StoreId",ViewBag.StoreId,"--Choose Store--",
+                        new{@class="form-control"})
+                            @*<select asp-for="StoreId" class="form-control" asp-items="ViewBag.StoreId"></select>*@
+                        </div>
+                    </div>
+                <br />
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a asp-action="Index">
+                    <input type="button" class="btn btn-secondary" value="Back" />
+                </a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="PersonId" class="control-label"></label>
+                    <select asp-for="PersonId" class="form-control" asp-items="ViewBag.PersonId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StoreId" class="control-label"></label>
+                    <select asp-for="StoreId" class="form-control" asp-items="ViewBag.StoreId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TerritoryId" class="control-label"></label>
+                    <select asp-for="TerritoryId" class="form-control" asp-items="ViewBag.TerritoryId"></select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+}
+
+@section Scripts{
+    <script type="text/javascript">
+        var id = $("#id");
+        id.change(function(){
+            $.ajax({
+                type: "GET",
+                url: "/CustomersRepo/GetData/?businessEntityId=" + id.val(),
+                success: function(result){
+                    console.log(result);
+                    for(let i = 0; i<result.length; i++){
+                        $("#businessEntityId").val(result[i].businessEntityId)
+                        $("#firstName").val(result[i].fullName)
+                        $("#suffix").val(result[i].suffix)
+                    }
+                },
+                error:function(result){
+                    console.log(result);
+                }
+            });
+        })
+
+        var territory = $("#territory");
+        territory.change(function () {
+            $.ajax({
+                type: "GET",
+                url: "/CustomersRepo/GetDataTerritory/?territoryId=" + territory.val(),
+                success: function (result) {
+                    console.log(result);
+                    for (let i = 0; i < result.length; i++) {
+                        $("#name").val(result[i].name)
+                        $("#countryRegionCode").val(result[i].countryRegionCode)
+                        $("#group").val(result[i].group)
+                    }
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            });
+        })
+    </script>
+
+    <script type="text/javascript">
+
+    </script>
+}
+    @*{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@

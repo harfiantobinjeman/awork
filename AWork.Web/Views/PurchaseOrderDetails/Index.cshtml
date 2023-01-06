@@ -1,0 +1,339 @@
+﻿@*@model X.PagedList.IPagedList<AWork.Contracts.Dto.Purchasing.PurchaseOrderDetailsDto>
+@using X.PagedList.Mvc.Core*@
+@model IEnumerable<AWork.Contracts.Dto.Purchasing.PurchaseOrderDetailsDto>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@*<link href="~/css/PagedList.css" rel="stylesheet" type="text/css" />*@
+<h1>Cart Purchase Items Vendors</h1>
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.ProductSortParm">Sort</a> | Product
+                @Html.DisplayNameFor(model => model.Product.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.VendorSortParm">Sort</a> |
+                @Html.DisplayNameFor(model => model.PurchaseOrder.Vendor.Name)
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.shipSortParm">Sort</a> |
+                @Html.DisplayNameFor(model => model.PurchaseOrder.ShipMethod.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model=>model.OrderQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model=>model.StockedQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model=>model.Product.ProductProductPhotos.FirstOrDefault().ProductPhotoId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseOrder.Vendor.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseOrder.ShipMethod.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockedQty)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.ProductProductPhotos.FirstOrDefault().ProductPhotoId)
+                </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ id = item.PurchaseOrderDetailId}) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ id = item.PurchaseOrderDetailId }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ id = item.PurchaseOrderDetailId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>*@
+@foreach (var item in Model)
+{
+    <div class="col-md-6 col-lg-4">
+        <a asp-action="Details" asp-route-id="@item.PurchaseOrderId">
+            <div class="card mb-4">
+                @*<img class="card-img-top" src="@Url.Content("~/Resources/images/" + item.FirstOrDefault().PhotoFilename)" alt="Card image cap">*@
+                <div class="card-body">
+                    <p class="card-text">
+                     
+                        <center><b>@Html.DisplayFor(modelItem => item.Product.Name)</b></center>
+                    </p>
+                    <p class="card-text">
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.PurchaseOrderId, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.PurchaseOrderId)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.OrderDate, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.OrderDate)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.Vendor.AccountNumber, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.Vendor.AccountNumber)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.Vendor.Name, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.Vendor.Name)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.Product.Name, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.Product.Name)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.OrderQty, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.OrderQty)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.UnitPrice, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.UnitPrice)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.LineTotal, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.LineTotal)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.ShipMethod.Name, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.ShipMethod.Name)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.ShipMethodId, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.ShipMethodId)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.ShipMethod.ShipRate, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.ShipMethod.ShipRate)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.ShipMethod.ShipBase, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.ShipMethod.ShipBase)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.ShipDate, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.ShipDate)
+                        <br>
+                        <td>
+                            @Html.ActionLink("Create", "Create", new { /* id=item.PrimaryKey */ id = item.PurchaseOrderDetailId}) |
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ id = item.PurchaseOrderDetailId}) |
+                            @Html.ActionLink("EditPurchase", "EditPurchase", new { /* id=item.PrimaryKey */ id = item.PurchaseOrderDetailId}) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ id = item.PurchaseOrderDetailId }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ id = item.PurchaseOrderDetailId })
+                        </td>
+
+                    </p>
+                </div>
+            </div>
+        </a>
+    </div>
+}
+
+@*@foreach (var item in Model)
+{
+    <div class="col-md-6 col-lg-4">
+        <a asp-action="Details" asp-route-id="@item.ProductId">
+            <div class="card mb-4">
+                <img class="card-img-top" src="@Url.Content("~/Resources/images/" + item.FirstOrDefault().PhotoFilename)" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">
+                        <center><b>@Html.DisplayFor(modelItem => item.ProductName)</b></center>
+                    </p>
+                    <p class="card-text">
+                        @Html.LabelFor(modelItem=>item.Product.Name, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.Product.Name)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.OrderQty, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.OrderQty)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.UnitPrice, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.UnitPrice)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.LineTotal, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.LineTotal)
+                        <br>
+                    </p>
+                </div>
+            </div>
+        </a>
+    </div>
+}
+
+<br />
+<br />
+<br />*@
+
+@*@foreach (var item in Model)
+{
+    <div class="col-md-6 col-lg-4">
+        <a asp-action="Details" asp-route-id="@item.ProductId">
+            <div class="card mb-4">
+                <img class="card-img-top" src="@Url.Content("~/Resources/images/" + item.FirstOrDefault().PhotoFilename)" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">
+                        <center><b>@Html.DisplayFor(modelItem => item.ProductName)</b></center>
+                    </p>
+                    <p class="card-text">
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.ShipMethod.ShipMethodId, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.ShipMethod.ShipMethodId)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.ShipMethod.Name, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.ShipMethod.Name)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.ShipMethod.ShipBase, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.ShipMethod.ShipBase)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.ShipMethod.ShipRate, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.ShipMethod.ShipRate)
+                        <br>
+                    </p>
+                </div>
+            </div>
+        </a>
+    </div>
+}
+*@
+<br />
+<br />
+<br />
+
+@*
+@foreach (var item in Model)
+{
+    <div class="col-md-6 col-lg-4">
+        <a asp-action="Details" asp-route-id="@item.ProductId">
+            <div class="card mb-4">
+                <img class="card-img-top" src="@Url.Content("~/Resources/images/" + item.FirstOrDefault().PhotoFilename)" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">
+                        <center><b>@Html.DisplayFor(modelItem => item.ProductName)</b></center>
+                    </p>
+                    <p class="card-text">
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.ShipDate, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.ShipDate)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.SubTotal, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.SubTotal)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.TaxAmt, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.TaxAmt)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.Freight, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.Freight)
+                        <br>
+                        @Html.LabelFor(modelItem=>item.PurchaseOrder.TotalDue, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem=>item.PurchaseOrder.TotalDue)
+                    </p>
+                </div>
+            </div>
+        </a>
+    </div>
+}
+*@
+
+@*@using (Html.BeginForm("Index", "PurchaseOrderDetails", FormMethod.Get))
+{
+    <div>
+        <p>
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new {@class="form-control" , placeholder = "Find By Product, Vendor, ShipMethod Name"})
+            <button class="btn btn-outline-primary" type="submit" id="button-addon2">Search</button>
+            <input type="submit" value="Search" />
+            PageSize : @Html.DropDownList("FetchSize",ViewBag.PageList as SelectList,
+            "5",new {
+                @class="dropdown",
+                @onchange="getFetchSize(this.value)"})
+        </p>
+    </div>
+}*@
+
+@*<p>
+    <a asp-action="Create">Purchase Order Vendors</a>
+</p>
+<div>
+    Page Size : @Html.DropDownList("PageSize",
+    ViewBag.PagedList as SelectList,
+    new{
+    @placeholder="Page Size",
+    @onchange="getPageSize(this.value)"
+    }
+    )
+</div>*@
+
+@*@Html.PagedListPager(Model,page=> Url.Action("Index",new {page, PageSize = ViewBag.psize , CurrentFilter=ViewBag.CurrentFilter}))
+
+<script>
+    function getFetchSize(value) {
+        document.location.href = "/PurchaseOrderDetails?&PageSize=" + value + "&currentFilter=@ViewBag.CurrentFilter";
+    }
+</script>*@
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.ProductSortParm">Sort</a> | Product 
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Product.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().UnitPrice)
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.VendorSortParm">Sort</a> |
+                @Html.DisplayNameFor(model => model.FirstOrDefault().PurchaseOrder.Vendor.Name)
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.shipSortParm">Sort</a> |
+                @Html.DisplayNameFor(model => model.FirstOrDefault().PurchaseOrder.ShipMethod.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model=>model.FirstOrDefault().OrderQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model=>model.FirstOrDefault().StockedQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model=>model.FirstOrDefault().Product.ProductProductPhotos.FirstOrDefault().ProductPhotoId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseOrder.Vendor.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseOrder.ShipMethod.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockedQty)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.ProductProductPhotos.FirstOrDefault().ProductPhotoId)
+                </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ id = item.PurchaseOrderDetailId}) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ id = item.PurchaseOrderDetailId }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ id = item.PurchaseOrderDetailId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>*@

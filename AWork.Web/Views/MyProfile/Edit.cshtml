@@ -1,0 +1,215 @@
+﻿@model AWork.Contracts.Dto.PersonModule.Profile.ProfileDto
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link href="~/css/MyProfile.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h4 class="fw-bold py-3 mb-4 text-center" >
+    <span class=" fw-light" >My Profile</span>
+    <i class="fas fa-id-card"></i>
+</h4>
+@*@Html.TextBoxFor(Model => Model.BusinessEntity.BusinessEntity.FirstName, Model.BusinessEntity.BusinessEntity.FirstName +" "+ Model.BusinessEntity.BusinessEntity.LastName,
+                        new{@class="form-control", @readonly="readonly"})
+*@
+<div class="row">
+    <div class="mb-3 col-md-6">
+        <input class="form-control" type="text" placeholder="@Html.DisplayNameFor(model => model.PersonDto.FirstName)" />
+    @*    @Html.TextBoxFor(Model => Model.Person.FirstName, Model.Person.FirstName,
+        new{@class="form-control", @readonly="readonly"})*@
+    </div>
+    <div class="mb-3 col-md-6">
+        <input class="form-control" type="text" placeholder="@Html.DisplayNameFor(model => model.PersonDto.FirstName)" />
+        <input class="form-control" type="text" placeholder="@Html.DisplayNameFor(model => model.PersonDto.MiddleName)" />
+    </div>
+    <div class="mb-3 col-md-6">
+        <input class="form-control" type="text" placeholder="@Html.DisplayNameFor(model => model.PersonDto.LastName)" />
+    </div>
+    <div class="mb-3 col-md-6">
+        <input class="form-control" type="text" placeholder="@Html.DisplayNameFor(model => model.PersonDto.Suffix)" />
+    </div>
+
+
+</div>
+<fieldset class="aa">
+    <legend class="bb"> Email 
+        <i class="material-icons">&#xe0be;</i>
+    </legend>
+    <input class="form-control" type="text" name="" id="email" placeholder="contoh@gmail.com" />
+    <br />
+    <input class="form-control" type="text" name="" id="email" placeholder="contoh@Code.id" />
+</fieldset>
+<p></p>
+
+<fieldset class="aa">
+    <legend class="bb"> Phone Number 
+        <i style="font-size:24px" class="fa">&#xf095;</i>
+    </legend>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <input class="form-control" type="text" @*placeholder="@Html.DisplayNameFor(model => model.PhoneNumbers)"*@ />
+        </div>
+        <div class="mb-3 col-md-6">
+            @Html.DropDownList("PhoneNumbers.PhoneNumberTypeId", ViewBag.PhoneNumbers,"Phone Number Type",
+            new{@class="form-control",@id="PhoneNumbers"})
+        </div>
+        <div class="mb-3 col-md-6">
+            <input class="form-control" type="text" @*placeholder="@Html.DisplayNameFor(model => model.PhoneNumbers)" *@/>
+        </div>
+        <div class="mb-3 col-md-6">
+            @Html.DropDownList("PhoneNumbers.PhoneNumberTypeId", ViewBag.PhoneNumbers,"Phone Number Type",
+            new{@class="form-control",@id="PhoneNumbers"})
+        </div>
+    </div>
+</fieldset>
+<p></p>
+<fieldset class="aa">
+    <legend class="bb"> Address 
+        <i class="fas fa-home"></i>
+    </legend>
+     <div class="mb-1 col-md-6" >
+        @Html.DropDownList("AddressType.AddressTypeId", ViewBag.AddressType,"Address Type",
+        new{@class="form-control",@id="AddressType"})
+        </div>
+    <br />
+    <input class="form-control" height:50px type="text" name="" id="" placeholder="Jl.Limboto No.20......" >
+</fieldset>
+<p></p>
+<div class="form-group">
+    <input type="submit" value="Save" class="btn btn-primary" />
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MiddleName" class="control-label"></label>
+                <input asp-for="MiddleName" class="form-control" />
+                <span asp-validation-for="MiddleName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sufflix" class="control-label"></label>
+                <input asp-for="Sufflix" class="form-control" />
+                <span asp-validation-for="Sufflix" class="text-danger"></span>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*
+<div class="col-md-12">
+    <div class="card mb-4">
+        <h5 class="card-header">Profile Details</h5>
+        <!-- Account -->
+        <hr class="my-0">
+        <div class="card-body">
+            <form id="formAccountSettings" method="POST" onsubmit="return false">
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label">@Html.DisplayNameFor(model => model.FirstName) </label>
+                        @Html.TextBox("", Model.FirstName)
+                        @*<label class="form-control" />@Html.DisplayFor(model => model.FirstName)*@
+@*  </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label">@Html.DisplayNameFor(model => model.MiddleName)</label>
+                        <label class="form-control" />@Html.DisplayFor(model => model.MiddleName)
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label">@Html.DisplayNameFor(model => model.LastName)</label>
+                        <label class="form-control" />@Html.DisplayFor(model => model.LastName)
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label">@Html.DisplayNameFor(model => model.Sufflix)</label>
+                        <label class="form-control" />@Html.DisplayFor(model => model.Sufflix)
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label">@Html.DisplayNameFor(model => model.EmailAddresses)</label>
+                        <label class="form-control" />@Html.DisplayFor(model => model.EmailAddresses)
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label">@Html.DisplayNameFor(model => model.PhoneNumbers)</label>
+                        <label class="form-control" />@Html.DisplayFor(model => model.PhoneNumbers)
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label">@Html.DisplayNameFor(model => model.address)</label>
+                        <label class="form-control" />@Html.DisplayFor(model => model.address)
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="mt-2">
+            <button type="reset" class="btn btn-outline-secondary">
+                <a asp-action="Edit" asp-route-id="@Model.BusinessEntity">Edit</a>
+            </button>
+            <button type="reset" class="btn btn-outline-secondary">
+                <a asp-action="Index">Back to List</a>
+            </button>
+        </div>*@

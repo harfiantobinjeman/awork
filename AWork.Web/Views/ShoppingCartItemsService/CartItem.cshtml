@@ -1,0 +1,248 @@
+﻿@model List<AWork.Contracts.Dto.Sales.ShoppingCartItem.ProductOnSaleDto>
+
+@*MENAMPILKAN KERANJANG*@
+<section id="cartItem">
+    <div class="container">
+        <div class="row d-flex h-100">
+            <div class="col">
+                <p><span class="h2">Shopping Cart </span> </p>
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    @Html.HiddenFor(Model => Model[i].shoppingCartItem.ProductId)
+                    @Html.HiddenFor(Model => Model[i].shoppingCartItem.Product.ListPrice)
+                    <div class="card mb-4">
+                        <div class="card-body p-4">
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <div class="row align-items-center">
+                                    <div class="col-md-2">
+                                        <img src="@Url.Content("~/Resources/images/" + Model[i].shoppingCartItem.Product.ProductProductPhotos.FirstOrDefault().ProductPhoto.ThumbnailPhotoFileName)"
+                                         class="img-fluid" alt="Generic placeholder image">
+                                    </div>
+                                    <div class="col-md-2 d-flex justify-content-center">
+                                        <div>
+                                            <p class="small text-muted mb-4 pb-2">Name</p>
+                                            <p class="lead fw-normal mb-0">@Html.DisplayFor(Model => Model[i].shoppingCartItem.Product.Name)</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 d-flex justify-content-center">
+                                        <div>
+                                            <p class="small text-muted mb-4 pb-2">Quantity</p>
+                                            @Html.TextBoxFor(Model => Model[i].shoppingCartItem.Quantity, new{@type="number", @class="form-control", @readonly="readonly"})
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 d-flex justify-content-center">
+                                        <div>
+                                            <p class="small text-muted mb-4 pb-2">Price</p>
+                                            <p class="lead fw-normal mb-0">@Html.DisplayFor(Model => Model[i].shoppingCartItem.Product.ListPrice)</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 d-flex justify-content-center">
+                                        <div>
+                                            <p class="small text-muted mb-4 pb-2">Total</p>
+                                            @{
+                                                var price = Model[i].product.ListPrice;
+                                                var qty = Model[i].shoppingCartItem.Quantity;
+                                                var total = price * qty;
+                                                <p class="lead fw-normal mb-0">@total</p>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+                <div class="d-flex justify-content-end">
+                    <a asp-controller="ProductOnSale" asp-action="Index">
+                        <input type="button" class="btn btn-light btn-lg me-2" value="Continue Shopping" id="btnContinue">
+                    </a>
+                    <input type="button" class="btn btn-primary btn-lg" value="Checkout" id="btnCheckout">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+@*END MENAMPILIN KERANJANG*@
+
+@*MENAMPILKAN CHECKOUT*@
+<form id="checkoutForm" method="POST" style="display:none;" asp-controller="ShoppingCartItemsService" asp-action="Checkout">
+    <section>
+        <div class="container">
+            <h3>CHECKOUT ITEM</h3>
+            <div class="row d-flex h-100">
+                <div class="col">
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        @Html.HiddenFor(Model => Model[i].shoppingCartItem.ProductId)
+                        @Html.HiddenFor(Model => Model[i].shoppingCartItem.ShoppingCartId)
+                        @Html.HiddenFor(Model => Model[i].shoppingCartItem.ShoppingCartItemId)
+                        @Html.HiddenFor(Model => Model[i].shoppingCartItem.Product.ListPrice)
+                        <div class="card mb-4">
+                            <div class="card-body p-4">
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-2">
+                                            <img src="@Url.Content("~/Resources/images/" + Model[i].shoppingCartItem.Product.ProductProductPhotos.FirstOrDefault().ProductPhoto.ThumbnailPhotoFileName)"
+                                             class="img-fluid" alt="Generic placeholder image">
+                                        </div>
+                                        <div class="col-md-2 d-flex justify-content-center">
+                                            <div>
+                                                <p class="small text-muted mb-4 pb-2">Name</p>
+                                                <p class="lead fw-normal mb-0">@Html.DisplayFor(Model => Model[i].shoppingCartItem.Product.Name)</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 d-flex justify-content-center">
+                                            <div>
+                                                <p class="small text-muted mb-4 pb-2">Quantity</p>
+                                                @Html.TextBoxFor(Model => Model[i].shoppingCartItem.Quantity, new{@type="number", @class="form-control", id="qty"})
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 d-flex justify-content-center">
+                                            <div>
+                                                <p class="small text-muted mb-4 pb-2">Price</p>
+                                                <p class="lead fw-normal mb-0">@Html.DisplayFor(Model => Model[i].shoppingCartItem.Product.ListPrice, new{id="price"})</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 d-flex justify-content-center">
+                                            <div>
+                                                <p class="small text-muted mb-4 pb-2">Total</p>
+                                                @{
+                                                    var price = Model[i].product.ListPrice;
+                                                    var qty = Model[i].shoppingCartItem.Quantity;
+                                                    var total = price * qty;
+                                                    <p class="lead fw-normal mb-0">@total</p>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+
+                    <table class="table">
+
+                        <thead>
+                            <tr>
+                                <th> </th>
+                                <th> </th>
+                                <th> </th>
+                                <th> </th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <h4>SHIP METHOD</h4>
+                            <tr>
+                                <td>
+                                    @*<span class="text-capitalize">SHIP METHOD</span>*@
+                                    <select asp-for="@Model.FirstOrDefault().salesOrderHeaderCreate.ShipMethodId" id="name" class="form-control" asp-items="ViewBag.ShipMethodId"></select>
+                                </td>
+                                <td>
+                                    @*<span class="text-capitalize">SHIP NAME</span>*@
+                                    @*<input asp-for="@Model.FirstOrDefault().salesOrderHeader.ShipMethod.Name" id="rate" class="form-control" readonly />*@
+                                </td>
+                                <td>
+                                    @*<span class="text-capitalize">SHIP BASE</span>*@
+                                    @*<input asp-for="@Model.FirstOrDefault().salesOrderHeader.ShipMethod.ShipBase" id="base" class="form-control" readonly />*@
+                                </td>
+                                <td>
+                                    @*<span class="text-capitalize">SHIP RATE</span>*@
+                                    @*<input asp-for="@Model.FirstOrDefault().salesOrderHeader.ShipMethod.ShipRate" id="base" class="form-control" readonly />*@
+                                </td>
+                                <td>
+                                    <div class="text-end">
+                                        @*<span>@Html.DisplayNameFor(model=>model.FirstOrDefault().shoppingCartItem.Product.ListPrice) : </span> <span id="SubTotal"> @Html.DisplayFor(model=>model.FirstOrDefault().shoppingCartItem.Product.ListPrice)</span>*@
+                                    </div>
+                                    <br />
+                                    <div class="text-end">
+                                        @*<span>@Html.DisplayNameFor(model=>model.TaxAmt) : </span> <span id="TaxAmt"> @Html.DisplayFor(model=>model.TaxAmt)</span>*@
+                                    </div>
+                                    <br />
+                                    <div class="text-end">
+                                        @*<span>@Html.DisplayNameFor(model=>model.Freight) : </span> <span id="Freight"> @Html.DisplayFor(model=>model.Freight)</span>*@
+                                    </div>
+                                    <br />
+                                    <div class="text-end">
+                                        @*<span>@Html.DisplayNameFor(model=>model.TotalDue) :  </span> <span id="TotalDue"> @Html.DisplayFor(model=>model.TotalDue)</span>*@
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table">
+
+                        <thead>
+                            <tr>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <H4>PAYMENT</H4>
+                            <tr>
+                                <td>
+                                    <span class="text-capitalize">PAYMENT</span>
+                                    <select asp-for="@Model.FirstOrDefault().salesOrderHeaderCreate.CreditCardId" id="name" class="form-control" asp-items="ViewBag.CreditCardId"></select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="form-group">
+                        <input type="submit" value="Order" class="btn btn-primary" />  <input value="Back" class="btn btn-light btn-lg me-2" id="btnBack" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+@*END MENAMPILKAN CHECKOUT*@
+
+
+@section scripts{
+    <script type="text/javascript">
+        $("#btnCheckout").click(function (e) {
+            $("#checkoutForm").show();
+            $("#btnCheckout").hide();
+            $("#btnContinue").hide();
+            $("#cartItem").hide();
+
+            e.preventDefault();
+        });
+
+        $("#btnBack").click(function (e) {
+            $("#checkoutForm").hide();
+            $("#btnCheckout").show();
+            $("#btnContinue").show();
+            $("#cartItem").show();
+
+            e.preventDefault();
+        });
+
+        $("#btnAdd").on('click', () => {
+            let qty = $("#qty").val();
+            let price = $("#price").val();
+            let counter = qty;
+            counter++;
+            $("#qty").val(counter);
+            $("#total").val(parseInt(qty) * parseFloat(price))
+        });
+
+        $("#btnMin").on('click', () => {
+            let qty = $("#qty").val();
+            let price = $("#price").val();
+            let counter = qty;
+            counter--;
+            $("#qty").val(counter);
+            $("#total").val(parseInt(qty) * parseFloat(price))
+        });
+    </script>
+    }

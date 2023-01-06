@@ -1,0 +1,127 @@
+﻿@using X.PagedList.Mvc.Core
+@model AWork.Contracts.Dto.Production.SelectProductSubCategoryDto
+
+@{
+    ViewBag.Title = "Your Select";
+}
+<link rel="stylesheet" href="assets/vendor/fonts/boxicons.css" />
+<style>
+    table {
+        font-family: sans-serif;
+        color: #444;
+        border-collapse: collapse;
+        width: 50%;
+        border: 1px solid #f2f5f7;
+    }
+
+    .table tr th {
+        background: #a5a6ff;
+        color: #fff;
+        font-weight: normal;
+    }
+
+    .table, th, td {
+        padding: 8px 20px;
+        text-align: center;
+    }
+
+        .table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+</style>
+<h1>Product Category</h1>
+
+<p>
+     <a class="btn btn-primary text-end" asp-controller="ProductCategoriesService" asp-action="Create"><span class="tf-icons bx bx-book-add"></span>Create New</a>
+    <a class="btn btn-primary text-end" asp-controller="ProductSubcategories" asp-action="Create"><span class="tf-icons bx bx-book-add"></span> Create Sub New</a>
+</p>
+
+<div class="card mb-12" id="btn-dropdown-demo">
+    <h5 class="card-header">Category Product</h5>
+
+    <table class="table">
+        <form>
+        <thead>
+            <tr>
+                <th>
+                        @Html.DisplayNameFor(model => model.productCategoryDto.FirstOrDefault().Name);
+                </th>
+                <th>
+                    Action
+                </th>
+
+            </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+                @foreach (var item in Model.productCategoryDto)
+                {
+                    string selectedRow = "";
+                    if (item.ProductCategoryId == ViewBag.ProductCategoryId)
+                    {
+                        selectedRow = "success";
+                    }
+                <tr class="@selectedRow" valign="top">
+                    <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <a asp-controller="ProductSubcategories" asp-action="Index" asp-route-id="@item.ProductCategoryId"><i class='bx bx-selection'></i></a>
+                        <a asp-controller="ProductCategoriesService" asp-action="Edit" asp-route-id="@item.ProductCategoryId"><i class='bx bx-edit'></i></a>
+                        <a asp-controller="ProductCategoriesService" asp-action="Details" asp-route-id="@item.ProductCategoryId"><i class='bx bx-detail'></i></a>
+                    </td>
+                </tr>
+                }
+        </tbody>
+        </form>
+    </table>
+
+
+    <hr class="my-5">
+
+    <br>
+    @if (Model.productSubCategoryDto != null)
+    {
+        <h5> Product Sub Category</h5>
+        <table class="table">
+            <thead>
+                <tr class="text-nowrap">
+                    <th>@Html.DisplayNameFor(model => model.productSubCategoryDto.FirstOrDefault().Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.productSubCategoryDto.FirstOrDefault().ProductCategoryId)</th>
+                    <th>@Html.DisplayNameFor(model => model.productSubCategoryDto.FirstOrDefault().ProductSubcategoryId)</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @foreach (var item in Model.productSubCategoryDto)
+                {
+                    string selectedRow = "";
+                    if (item.ProductSubcategoryId == ViewBag.ProductSubcategoryId)
+                    {
+                        selectedRow = "success";
+                    }
+                    <tr class="@selectedRow">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductCategoryId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductSubcategoryId)
+                        </td>
+                        <td>
+                           <a class="btn btn-primary text-end" asp-action="Edit" asp-route-id="@item.ProductSubcategoryId"><span class="tf-icons bx bx-book-add"></span>Edit</a>
+                            <a class="btn btn-primary text-end" asp-action="Details" asp-route-id="@item.ProductSubcategoryId"><span class="tf-icons bx bx-book-add"></span>Details</a>
+                           <a class="btn btn-primary text-end" asp-action="Delete" asp-route-id="@item.ProductSubcategoryId"><span class="tf-icons bx bx-book-add"></span>Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+

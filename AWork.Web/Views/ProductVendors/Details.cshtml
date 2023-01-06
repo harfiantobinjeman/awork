@@ -1,0 +1,38 @@
+﻿@model AWork.Contracts.Dto.Purchasing.ProductVendorDto
+
+@{
+	ViewData["title"] = "Details";
+}
+
+@using (Html.BeginForm("AddToCart", "ProductVendors", FormMethod.Post)){
+	<body>
+		<div class="card">
+			<div class="card-title">
+				@Html.HiddenFor(model=>model.ProductId)
+				<h4>@Model.Product.Name</h4>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-lg-6">
+					<div class="col-md">
+						@foreach (var item in Model.Product.ProductProductPhotos)
+					   {
+							<img class="card-img-top" style="width:200px;height:200px" src="@Url.Content("~/Resources/Images/" + item.ProductPhoto.ThumbnailPhotoFileName)" alt="Card image cap" />
+						}
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-3">
+					<h5>Product Name : </h5>
+					<h5>Product Price : </h5>
+					<h5>Available Stock : </h5>
+					<h5>Vendor :</h5>
+				</div>
+				<div class="col-md-6 col-lg-3">
+					<h5>@Html.DisplayFor(m=>m.Product.Name)</h5>
+					<h5>@Html.DisplayFor(m=>m.StandardPrice) </h5>
+					<h5>@Html.DisplayFor(m => m.Product.SafetyStockLevel)</h5>
+					<h5>@Html.DisplayFor(m=>m.BusinessEntity.Name)</h5>
+				</div>
+			</div>
+		</div>
+	</body>
+}

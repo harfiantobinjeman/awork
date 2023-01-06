@@ -1,0 +1,26 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/AWork.Contracts/bin/Debug/net5.0
+/AWork.Contracts/obj
+/AWork.Domain/bin/Debug/net5.0
+/AWork.Domain/obj
+/AWork.IntegrationTest/bin/Debug/net5.0
+/AWork.IntegrationTest/obj/Debug/net5.0
+/AWork.IntegrationTest/obj
+/AWork.Persistence/bin/Debug/net5.0
+/AWork.Persistence/obj
+/AWork.Services/bin/Debug/net5.0
+/AWork.Services/obj
+/AWork.Services.Abstraction/bin/Debug/net5.0
+/AWork.Services.Abstraction/obj
+/AWork.Web/bin/Debug/net5.0
+/AWork.Web/obj
+
+/AWork.Testing
+/AWork.Test2
+/AWork.Test/bin/Debug/net5.0
+/AWork.Test/obj
+

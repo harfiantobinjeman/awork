@@ -1,0 +1,328 @@
+﻿@model X.PagedList.IPagedList<AWork.Contracts.Dto.Production.WorkOrderRoutingDto>
+@using X.PagedList.Mvc.Core
+<link href="~/css/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/css/Workorderouting.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 style="text-align:Center">WorkOrder Product Manufacturing</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div>
+    <form>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Product Information</legend>
+            <div class="control-group" style="display:flex;padding:20px">
+                <div>
+                    @*@Html.LabelFor(model => model.FirstOrDefault().workOrderDto.Product.Name, htmlAttributes : new{@class="form-label"})
+                    @Html.DropDownList("WorkOrder.Product.Name",ViewBag.Name,"Name",new {@class="form-control"})*@
+                    @*<label>sasdasd : </label> @ViewBag.Name
+                    @Html.DropDownList("WorkOrder.Product.Name",ViewBag.Name,"--Choose Employee--",new{@class="form-control"})*@
+                    @*<select>
+                        <option>@ViewBag.Name</option>
+                    </select>*@
+                    @Html.LabelFor(model => model.FirstOrDefault().WorkOrder.Product.ProductId, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("WorkOrder.Product.Name",(int)ViewBag.Id ,new { @style = "width: 300px;", @class="form-control", @readonly="true" })
+                </div>
+                <div style="margin-left:20px;margin-right:20px">
+                    @Html.LabelFor(model => model.FirstOrDefault().WorkOrder.Product.Name, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("WorkOrder.Product.Name",(string)ViewBag.Name ,new { @style = "width: 300px;", @class="form-control", @readonly="true" })
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.FirstOrDefault().WorkOrder.Product.ProductNumber, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("WorkOrder.Product.Name",(string)ViewBag.Number ,new { @style = "width: 300px;", @class="form-control", @readonly="true" })
+                </div>
+            </div>
+            <div class="control-group" style="display:flex;padding:20px">
+                <div style="margin-right:20px">
+                    @Html.LabelFor(model => model.FirstOrDefault().WorkOrder.Product.DaysToManufacture, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("WorkOrder.Product.Name",(int)ViewBag.Date ,new { @style = "width: 300px;", @class="form-control", @readonly="true" })
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.FirstOrDefault().WorkOrder.Product.ListPrice, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("WorkOrder.Product.Name",(int)ViewBag.ListPrice ,new { @style = "width: 300px;", @class="form-control", @readonly="true" })
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div>
+    <form>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">WorkOrder</legend>            
+            <div class="control-group" style="display:flex;padding:10px">
+                <div style="margin-right:20px">
+                    @Html.LabelFor(model => model.FirstOrDefault().WorkOrder.OrderQty, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("WorkOrder.OrderQty",(int)ViewBag.OrderQty ,new { @style = "width: 300px;", @class="form-control", @type="number" })
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.FirstOrDefault().WorkOrder.StockedQty, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("WorkOrder.StockedQty",(int)ViewBag.StockedQty ,new { @style = "width: 300px;", @class="form-control", @type="number" })
+                </div>
+            </div>
+            <div class="control-group" style="display:flex;padding:10px">                
+                <div>
+                    @Html.LabelFor(model => model.FirstOrDefault().WorkOrder.StartDate, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("WorkOrder.StartDate",(DateTime)ViewBag.StartDate ,new { @style = "width: 300px;", @class="form-control", @type="datetime-local" })
+                </div>
+                <div style="margin-left:20px;margin-right:20px">
+                    @Html.LabelFor(model => model.FirstOrDefault().WorkOrder.EndDate, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("WorkOrder.EndDate",(DateTime)ViewBag.EndDate ,new { @style = "width: 300px;", @class="form-control", @type="datetime-local" })
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.FirstOrDefault().WorkOrder.DueDate, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("WorkOrder.DueDate",(DateTime)ViewBag.DueDate ,new { @style = "width: 300px;", @class="form-control", @type="datetime-local" })
+                </div>
+            </div>
+            <div class="control-group" style="display:flex;padding:10px">
+                <button class="btn btn-outline-primary float-right" style="margin-right:20px">Save & CreateOrder Routing</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div>
+    <form>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">WorkOrder Routing</legend>
+@using (Html.BeginForm("Index", "WorkOrderRoutings", FormMethod.Get))
+{
+
+    <div style="margin-top:50px">
+        <p>
+            Find By @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,
+        new { placeholder = "Location Name" })
+            <input type="submit" value="Search" />
+            PageSize : @Html.DropDownList("FetchSize",
+        ViewBag.PagedList as SelectList, "5",
+        new{
+        @class="dropdown",
+        @onchange="getFetchSize(this.value)"
+        }
+        )
+        </p>
+    </div>
+}
+<div class="table-responsive">
+ <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ScheduledStartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ScheduledEndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ActualStartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ActualEndDate)
+            </th>
+            <th width="10px">
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ActualResourceHrs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().PlannedCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ActualCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ModifiedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().WorkOrder)
+            </th><th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().WorkOrder.ScrapReason.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScheduledStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScheduledEndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActualStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActualEndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActualResourceHrs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlannedCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActualCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkOrder.Product.Name)
+            </td><td>
+                @Html.DisplayFor(modelItem => item.WorkOrder.ScrapReason.Name)
+            </td>
+            @*<td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>*@
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+@Html.PagedListPager(Model, page => Url.Action("Index", new{page, CurrentFilter = ViewBag.CurrentFilter}))
+        </fieldset>
+    </form>
+</div>
+<div>
+    <form>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">ScrapReason</legend>
+            <div class="control-group" style="display:flex;padding:20px">
+                <div>
+                    <label>ScrapReseonId</label>
+                    <select class="form-control" style="width:100px">
+                            @foreach (var item in @ViewBag.IdSc)
+                            {
+                                <option >@item</option>
+                            }
+                        </select>
+                </div>
+                <div style="margin-left:20px;margin-right:20px">
+                    <input class="form-control" placeholder="Name" />
+                </div>
+                <div style="margin-left:20px;margin-right:20px">
+                    <button class="btn btn-outline-primary float-right">Save Reason</button>
+                    <select>
+                        @foreach (var item in @ViewBag.NamesSc)
+                        {
+                            <option style="width:50px">@item</option>
+                        }
+                    </select>
+                    @*@Html.DropDownList("WorkOrder.ScrapReason.Name",ViewBag.Test, String.Empty, new {@class="form-control"})*@
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div>
+    <form>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Allocate To Inventory</legend>
+            <div class="control-group" style="display:flex;padding:10px">
+                <p>
+                    <a class="text-decoration-none" id="add">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"></path>
+                        </svg>
+                        Allocate To Location
+                    </a>
+                </p>
+                <div style="margin-left:60%;margin-right:10%">
+                    <button class="btn btn-outline-primary float-right">Save Inventory</button>
+                </div>
+            </div>
+            <div class="control-group" style="display:flex">
+                <br />
+                <br />
+                <div class="form-group">
+                    <form name="add_name" id="add_name">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dynamic_field">
+                                <tr>
+                                    <td><input class="form-control" placeholder="@Model.FirstOrDefault().ProductId" /></td>
+                                    <td><input class="form-control" placeholder="Shelf" /></td>
+                                    <td><input class="form-control" placeholder="" /></td>
+                                    <td><input class="form-control" placeholder="Quantyty" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            @*<div class="control-group" style="display:flex;padding:20px">
+                <div>
+                    <input class="form-control" placeholder="ReasonId" />
+                </div>
+                <div style="margin-left:20px;margin-right:20px">
+                    <input class="form-control" placeholder="Name" />
+                </div>
+                <div style="margin-left:20px;margin-right:20px">
+                    <input class="form-control" placeholder="Name" />
+                </div>
+                <div style="margin-left:20px;margin-right:20px">
+                    <button class="btn btn-outline-primary float-right">Save Reason</button>
+                </div>
+            </div>*@
+        </fieldset>
+    </form>
+</div>
+<div class="container">  
+                  
+           </div>
+
+<script>
+    function getFetchSize(value) {
+        console.log(document.location.href = "/ProductsPagedServer?&FetchSize=" + value);
+        
+    }
+    $(document).ready(function () {
+        var i = 1;
+        $('#add').click(function () {
+            i++;
+            $('#dynamic_field').append('<tr id="row' + i +
+                '"></td><td><input class="form-control" placeholder="LocationId" /></td><td><input class="form-control" placeholder="Shelf" /></td><td><input class="form-control" placeholder="" /></td><td><input class="form-control" placeholder="Quantyty" /></td><td><button type="button" name="remove" id="' + i +
+            '" class="btn btn-danger btn_remove">X</button></td></tr>');
+        });
+        $(document).on('click', '.btn_remove', function () {
+            var button_id = $(this).attr("id");
+            $('#row' + button_id + '').remove();
+        });
+    });
+
+    
+</script>
+@*<div class="control-group" style="display:flex;padding:20px">
+    <div>
+        <input class="form-control" placeholder="LocationId" />
+    </div>
+    <div style="margin-left:20px;margin-right:20px">
+        <input class="form-control" placeholder="Shelf" />
+    </div>
+    <div style="margin-left:20px;margin-right:20px">
+        <input class="form-control" placeholder="" />
+    </div>
+    <div style="margin-left:20px;margin-right:20px">
+        <input class="form-control" placeholder="Quantyty" />
+    </div>
+</div>
+$('#add').click(function () {
+        i++;
+        ('#dynamic_field').append('<div class="control-group" style="display:flex;padding:20px' + i +
+            '"><div>< input class= "form-control" placeholder = "LocationId" /></div>< div style = "margin-left:20px;margin-right:20px" ><input class="form-control" placeholder = "Shelf" /></div>< div style = "margin-left:20px;margin-right:20px" ><input class="form-control" placeholder = "" /></div>< div style = "margin-left:20px;margin-right:20px" ><input class="form-control" placeholder = "Quantyty" /></div>< /div>' +
+            '" class="btn btn-danger btn_remove">X</button></td></tr>');
+    }
+*@

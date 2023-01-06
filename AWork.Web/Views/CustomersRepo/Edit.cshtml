@@ -1,0 +1,152 @@
+﻿@model AWork.Contracts.Dto.Sales.SalesCustomer.CustomerDto
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+@using (Html.BeginForm("EditCustomer", "CustomersRepo", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.CustomerId)
+    <div class="container p-3 my-3">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center mb-3">EDIT CUSTOMER</h3>
+            </div>
+            <div class="card-body">
+                <form class="row g-3">
+                    <div class="col-md-11">
+                        <div class="col-md-11">
+                        <div class="form-group">
+                            <label asp-for="PersonId" class="control-label">Full Name</label>
+                            @Html.HiddenFor(model=>model.PersonId)
+                            @Html.TextBoxFor(Model => Model.PersonId,Model.Person.FirstName +" "+ Model.Person.MiddleName+" "+Model.Person.LastName,
+                        new{@class="form-control", @readonly="readonly"})
+                            @*<select asp-for="PersonId" class="form-control" asp-items="ViewBag.PersonId"></select>*@
+                        </div>
+                        </div>
+                        <br>
+                        @*<div class="row g-3">
+                    <div class="col-md-3">
+                    <label for="inputPassword4" class="form-label">business entity ID</label>
+                    <div class="input-group input-group-merge">
+                    @Html.TextBoxFor(Model => Model.Person.BusinessEntityId,
+                    new{@class="form-control", @readonly="readonly"})
+                    </div>
+                    </div>
+                    <br>
+
+                    <div class="col-md-3">
+                    <label for="inputPassword4" class="form-label">First Name</label>
+                    <div class="input-group input-group-merge">
+                    @Html.TextBoxFor(Model => Model.Person.FirstName,
+                    new{@class="form-control", @readonly="readonly"})
+                    </div>
+                    </div>
+                    <div class="col-md-3">
+                    <label for="inputPassword4" class="form-label">Middle Name</label>
+                    <div class="input-group input-group-merge">
+                    @Html.TextBoxFor(Model => Model.Person.MiddleName,
+                    new{@class="form-control", @readonly="readonly"})
+                    </div>
+                    </div>
+                    <div class="col-md-3">
+                    <label for="inputPassword4" class="form-label">Last Name</label>
+                    <div class="input-group input-group-merge">
+                    @Html.TextBoxFor(Model => Model.Person.LastName,
+                    new{@class="form-control", @readonly="readonly"})
+                    </div>
+                    </div>
+                    <div class="col-md-2">
+                    <label for="inputPassword4" class="form-label">Title</label>
+                    <div class="input-group input-group-merge">
+                    @Html.TextBoxFor(Model => Model.Person.Suffix,
+                    new{@class="form-control", @readonly="readonly"})
+                    </div>
+                    </div>
+                    </div>*@
+
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <label for="inputPassword4" class="form-label">Territory</label>
+                                <div class="input-group input-group-merge">
+                                    <select asp-for="TerritoryId" class="form-control" id="territory" asp-items="ViewBag.TerritoryId"></select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="inputAddress2" class="form-label">Name</label>
+                                <div class="input-group input-group-merge">
+                                    @*@Html.TextBoxFor(Model => Model.Territory.Name,
+                                new{@class="form-control", @readonly="readonly"})*@
+                                    @Html.TextBox("Territory.Name",string.Empty,
+                                new{@placeholder="Name",@class="form-control", id="name", @readonly="readonly"})
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="inputAddress2" class="form-label">Country Code</label>
+                                <div class="input-group input-group-merge">
+                                    @*@Html.TextBoxFor(Model => Model.Territory.CountryRegionCode,
+                                new{@class="form-control", @readonly="readonly"})*@
+                                    @Html.TextBox("Territory.CountryRegionCode",string.Empty,
+                                new{@placeholder="Country Region Code",@class="form-control", id="countryRegionCode", @readonly="readonly"})
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="inputZip" class="form-label">Group</label>
+                                <div class="input-group input-group-merge">
+                                    @*@Html.TextBoxFor(Model => Model.Territory.Group,
+                                new{@class="form-control", @readonly="readonly"})*@
+                                    @Html.TextBox("Territory.Group",string.Empty,
+                                new{@placeholder="Group",@class="form-control", id="group", @readonly="readonly"})
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+                        <label for="inputPassword4" class="form-label">Store</label>
+                        <div class="row g-3">
+                            <div class="col-md-11">
+                                <label for="inputPassword4" class="form-label">Store Name</label>
+                                <div class="input-group input-group-merge">
+                                    <select asp-for="StoreId" class="form-control" asp-items="ViewBag.StoreId"></select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+                <br />
+                <button type="submit" class="btn btn-primary">Edit</button>
+                <a asp-action="Index">
+                    <input type="button" class="btn btn-secondary" value="Back" />
+                </a>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    <script type="text/javascript">
+        var territory = $("#territory");
+        territory.change(function () {
+            $.ajax({
+                type: "GET",
+                url: "/CustomersRepo/GetDataTerritory/?territoryId=" + territory.val(),
+                success: function (result) {
+                    console.log(result);
+                    for (let i = 0; i < result.length; i++) {
+                        $("#name").val(result[i].name)
+                        $("#countryRegionCode").val(result[i].countryRegionCode)
+                        $("#group").val(result[i].group)
+                    }
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            });
+        })
+    </script>
+
+    @*{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }*@
+    }

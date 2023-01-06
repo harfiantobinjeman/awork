@@ -1,0 +1,167 @@
+﻿@model X.PagedList.IPagedList<AWork.Contracts.Dto.Production.BillOfMaterialDto>
+@using X.PagedList.Mvc.Core
+
+<link href="~/css/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@*Batas*@
+@using (Html.BeginForm("Index", "BillOfMaterials", FormMethod.Get))
+{
+    <div class="container p-3 my-3">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center mb-3">Bill Of Materials Search</h2>
+                <a class="btn btn-primary text-end mb-3" asp-action="Create"><span class="tf-icons bx bx-book-add"></span>&nbsp; Create New</a>
+                @*                <a class="btn btn-primary" asp-action="Create"><span class="tf-icons bx bx-book-add"></span>&nbsp; Create New</a>
+                *@
+                <div class="row">
+                    <div class="col-sm-10">
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="input-group mb-1">
+                                            @Html.TextBox("SearchString",ViewBag.CurrentFilter as string, new {@class="form-control", @placeholder = "Find By : Name Product or SubCategory Name"})
+                                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*   <div class="col-sm-2">
+                        Show Data @Html.DropDownList("PageSize",
+                        ViewBag.PageSize as SelectList,
+                        new{
+                        @class="form-control search-slt",
+                        @placeholder="Page Size",
+                        @onchange="getPagedSize(this.value)"
+                        }
+                        )
+                        </div>*@
+                    <div>
+                        PAGE SIZE : @Html.DropDownList("PageSize",
+                    ViewBag.PageSize as SelectList,
+                    new {
+                    @placeholder="Page Size",
+                    @onchange="getPagedSize(this.value)"
+                    }
+                    )
+                        @*Filter: @Html.DropDownList("sortOrder",
+                            ViewBag.NameProductSort  as SelectList,
+                            new {
+                            @placeholder="Page Size",
+                            @onchange="getPagedSize(this.value)"
+                            }
+                            )*@
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-body">
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FirstOrDefault().Component)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FirstOrDefault().ProductAssembly)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FirstOrDefault().UnitMeasureCodeNavigation)
+                                </th>
+                                @*<th>
+                                    @Html.DisplayNameFor(model => model.FirstOrDefault().StartDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FirstOrDefault().EndDate)
+                                </th>*@
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FirstOrDefault().Bomlevel)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FirstOrDefault().PerAssemblyQty)
+                                </th>
+                                @*<th>
+                                    @Html.DisplayNameFor(model => model.FirstOrDefault().ModifiedDate)
+                                </th>*@
+                                
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Component.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProductAssembly.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UnitMeasureCodeNavigation.UnitMeasureCode)
+                                    </td>
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.StartDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EndDate)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Bomlevel)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PerAssemblyQty)
+                                    </td>
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.ModifiedDate)
+                                    </td>*@
+                                    
+                                   @* <td>
+                                        <a class="btn btn-secondary text-end mb-2" asp-action="Edit" asp-route-id="@item.BillOfMaterialsId">Edit</a>
+                                        <a class="btn btn-warning text-end mb-2" asp-action="Details" asp-route-id="@item.BillOfMaterialsId">Details</a>
+                                        <a class="btn btn-danger text-end mb-2" asp-action="Delete" asp-route-id="@item.BillOfMaterialsId">Delete</a>
+                                     
+                                    </td>*@
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.BillOfMaterialsId"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                <a class="dropdown-item" asp-action="Details" asp-route-id="@item.BillOfMaterialsId"><i class="bx bx-detail me-1"></i> Details</a>
+                                                <a class="dropdown-item" asp-action="Delete" asp-route-id="@item.BillOfMaterialsId"><i class="bx bx-trash me-1"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <center>
+
+                    @*@Html.PagedListPager(Model, page => Url.Action("Index", new{page, PageSize = ViewBag.psize, currentFilter = ViewBag.CurrentFilter, sortOrder = ViewBag.CurrentSort}))*@
+                    @Html.PagedListPager(Model,page => Url.Action("Index", new {page,PageSize = ViewBag.psize,CurrentFilter=ViewBag.CurrentFilter, sortOrder=ViewBag.CurrentSort}))
+
+                </center>
+            </div>
+        </div>
+    </div>
+}
+@*Batas*@
+<script>
+    function getPagedSize(value) {
+        document.location.href ="/ProductsSercvice?&PageSize="+ value + "&CurrentFilter=@ViewBag.CurrentFilter&sortOrder=@ViewBag.CurrentSort";
+    }
+</script>

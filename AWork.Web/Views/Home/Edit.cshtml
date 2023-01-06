@@ -1,0 +1,568 @@
+﻿@model AWork.Contracts.Dto.PersonModule.Profile.ProfileDto
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link href="~/css/MyProfile.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@using (Html.BeginForm("Edit", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(Model => Model.PersonDto.BusinessEntityId)
+    @Html.HiddenFor(Model => Model.PersonDto.PersonType)
+    @Html.HiddenFor(Model => Model.AddressDto.AddressId)
+    <div>
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="divider text-start-center">
+                        <div class="divider-text" style="font-size:20px">
+                            Profile
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label asp-for="PersonDto.FirstName" class="control-label"></label>
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text">
+                                    <i class="bx bx-user"></i>
+                                </span>
+                                <input asp-for="PersonDto.FirstName" class="form-control" type="text" placeholder="@Html.DisplayNameFor(model => model.PersonDto.FirstName)" />
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label asp-for="PersonDto.MiddleName" class="control-label "></label>
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text">
+                                    <i class="bx bx-user"></i>
+                                </span>
+                                <input asp-for="PersonDto.MiddleName" class="form-control" type="text" placeholder="@Html.DisplayNameFor(model => model.PersonDto.MiddleName)" />
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label asp-for="PersonDto.LastName" class="control-label "></label>
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text">
+                                    <i class="bx bx-user"></i>
+                                </span>
+                                <input asp-for="PersonDto.LastName" class="form-control" type="text" placeholder="@Html.DisplayNameFor(model => model.PersonDto.LastName)" />
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label asp-for="PersonDto.Suffix" class="control-label "></label>
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text">
+                                    <i class="bx bx-user"></i>
+                                </span>
+                                <input asp-for="PersonDto.Suffix" class="form-control" type="text" placeholder="@Html.DisplayNameFor(model => model.PersonDto.Suffix)" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="divider text-start-center">
+                        <div class="divider-text" style="font-size:20px">
+                            Email
+                            <i class="material-icons">&#xe0be;</i>
+                        </div>
+                        <div>
+                            <table>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                @for (int i = 0; i < Model.PersonDto.EmailAddressesDto.Count(); i++)
+                                {
+                                    <tr>
+                                        <td>@Html.EditorFor(x=>x.PersonDto.EmailAddressesDto[i].EmailAddress1, new{htmlAttributes =new {@class ="form-control",size="50"} })</td>
+                                        <td>
+                                            <button id="btndummy-@i" type="button" class="btn btn-md invisible">Dummy</button>
+                                            <button id="btndummy-@i" type="button" class="btn btn-md invisible">Dummy</button>
+                                        </td>
+                                    </tr>
+
+                                }
+                            </table>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <div class="input-group input-group-merge">
+                                <table id="ExpTable">
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    @for (int i = 0; i < Model.EmailAddressForCreateDtos.Count; i++)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.EditorFor(x=>x.EmailAddressForCreateDtos[i].EmailAddress1, new{htmlAttributes =new {@class ="form-control",placeholder="CodeId@gmail.com",size="50"} })
+                                            </td>
+                                            <td>
+                                                <button id="btndummy-@i" type="button" class="btn btn-md invisible">Dummy</button>
+                                                <button id="btnadd-@i" type="button" class="btn btn btn-secondary visible" onclick="AddItem(this)" style="left:50%;position:center">Add</button>
+                                                <button id="btnremove-@i" type="button" class="btn btn alert-danger visible" onclick="DeleteItem(this)" style="left:-29%;position:center">Delete</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <input type="hidden" id="hdnLastIndex" value="0" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="divider text-start-center">
+                        <div class="divider-text" style="font-size:20px">
+                            Phone Number
+                            <i style="font-size:24px" class="fa">&#xf095;</i>
+                        </div>
+                        <div class="row">
+                            <div>
+
+
+                                @for (int i = 0; i < Model.PersonPhoneDtos.Count(); i++)
+                                {
+                                    <table>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        <tr>
+                                            <td> @Html.EditorFor(x=>x.PersonDto.PersonPhonesDto[i].PhoneNumber, new{htmlAttributes =new {@class ="form-control",size="50"} })</td>
+                                            <td>
+                                                @Html.DropDownList("PersonPhoneDtos.PhoneNumberType.Name", ViewBag.PhoneNumberType,Model.PersonPhoneDtos[i].PhoneNumberType.Name,
+                                        new{@class="form-control"})
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                }
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="input-group input-group-merge">
+                                <table id="ExpTable1">
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+
+                                    </tr>
+                                    @for (int i = 0; i < Model.PersonPhoneForCreateDto.Count; i++)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.EditorFor(x=>x.PersonPhoneForCreateDto[i].PhoneNumber, new{htmlAttributes =new {@class ="form-control",placeholder="+62 - ",size="50"} })
+                                            </td>
+
+                                            <td>
+                                                @Html.DropDownList("PersonPhoneDto.PhoneNumberTypeId", ViewBag.PhoneNumberType,"Type",
+                                        new{@class="form-control"})
+                                            </td>
+                                            <td>
+                                                <button id="btndummy1" type="button" class="btn btn-md invisible">Dummy</button>
+                                                <button id="btnadd1" type="button" class="btn btn btn-secondary visible" onclick="AddItem1(this)" style="left:10%;position:center">Add</button>
+                                                <button id="btnremove1" type="button" class="btn btn alert-danger visible" onclick="DeleteItem1(this)" style="left:10%;position:center">Delete</button>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </table>
+
+
+
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+                        @*    @for (int i = 0; i < Model.PersonPhoneForCreateDto.Count; i++)
+                    {
+                    <div class="mb-3 col-md-5">
+                    <div class="input-group input-group-merge">
+
+                    @Html.EditorFor(x=>x.PersonPhoneForCreateDto[i].PhoneNumber, new{htmlAttributes =new {@class ="form-control",placeholder="+62 - ",size="50"} })
+                    </div>
+                    </div>
+                    <div class="mb-3 col-md-5">
+                    <div class="input-group input-group-merge">
+                    @Html.DropDownList("PersonPhoneForCreateDto.PhoneNumberTypeId", ViewBag.PhoneNumberType,"Phone Number Type",
+                    new{@class="form-control"})
+
+                    </div>
+                    </div>
+                    <div class="col-md-1">
+                    <button id="btndummy-@i" type="button" class="btn btn-md invisible">Dummy</button>
+                    <button id="btnadd-@i" type="button" class="btn btn-info-sm visible" onclick="AddItem(this)"><i class='bx bx-plus-medical'></i></button>
+                    </div>
+                    }*@
+
+
+                    </div>
+                    <input type="hidden" id="hdnLastIndex" value="0" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="divider text-start-center">
+                        <div class="divider-text" style="font-size:20px">
+                            Address
+                            <i style="font-size:24px" class="fa">&#xf1ad;</i>
+                        </div>
+                        <div class="mb-3 col-md-5">
+                            <div class="input-group input-group-merge">
+
+                                @Html.DropDownList("BusinessEntityAddressDto.AddressTypeId", ViewBag.AddressType,"Adress Type",
+                            new{@class="form-control"})
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="input-group input-group-merge">
+                                    <span class="input-group-text">
+                                        <i class="fa">&#xf002;</i>
+                                    </span>
+                                    <input id="lookup" placeholder="Search Country" class="form-control">
+                                    @*<span asp-validation-for="AddressDto.StateProvince.CountryRegionCode" class="text-danger"></span>*@
+                                </div>
+
+                            </div>
+                        </div>
+                        <p></p>
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                @if(Model.AddressDtos != null)
+                                {
+                                    @Html.TextBoxFor(Model => Model.CountryRegionDto.CountryRegionCode, Model.CountryRegionDto.Name,
+                                new{@class="form-control",  @readonly="readonly"})
+                                }
+                                
+                                <input asp-for="CountryRegionDto.Name" id="countryRegion" class="form-control" placeholder="Country Region" readonly />
+                                <input asp-for="CountryRegionDto.CountryRegionCode" id="countryRegionCode" class="form-control" placeholder="Country Region" hidden />
+                            </div>
+                            <div class="col-md-3">
+                                @if (Model.AddressDtos != null)
+                                {
+                                    @Html.TextBoxFor(Model => Model.AddressDto.StateProvince.StateProvinceId, Model.AddressDto.StateProvince.Name,
+                                     new{@class="form-control", @readonly="readonly"})
+                                }
+
+                                 <input asp-for="AddressDto.StateProvince.Name" id="provinceName" class="form-control" placeholder="State Province" readonly />
+                                <input asp-for="AddressDto.StateProvince.StateProvinceId" class="form-control" placeholder="State Province" id="StateProvinceId" hidden />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label asp-for="AddressDto.City" class="control-label"></label>
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text">
+                                    <i class='fas'>&#xf64f;</i>
+                                </span>
+                                <input asp-for="AddressDto.City" class="form-control" type="text" placeholder="@Html.DisplayNameFor(model => model.AddressDto.City)" />
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label asp-for="AddressDto.PostalCode" class="control-label "></label>
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text">
+                                    <i class="fa">&#xf1c6;</i>
+                                </span>
+                                <input asp-for="AddressDto.PostalCode" class="form-control" type="text" placeholder="@Html.DisplayNameFor(model => model.AddressDto.PostalCode)" />
+                            </div>
+                        </div>
+                    </div>
+                    <textarea asp-for="AddressDto.AddressLine1" class="form-control" rows="3" placeholder="Your Address ....."></textarea>
+
+                </div>
+                <input type="hidden" id="hdnLastIndex" value="0" />
+            </div>
+        </div>
+    </div>
+    <input type="submit" value="Save" class="btn btn-primary" />
+
+
+
+
+}
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $("#lookup").lookupbox({
+                title: 'Search Country Region',
+                url: '/Home/GetTotalCountryRegionStateProvince/?name=',
+                imgLoader: '<img src="../../images/loader.gif">',
+                onItemSelected: function (data) {
+                    console.log(data);
+                    console.log(data.province);
+                    $('#countryRegionCode').val(data.countryRegionCode);
+                    $('#countryRegion').val(data.name);
+                    $('#provinceName').val(data.province);
+                    $('#AddressDto_StateProvinceId').val(data.stateProvinceCode);
+                    $('#StateProvinceId').val(data.stateProvinceId)
+
+                },
+                tableHeader: ['name', 'StateProvinceCode', 'Province'],
+                colWidth: ['100px', null, '100px']
+            });
+        });
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+
+
+
+        function DeleteItem(btn) {
+            $(btn).closest('tr').remove();
+        }
+        function DeleteItem1(btn) {
+            $(btn).closest('tr').remove();
+        }
+
+
+        function AddItem1(btn) {
+
+            var table = document.getElementById('ExpTable1');
+            var rows = table.getElementsByTagName('tr');
+
+            var rowOuterHtml = rows[rows.length - 1].outerHTML;
+
+            var lastrowIdx = document.getElementById('hdnLastIndex').value;
+
+            var nextrowIdx = eval(lastrowIdx) + 1;
+
+            document.getElementById('hdnLastIndex').value = nextrowIdx;
+
+            rowOuterHtml = rowOuterHtml.replaceAll('_' + lastrowIdx + '_', '_' + nextrowIdx + '_');
+            rowOuterHtml = rowOuterHtml.replaceAll('[' + lastrowIdx + ']', '[' + nextrowIdx + ']');
+            rowOuterHtml = rowOuterHtml.replaceAll('-' + lastrowIdx, '-' + nextrowIdx);
+
+
+            var newRow = table.insertRow();
+            newRow.innerHTML = rowOuterHtml;
+
+
+
+            var btnAddID = btn.id;
+            var btnDeleteid = btnAddID.replaceAll('btnadd1', 'btnremove1');
+
+            var delbtn = document.getElementById(btnDeleteid);
+            delbtn.classList.add("visible");
+            delbtn.classList.remove("visible");
+
+
+            var addbtn = document.getElementById(btnAddID);
+            addbtn.classList.remove("visible");
+            addbtn.classList.add("visible");
+
+        }
+
+
+
+        function AddItem(btn) {
+
+            var table = document.getElementById('ExpTable');
+            var rows = table.getElementsByTagName('tr');
+
+            var rowOuterHtml = rows[rows.length - 1].outerHTML;
+
+            var lastrowIdx = document.getElementById('hdnLastIndex').value;
+
+            var nextrowIdx = eval(lastrowIdx) + 1;
+
+            document.getElementById('hdnLastIndex').value = nextrowIdx;
+
+            rowOuterHtml = rowOuterHtml.replaceAll('_' + lastrowIdx + '_', '_' + nextrowIdx + '_');
+            rowOuterHtml = rowOuterHtml.replaceAll('[' + lastrowIdx + ']', '[' + nextrowIdx + ']');
+            rowOuterHtml = rowOuterHtml.replaceAll('-' + lastrowIdx, '-' + nextrowIdx);
+
+
+            var newRow = table.insertRow();
+            newRow.innerHTML = rowOuterHtml;
+
+
+
+            var btnAddID = btn.id;
+            var btnDeleteid = btnAddID.replaceAll('btnadd', 'btnremove');
+
+            var delbtn = document.getElementById(btnDeleteid);
+            delbtn.classList.add("visible");
+            delbtn.classList.remove("visible");
+
+
+            var addbtn = document.getElementById(btnAddID);
+            addbtn.classList.remove("visible");
+            addbtn.classList.add("visible");
+
+        }
+    </script>
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*
+    <div class="row">
+    <div class="col-md-4">
+    <form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+    <label asp-for="FirstName" class="control-label"></label>
+    <input asp-for="FirstName" class="form-control" />
+    <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <label asp-for="MiddleName" class="control-label"></label>
+    <input asp-for="MiddleName" class="form-control" />
+    <span asp-validation-for="MiddleName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <label asp-for="LastName" class="control-label"></label>
+    <input asp-for="LastName" class="form-control" />
+    <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <label asp-for="Sufflix" class="control-label"></label>
+    <input asp-for="Sufflix" class="form-control" />
+    <span asp-validation-for="Sufflix" class="text-danger"></span>
+    </div>
+
+    </form>
+    </div>
+    </div>
+
+    <div>
+    <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+    *@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*
+    <div class="col-md-12">
+    <div class="card mb-4">
+    <h5 class="card-header">Profile Details</h5>
+    <!-- Account -->
+    <hr class="my-0">
+    <div class="card-body">
+    <form id="formAccountSettings" method="POST" onsubmit="return false">
+    <div class="row">
+    <div class="mb-3 col-md-6">
+    <label class="form-label">@Html.DisplayNameFor(model => model.FirstName) </label>
+    @Html.TextBox("", Model.FirstName)
+    @*<label class="form-control" />@Html.DisplayFor(model => model.FirstName)*@
+    @*  </div>
+    <div class="mb-3 col-md-6">
+    <label class="form-label">@Html.DisplayNameFor(model => model.MiddleName)</label>
+    <label class="form-control" />@Html.DisplayFor(model => model.MiddleName)
+    </div>
+    <div class="mb-3 col-md-6">
+    <label class="form-label">@Html.DisplayNameFor(model => model.LastName)</label>
+    <label class="form-control" />@Html.DisplayFor(model => model.LastName)
+    </div>
+    <div class="mb-3 col-md-6">
+    <label class="form-label">@Html.DisplayNameFor(model => model.Sufflix)</label>
+    <label class="form-control" />@Html.DisplayFor(model => model.Sufflix)
+    </div>
+    <div class="mb-3 col-md-6">
+    <label class="form-label">@Html.DisplayNameFor(model => model.EmailAddresses)</label>
+    <label class="form-control" />@Html.DisplayFor(model => model.EmailAddresses)
+    </div>
+    <div class="mb-3 col-md-6">
+    <label class="form-label">@Html.DisplayNameFor(model => model.PhoneNumbers)</label>
+    <label class="form-control" />@Html.DisplayFor(model => model.PhoneNumbers)
+    </div>
+    <div class="mb-3 col-md-6">
+    <label class="form-label">@Html.DisplayNameFor(model => model.address)</label>
+    <label class="form-control" />@Html.DisplayFor(model => model.address)
+    </div>
+    </div>
+    </form>
+    </div>
+
+    <div class="mt-2">
+    <button type="reset" class="btn btn-outline-secondary">
+    <a asp-action="Edit" asp-route-id="@Model.BusinessEntity">Edit</a>
+    </button>
+    <button type="reset" class="btn btn-outline-secondary">
+    <a asp-action="Index">Back to List</a>
+    </button>
+    </div>*@

@@ -1,0 +1,54 @@
+@model AWork.Contracts.Dto.Sales.CreditCard.CreditCardDto
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>
+    <box-icon name='credit-card' animation='tada'> Delete Credit Card</box-icon>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAAVdJREFUaEPtmusNwjAMhK+TARswAhswAjAJIyA2gMlAlqiA1q3iug8nvfzhT0Lv/NlWH66wslWtzC9ouHTiJEzChUWAKV0Y0JYdEm6EZA/gCGCbCfkHgAsA+VVXH+ErgEMmRpsyxfRZ095lWMjeMjVby95ppLsMS0psMjf81Eqxy/Arc7O1/JY/i+HoHV2DRMMk/En+pPQIVudJmkm4h3AwoElyXE0r6QrBNtGwpYaDwUuSQ8IkzC6dVCphN7GGWcO8l/6WJ5+Hg7UqPi0B7c/BlqbFlAbgedk3dgBnSWkaNjQyEjYES9vKlGaX1iLAW0veWjpby3THZ2la08m3//Pohu0Slj+R/MajhA/idwAyyfC3OPLwEw4ZCjktn5WDFJiHWuqryLiSGM9l3kPmOkTvoLGlQaGNfmjsJ5bofjkRH56QVyBT2hvB6OdJODohrz4S9kYw+vk32MpLPfcTyNwAAAAASUVORK5CYII=" />
+</h1>
+
+<h3>Are you sure you want to delete this? :( </h3>
+<div>
+    
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CardType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CardType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CardNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CardNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ExpMonth)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ExpMonth)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ExpYear)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ExpYear)
+        </dd>
+       @* <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ModifiedDate)
+        </dd>*@
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CreditCardId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

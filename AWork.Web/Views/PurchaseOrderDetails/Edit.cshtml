@@ -1,0 +1,310 @@
+﻿@*@model AWork.Contracts.Dto.Purchasing.PurchaseOrderDetailsDto*@
+@model IEnumerable<AWork.Contracts.Dto.Purchasing.PurchaseOrderDetailsDto>
+
+@{
+	ViewData["Title"] = "Edit";
+}
+
+<h2 class="text-center">Cart Purchase Items Vendors</h2>
+
+@*@using(Html.BeginForm("EditPurchase", "PurchaseOrderDetails", FormMethod.Post, new))
+{
+}
+*@
+<div class="col-xxl">
+	<div class="card mb-4">
+		<div class="card-body">
+			<div class="row g-3">
+				<div class="text-align">@Html.DisplayNameFor(model=>model.PurchaseOrderId) : @Html.DisplayFor(model=>model.FirstOrDefault().PurchaseOrderId)</div>
+				<div class="text-align">@Html.DisplayNameFor(model=>model.PurchaseOrder.OrderDate) : @Html.DisplayFor(model=>model.FirstOrDefault().PurchaseOrder.OrderDate)</div>
+				<div class="text-align">@Html.DisplayNameFor(model=>model.PurchaseOrder.Vendor.AccountNumber) : @Html.DisplayFor(model=>model.FirstOrDefault().PurchaseOrder.Vendor.AccountNumber)</div>
+				<div class="text-align">@Html.DisplayNameFor(model=>model.PurchaseOrder.Vendor.Name) : @Html.DisplayFor(model=>model.FirstOrDefault().PurchaseOrder.Vendor.Name)</div>
+				@*<div class="text-align">@Html.DisplayNameFor(model=>model.PurchaseOrderId) : @Html.DisplayFor(model=>model.PurchaseOrderId)</div>
+				<div class="text-align">@Html.DisplayNameFor(model=>model.PurchaseOrder.OrderDate) : @Html.DisplayFor(model=>model.PurchaseOrder.OrderDate)</div>
+				<div class="text-align">@Html.DisplayNameFor(model=>model.PurchaseOrder.Vendor.AccountNumber) : @Html.DisplayFor(model=>model.PurchaseOrder.Vendor.AccountNumber)</div>
+				<div class="text-align">@Html.DisplayNameFor(model=>model.PurchaseOrder.Vendor.Name) : @Html.DisplayFor(model=>model.PurchaseOrder.Vendor.Name)</div>*@
+			</div>
+		</div>
+		<hr class="accordion-flush"/>
+		<div class="card-body">
+			<div class="row g-3">
+
+				<form asp-action="Edit">
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+					<div class="card mb-4">
+						<div class="card-body">
+							<div class="row g-3">
+
+						@foreach (var item in Model)
+							   {
+									<input type="hidden" asp-for="@item.PurchaseOrderId" />
+									<input type="hidden" asp-for="@item.PurchaseOrderDetailId" />
+									<input type="hidden" asp-for="@item.Product" />
+									<input type="hidden" asp-for="@item.ProductId" />
+									<input type="hidden" asp-for="@item.Product.ProductId" />
+									<input type="hidden" asp-for="@item.PurchaseOrder.ShipMethod" />
+									<input type="hidden" asp-for="@item.PurchaseOrder.Vendor" />
+									<input type="hidden" asp-for="@item.PurchaseOrder.Employee" />
+									<input type="hidden" asp-for="@item.PurchaseOrder.Vendor.BusinessEntity" />
+									<input type="hidden" asp-for="@item.PurchaseOrder.ShipMethodId" />
+									<input type="hidden" asp-for="@item.PurchaseOrder.ShipMethod.ShipMethodId" />
+									<input type="hidden" asp-for="@item.DueDate" class="form-control" />
+									<input type="hidden" asp-for="@item.ModifiedDate" class="form-control" />
+									<div class="col md-4">
+										<label class="col-form-label">PRODUCT NAME</label>
+										<div class="col-sm-6">
+											<div class="input-group input-group-merge" style="width : 200px">
+												<input asp-for="@item.Product.Name" class="form-control" readonly></input>
+											</div>
+										</div>
+									</div>
+									<div class="col md-4">
+										<label class="col-form-label">ORDER QTY</label>
+										<div class="col-sm-6">
+											<div class="input-group input-group-merge" style="width : 200px">
+												<input asp-for="@item.OrderQty" class="form-control order-qty" />
+											</div>
+										</div>
+									</div>
+									<div class="col md-4">
+										<label class="col-form-label" for="basic-icon-default-fullname">UNIT PRICE</label>
+										<div class="col-sm-6">
+											<div class="input-group input-group-merge" style="width : 200px">
+												<input asp-for="@item.UnitPrice" class="form-control unit-price" readonly />
+											</div>
+										</div>
+									</div>
+									<div class="col md-4">
+										<label class="col-form-label" for="basic-icon-default-fullname">LINE TOTAL</label>
+										<div class="col-sm-6">
+											<div class="input-group input-group-merge" style="width : 200px">
+												<input asp-for="@item.LineTotal" class="form-control line-total" readonly />
+											</div>
+										</div>
+									</div>
+									<div style="display : flex">
+									</div>
+						}
+					@*<input type="hidden" asp-for="PurchaseOrderId" />
+					<input type="hidden" asp-for="PurchaseOrderDetailId" />
+					<input type="hidden" asp-for="Product" />
+					<input type="hidden" asp-for="ProductId" />
+					<input type="hidden" asp-for="Product.ProductId" />
+					<input type="hidden" asp-for="PurchaseOrder.ShipMethod"/>
+					<input type="hidden" asp-for="PurchaseOrder.Vendor" />
+					<input type="hidden" asp-for="PurchaseOrder.Employee" />
+					<input type="hidden" asp-for="PurchaseOrder.Vendor.BusinessEntity" />
+					<input type="hidden" asp-for="PurchaseOrder.ShipMethodId" />
+					<input type="hidden" asp-for="PurchaseOrder.ShipMethod.ShipMethodId" />
+
+					
+						<div class="card-body">
+							<input type="hidden" asp-for="DueDate" class="form-control" />
+							<input type="hidden" asp-for="ModifiedDate" class="form-control" />
+							<div class="row g-3">
+							<div class="col md-6">
+								<label class="col-form-label">PRODUCT NAME</label>
+								<div class="col-sm-10">
+									<div class="input-group input-group-merge">
+										<input asp-for="Product.Name" class="form-control" readonly></input>
+									</div>
+								</div>
+							</div>
+							<div class="col md-6">
+								<label class="col-form-label">ORDER QTY</label>
+								<div class="col-sm-10">
+									<div class="input-group input-group-merge">
+										<input asp-for="OrderQty" class="form-control order-qty" />
+									</div>
+								</div>
+							</div>
+							<div class="col md-6">
+								<label class="col-form-label" for="basic-icon-default-fullname">UNIT PRICE</label>
+								<div class="col-sm-10">
+									<div class="input-group input-group-merge">
+										<input asp-for="UnitPrice" class="form-control unit-price" readonly />
+									</div>
+								</div>
+							</div>
+							<div class="col md-6">
+								<label class="col-form-label" for="basic-icon-default-fullname">LINE TOTAL</label>
+								<div class="col-sm-10">
+									<div class="input-group input-group-merge">
+										<input asp-for="LineTotal" class="form-control line-total" readonly />
+									</div>
+								</div>
+							</div>*@
+							</div>
+						</div>
+						<div class="card-body">
+							<span>
+								@Html.DisplayNameFor(model=>model.PurchaseOrder.SubTotal) : @Html.DisplayFor(model=>model.FirstOrDefault().PurchaseOrder.SubTotal)
+							</span>
+							<br />
+							<br />
+							<span>
+								@Html.DisplayNameFor(model=>model.PurchaseOrder.TaxAmt) : @Html.DisplayFor(model=>model.FirstOrDefault().PurchaseOrder.TaxAmt)
+							</span>
+							<br />
+							<br />
+							<span>
+								@Html.DisplayNameFor(model=>model.PurchaseOrder.Freight) : @Html.DisplayFor(model=>model.FirstOrDefault().PurchaseOrder.Freight)
+							</span>
+							<br />
+							<br />
+							<span>
+								@Html.DisplayNameFor(model=>model.PurchaseOrder.TotalDue) : @Html.DisplayFor(model=>model.FirstOrDefault().PurchaseOrder.TotalDue)
+							</span>
+							@*<span>
+								@Html.DisplayNameFor(model=>model.PurchaseOrder.SubTotal) : @Html.DisplayFor(model=>model.PurchaseOrder.SubTotal)
+							</span>
+							<br />
+							<br />
+							<span>
+								@Html.DisplayNameFor(model=>model.PurchaseOrder.TaxAmt) : @Html.DisplayFor(model=>model.PurchaseOrder.TaxAmt)
+							</span>
+							<br />
+							<br />
+							<span>
+								@Html.DisplayNameFor(model=>model.PurchaseOrder.Freight) : @Html.DisplayFor(model=>model.PurchaseOrder.Freight)
+							</span>
+							<br />
+							<br />
+							<span>
+								@Html.DisplayNameFor(model=>model.PurchaseOrder.TotalDue) : @Html.DisplayFor(model=>model.PurchaseOrder.TotalDue)
+							</span>*@
+						</div>
+					</div>
+					<div class="card mb-4">
+						<div class="card-body">
+							<div class="card-body">
+								<div class="row g-3">
+									<div class="col mb-2">
+										<label for="basic-icon-default-fullname">SHIPMETHOD NAME</label>
+										<div class="col-sm-10">
+											<div class="input-group input-group-merge">
+												<select asp-for="FirstOrDefault().PurchaseOrder.ShipMethodId" id="name" class="form-control" asp-items="ViewBag.ShipMethodId"></select>
+											</div>
+										</div>
+									</div>
+									<div class="col md-4">
+										<label for="basic-icon-default-fullname">SHIP BASE</label>
+										<div class="col-sm-10">
+											<div class="input-group input-group-merge">
+												<input asp-for="FirstOrDefault().PurchaseOrder.ShipMethod.ShipBase" id="base" class="form-control" readonly />
+											</div>
+										</div>
+									</div>
+									<div class="col md-4">
+										<label for="basic-icon-default-fullname">SHIP RATE</label>
+										<div class="col-sm-10">
+											<div class="input-group input-group-merge">
+												<input asp-for="FirstOrDefault().PurchaseOrder.ShipMethod.ShipRate" id="rate" class="form-control" readonly />
+											</div>
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="basic-icon-default-fullname">SHIP DATE</label>
+										<div class="col-sm-10">
+											<div class="input-group input-group-merge">
+												<input asp-for="FirstOrDefault().PurchaseOrder.ShipDate" class="form-control" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					@*<div class="card mb-4">
+					<div class="card-body">
+						<div class="card-body">
+							<div class="row g-3">
+							<div class="col mb-2">
+								<label for="basic-icon-default-fullname">SHIPMETHOD NAME</label>
+								<div class="col-sm-10">
+									<div class="input-group input-group-merge">
+										<select asp-for="PurchaseOrder.ShipMethodId" id="name" class="form-control" asp-items="ViewBag.ShipMethodId"></select>
+									</div>
+								</div>
+							</div>
+							<div class="col md-4">
+								<label for="basic-icon-default-fullname">SHIP BASE</label>
+								<div class="col-sm-10">
+									<div class="input-group input-group-merge">
+										<input asp-for="PurchaseOrder.ShipMethod.ShipBase" id="base" class="form-control" readonly />
+									</div>
+								</div>
+							</div>
+								<div class="col md-4">
+								<label for="basic-icon-default-fullname">SHIP RATE</label>
+								<div class="col-sm-10">
+									<div class="input-group input-group-merge">
+										<input asp-for="PurchaseOrder.ShipMethod.ShipRate" id="rate" class="form-control" readonly />
+									</div>
+								</div>
+							</div>
+								<div class="row mb-3">
+								<label for="basic-icon-default-fullname">SHIP DATE</label>
+								<div class="col-sm-5">
+									<div class="input-group input-group-merge">
+										<input asp-for="PurchaseOrder.ShipDate" class="form-control" />
+									</div>
+								</div>
+							</div>
+						</div>
+							</div>
+						</div>
+					</div>*@
+					<div class="form-group">
+						<input type="submit" value="Approve" class="btn btn-primary" />  <input type="submit" value="Rejected" class="btn btn-danger" />  <input type="submit" value="Ship" class="btn btn-primary" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div>
+		<a asp-action="Index">Back to List</a>
+	</div>
+	<script type="text/javascript">
+		$('.order-qty, .unit-price').on('blur', function(e)
+		{ var row = $(this).closest('diiv');
+		var order = $('.order-qty', row),
+		price = $('.unit-price', row),
+		total = $('.line-total', row);
+		orders= parseFloat(order.val());
+		prices= parseFloat(price.val());
+		if (!isNaN(orders) && !isNan(prices)){
+			total.text((orders * prices).toFixed(2));
+		}
+		});
+
+
+		$('#name').onchange( ()=>
+		{
+			//e.preventDefault()
+
+			$.ajax({
+				type: "GET",
+				url: "/PurchaseOrderDetails/GetShipMethod/?ShipMethodID=" + $("#name").val(),
+				success : function(result)
+				{
+					console.log(result)
+					for(let i=0;i<result.length;i++)
+					{
+						$("#rate").val(result[i].rate)
+						$("#base").val(result[i].base)
+					}
+				},
+				error : function(result)
+				{
+					console.log('failed to fecth data')
+				}
+			})
+		})
+	</script>
+
+
+	@section Scripts {
+		@{
+			await Html.RenderPartialAsync("_ValidationScriptsPartial");
+		}
+	}

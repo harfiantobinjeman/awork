@@ -1,0 +1,81 @@
+﻿@model AWork.Domain.Models.WorkOrder
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>WorkOrder</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div style="display:flex;margin-bottom:15px">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="ProductId" class="control-label"></label>
+                    <input value="@ViewBag.Id" class="form-control" readonly />
+                </div>
+            </div>
+            <div style="display:flex;margin-bottom:15px">
+                <div class="form-group" style="margin-right:20px">
+                    <label asp-for="StockedQty" class="control-label"></label>
+                    <input asp-for="StockedQty" class="form-control" />
+                    <span asp-validation-for="StockedQty" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="margin-right:20px">
+                    <label asp-for="OrderQty" class="control-label"></label>
+                    <input asp-for="OrderQty" class="form-control" />
+                    <span asp-validation-for="OrderQty" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ScrappedQty" class="control-label"></label>
+                    <input asp-for="ScrappedQty" class="form-control" />
+                    <span asp-validation-for="ScrappedQty" class="text-danger"></span>
+                </div>
+            </div>
+            <div style="display:flex;margin-bottom:15px">
+                <div class="form-group" style="margin-right:20px">
+                    <label asp-for="StartDate" class="control-label"></label>
+                    <input asp-for="StartDate" class="form-control" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="margin-right:20px">
+                    <label asp-for="EndDate" class="control-label"></label>
+                    <input asp-for="EndDate" class="form-control" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DueDate" class="control-label"></label>
+                    <input asp-for="DueDate" class="form-control" />
+                    <span asp-validation-for="DueDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div style="display:flex;margin-bottom:15px">
+                <div class="form-group">
+                    <label asp-for="ScrapReasonId" class="control-label"></label>
+                    @Html.DropDownList("ScrapReasonId",ViewBag.ScrapReasonId, String.Empty, new {@class="form-control"})
+                    @*<select asp-for="ScrapReasonId" class ="form-control" asp-items="ViewBag.ScrapReasonId"></select>*@
+                    <span asp-validation-for="ScrapReasonId" class="text-danger"></span>
+                </div>
+            </div>
+            <div style="display:flex;margin-bottom:15px">
+                <div class="form-group" style="margin-right:20px">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+                <div>
+                    <button type="button" class="btn btn-outline-warning float-right">
+                        <a asp-action="Index" asp-route-id="@ViewBag.Id" style="color:black">Back to List</a>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

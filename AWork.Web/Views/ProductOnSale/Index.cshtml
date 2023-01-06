@@ -1,0 +1,71 @@
+﻿@model X.PagedList.IPagedList<AWork.Contracts.Dto.Sales.ShoppingCartItem.ProductOnSaleDto>
+
+@using X.PagedList.Mvc.Core
+<link href="~/css/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>
+    <box-icon name='shopify' type='logo'>Product On Sale </box-icon>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAABIdJREFUaEPtmoGRjTEQx/9XASpABagAFaACVIAKUAEqQAWoABWgAlSACpifyc7kIslmc/meN3dvZ97cufcl3/52N7ubxJHOmBydMV4dgE+7xw8ePnj4lFlg1yF9XdJ5SV8kffsfttwFMIAPJD1MsMbJv1/sGnpr4EuS3ki6Kum1pLcJ+mUG+kHSU0n83Fy2BMazX6W/tf6GpM+S7kl6lqB/SfqZPlck3UkG2RR6S+BPybPXEixe5m+AYgBC+m4yCJ5nfV9OBtgMeitgPEnYPpL0PGmPty9k3gYYb99MCYzvCe0nm9Em666e30L5e/Iw89cMgJffJ2DWL95nzRPmGOqWpPurldvCw+a5fE0CQ7hiDBMDBpZwz7/D048lvVoNvQWwJSq8hQDyI5UgwhXP3U6flgMNmO+B5kPEnLh2rwa2xJSvXQtnlDUjeJGaA5fPfkx5wJuj+v1qYDxIKBLOlBo8iRGigsFIaC2Z1nt6YEUTQpWMPOrFnhHI3CS0lpDtSW5hOSlwvh7zpBNWpBhAhNChtQSDTHVms8BWelZC5nC9NcxzeY4IGXcW2EpK6GWBhz3g6QZlFthqbYAh9KgHPJ2pZ4EtG3sUKEafzHpj82BCYiNKmOdiMQn1lrpLtm8Jc9Gjh2UWGACa/ZawQaAk9RKLNSTlHBiJcT1gxkzpPjUoKdQCxkN4z+uKWssCYMayk+oJrar3jn/GzwL/bmhiW788fFtK2/ax5mH+1osgvp8qTauBR7Mna5ieuyZ4eAR49F3H3jED3CtJZZixTmkgGIPQHbE++UmPfRJgzsNYFiGZASYZ1bogTiLLvplWkwO8iADCPF5IT5WmGeBWSaopMFq+coMQqkSEB0zCIqJCMgPc8loNmJC286pRxQAmKkba1rD+4QGdktRrBiKe9rqs3HB2QDhqzKni3SonvLRXG0lSRMc5R7sIcLg0zXi4VYPhIAOjREtGNh0R4HBpigL36qdBegdvXnh7m//cmNxmtMpb1ehR4BEPmafZxNdOJUhGZNhWaEeAw6UpCmwHciNJgiSG8jXo3ubDO8/K383cHPcMSxTYC8fyxa2TCUoVx0M1iaxhxocYQg+nfWptF9NqFlpJpefhKHAoU0eBW4paObJLMrzHNpE2tLZz6pW2SEjj4dCtYxSYG4SyAwIscjTb2vhbeEeSFmNCpSkKXKvB0V2LlweiwO+ca5tjeSICbNcoZaIhZAmrkdOH1hz5nNE1HCpNEeBeDaY80Dbi7daNAMmOZ7xNQRQ4lKkjwCNHs7bBx+t8gGN9R+6YZoCHr14iwN7aGy7+nQc5RKBGeyeW5RTDpSkKjKe4FdxKRo9oy/fzPwXo4V2JAOeTsZ5JQITryHGMq0h6AGCWQvRYaLg0zQLXAHIDmEG8vW85z+iJpY2jB8BALINNPTzqMZIWhjAD8Ht5tZLP5QFbBNjVzUgpnK7Do5Ajz+UGYFnYgV0OTAKzbF/eTY28o/rMypCeViINxPuUNdsvT93we0rsE7Cn65LvD8BLzLjHkxw8vMfOWaLawcNLzLjHk/wBlbb0Pf4KgaQAAAAASUVORK5CYII=" />
+</h1>
+
+@using (Html.BeginForm("Index", "ProductOnSale", FormMethod.Get))
+{
+    <div class="input-group mb-1">
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new{@class="form-control", @placeholder="Loking For?"})
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+    </div>
+}
+
+@foreach (var item in Model)
+{
+    <div class="col-md-6 col-lg-4">
+        <a asp-action="Details" asp-route-id="@item.product.ProductId">
+            <div class="card mb-4">
+                <img class="card-img-top" src="@Url.Content("~/Resources/images/" + item.product.ProductProductPhotos.FirstOrDefault().ProductPhoto.ThumbnailPhotoFileName)" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">
+                        <center><b>@Html.DisplayFor(modelItem => item.product.Name)</b></center>
+                    </p>
+                    <p class="card-text">
+                        @Html.LabelFor(modelItem => item.product.ProductId, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem => item.product.ProductId)
+                        <br>
+                        @Html.LabelFor(modelItem => item.product.SafetyStockLevel, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem => item.product.SafetyStockLevel)
+                        <br>
+                        @Html.LabelFor(modelItem => item.product.ListPrice, htmlAttributes : new{@class="form-label"}) :
+                        @Html.DisplayFor(modelItem => item.product.ListPrice)
+
+                        <br> <br>
+                        @*<button type="submit" class="btn btn-primary">
+                            <box-icon type='solid' name='cart-add'> Detail</box-icon>
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAAAXNSR0IArs4c6QAAAgdJREFUWEftlzsvREEYhp/1B1waOhKFQoFSxQ+QIJGIKNCKglKFX4BConJpNBoKNTodEhGFBIkIGvwC8srMZs7ZOXvmnL1ki51kk82c7/Kc7/vmnd0CDbIKDcJBEyTeCbcig8CmY/AMXACH9WifCzIKnHuSLgAHtYYJAfkG2usJEs91AoybzZpXpdypcVt1AwzVsippx1cD220ABCKgmqw0kOXYSaomRKTKaSBtgKrSWk0CJ1YxfxqIfHR05wJAXgy0TKVJafC3xu4/dAiIgl4HgGwA68ZOQjiS4rMCbFmbEBDZhgTOCiJtkkYFV0SG88C+5w0vDaSFFbC17zHf1zx+p8CEux9aEfmIPt53twpJnfj1PJgEJJjFlQVE/Y+/XR6QH0CnMbKygKjUTzF/tcK2w22TWmmF0A6wdd0GpE+5QeTo3j/xWKHD6lXoLBVR4qSfCnoWAhLRjrwzYv3c+8eNpX19tKQ9JXMARLSjUpBK7p+IdlQKojfVgA4kndeEfe+QWtusM5Ixd7h5XpAucxFKE3bLpOsFpoF3YK8cVl6QB6DPBD4CZj1JOoB7oNM82wGWkmDygOhWtSKmuJLwFk+CKeDY2f90oErM84CoLW/OT4grYNgD0g/cOftnwFg1K6JYCrgIfJn75zEhwQygfwCvwCrwUW2Q8OMQaJmnNYGhs5k1QeL1+gMxwVYjk9JcAwAAAABJRU5ErkJggg==" />
+
+                        </button>*@
+                    </p>
+                </div>
+            </div>
+        </a>
+    </div>
+}
+
+
+<div>
+    Page Size : @Html.DropDownList("PageSize",
+    ViewBag.PageSize as SelectList,
+    new{
+    @placeholder="Page Size",
+    @onchange="getPagedSize(this.value)"
+    }
+    )
+</div>
+@Html.PagedListPager(Model, page => Url.Action("Index", new{page, PageSize = ViewBag.psize, currentFilter = ViewBag.CurrentFilter, sortOrder = ViewBag.CurrentSort}))
+
+<script>
+    function getPagedSize(value) {
+        document.location.href = "/ProductOnSale?&PageSize=" + value + "&currentFilter=@ViewBag.CurrentFilter&sortOrder=@ViewBag.CurrentSort";
+    }
+</script>

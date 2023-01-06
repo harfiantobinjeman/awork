@@ -1,0 +1,89 @@
+﻿@model AWork.Contracts.Dto.Sales.Store.StoreForCreateDto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@using (Html.BeginForm("CreateStore","Stores",FormMethod.Post))
+{
+    <div class="container p-3 my-3">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center mb-3">ADD NEW STORE</h3>
+            </div>
+            <div class="card-body">
+                <form class="row g-3">
+                    @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col-md-11">
+                        <div class="form-group">
+                            <label asp-for="BusinessEntityId" class="control-label">Store ID</label>
+                            <select asp-for="BusinessEntityId" class="form-control" asp-items="ViewBag.BusinessEntityId"></select>
+                        </div>
+                    </div>
+                    <br>*@
+                    <div class="row g-3">
+                        <div class="col-md-11">
+                            <label asp-for="Name" class="control-label">Store Name</label>
+                            <input asp-for="Name" class="form-control"/>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <br>
+                    </div>
+                    @*<div class="col-md-11">
+                        <div class="form-group">
+                            <label asp-for="SalesPersonId" class="control-label"></label>
+                            <select asp-for="SalesPersonId" class="form-control" asp-items="ViewBag.SalesPersonId"></select>
+                        </div>
+                    </div>*@
+
+                </form>
+                <br />
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a asp-action="Index">
+                    <input type="button" class="btn btn-secondary" value="Back" />
+                </a>
+            </div>
+        </div>
+    </div>
+}
+
+@*<h1>Create</h1>
+
+<h4>Store</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BusinessEntityId" class="control-label"></label>
+                <select asp-for="BusinessEntityId" class ="form-control" asp-items="ViewBag.BusinessEntityId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SalesPersonId" class="control-label"></label>
+                <select asp-for="SalesPersonId" class ="form-control" asp-items="ViewBag.SalesPersonId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Demographics" class="control-label"></label>
+                <input asp-for="Demographics" class="form-control" />
+                <span asp-validation-for="Demographics" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

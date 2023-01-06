@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<RootNamespace>AWork.Persistence</RootNamespace>
+		<AssemblyName>AWork.Persistence</AssemblyName>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Repositories\Production\WorkOrderRepository.cs~RF2876548b.TMP" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AWork.Contracts\AWork.Contracts.csproj" />
+		<ProjectReference Include="..\AWork.Domain\AWork.Domain.csproj" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Repositories\Production\" />
+    <Folder Include="Repositories\Sales\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AWork.Domain\AWork.Domain.csproj" />
+  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Repositories\HumanResource\" />
+		<Folder Include="Repositories\Production\" />
+		<Folder Include="Repositories\Purchasing\" />
+		<Folder Include="Repositories\Sales\" />
+	</ItemGroup>
+</Project>

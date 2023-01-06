@@ -1,0 +1,51 @@
+﻿@model AWork.Contracts.Dto.Production.ProductCategoryDto
+
+@{
+    ViewData["Title"] = "Detail";
+}
+<link rel="stylesheet" href="assets/vendor/fonts/boxicons.css" />
+<h5>Details</h5>
+@using (Html.BeginForm("Details", "ProductCategoriesService", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(Model=>Model.ProductCategoryId)
+    <h4>ProductCategory</h4>
+    <div>
+        <table asp-action="Create" class="table">
+            <form enctype="multipart/form-data" asp-action="Create">
+
+                <div class="form-group">
+                    <div asp-validation-summar="ModelOnly" class="text-danger"></div>
+
+
+
+                    <table class="table">
+                        <tr>
+                            <th>Category</th>
+                            <th>SubCategory</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(y=>y.Name,new{htmlAttributes =new {@class ="form-control",placeholder="New Category Name",@readonly="readonly"}})
+                            </td>
+                             <td>
+                            @for (int i = 0; i < Model.ProductSubcategories.Count; i++)
+                            {
+                                    @* @Html.EditorFor(x=>x.SubCategoryDtos[i].Name, new{htmlAttributes =new {@class ="form-control",placeholder="Subcategory Name",size="50"} })*@
+                                    @Html.EditorFor(x=>x.ProductSubCategoryDto[i].Name, new{htmlAttributes =new {@class ="form-control",placeholder="Subcategory Name",@readonly="readonly"} })
+                                
+                            }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div>
+                    <a asp-action="Edit" asp-route-id="@Model.ProductCategoryId">Edit</a> |
+                    <a asp-action="Index">Back to List</a>
+                </div>
+            </form>
+        </table>
+        <input type="hidden" id="hdnLastIndex" value="0" />
+    </div>
+}

@@ -1,0 +1,157 @@
+﻿@model AWork.Contracts.Dto.Sales.SalesCustomer.CustomerDto
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="text-center mb-3">Customer Details</h3>
+    </div>
+    <div class="card-body row g-3">
+        <form class="row g-3">
+            <div class="col-md-11">
+                <div class="col-md-11">
+                    <label for="inputPassword4" class="form-label">Account Number</label>
+                    <div class="input-group input-group-merge">
+                        @Html.TextBoxFor(model => model.AccountNumber,
+                        new{@class="form-control", @readonly="readonly"})
+                    </div>
+                </div>
+                @*<div class="col-md-5">
+                <label for="inputPassword4" class="form-label">business entity ID</label>
+                <div class="input-group input-group-merge">
+                @Html.TextBoxFor(Model => Model.Person.BusinessEntityId,
+                new{@class="form-control", @readonly="readonly"})
+                </div>
+                </div>*@
+            </div>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label for="inputPassword4" class="form-label">Full Name</label>
+                    <div class="input-group input-group-merge">
+                        @Html.TextBoxFor(Model => Model.Person.FirstName,Model.Person.FirstName +" "+ Model.Person.MiddleName+" "+Model.Person.LastName,
+                        new{@class="form-control", @readonly="readonly"})
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputPassword4" class="form-label">MiddleName</label>
+                    <div class="input-group input-group-merge">
+                        @Html.TextBoxFor(Model => Model.Person.MiddleName,
+                        new{@class="form-control", @readonly="readonly"})
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="inputPassword4" class="form-label">LastName</label>
+                    <div class="input-group input-group-merge">
+                        @Html.TextBoxFor(Model => Model.Person.LastName,
+                        new{@class="form-control", @readonly="readonly"})
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <label for="inputPassword4" class="form-label">Title</label>
+                    <div class="input-group input-group-merge">
+                        @Html.TextBoxFor(Model => Model.Person.Suffix,
+                        new{@class="form-control", @readonly="readonly"})
+                    </div>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label for="inputAddress2" class="form-label">Name</label>
+                    <div class="input-group input-group-merge">
+                        @Html.TextBoxFor(Model => Model.Territory.Name,
+                        new{@class="form-control", @readonly="readonly"})
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="inputAddress2" class="form-label">Country Code</label>
+                    <div class="input-group input-group-merge">
+                        @Html.TextBoxFor(Model => Model.Territory.CountryRegionCode,
+                        new{@class="form-control", @readonly="readonly"})
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="inputZip" class="form-label">Group</label>
+                    <div class="input-group input-group-merge">
+                        @Html.TextBoxFor(Model => Model.Territory.Group,
+                        new{@class="form-control", @readonly="readonly"})
+                    </div>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-5">
+                    <label for="inputPassword4" class="form-label">Store Name</label>
+                    <div>
+                        @Html.TextBoxFor(Model => Model.Store.Name,
+                        new{@class="form-control", @readonly="readonly"})
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <label for="inputPassword4" class="form-label">Store ID</label>
+                    <div>
+                        @Html.TextBoxFor(Model => Model.StoreId,
+                        new{@class="form-control", @readonly="readonly"})
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row g-3">
+                <div class="col-md-2">
+                    <button asp-action="Edit" asp-route-id="@Model.CustomerId" class="btn btn-primary">
+                        Edit Data
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button asp-action="Index" class="btn btn-secondary" value="Back">
+                        Back
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@*<div>
+    <h4>Customer</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AccountNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Rowguid)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Rowguid)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ModifiedDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Person)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Person.FirstName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Store)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Store.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Territory)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Territory.CountryRegionCode)
+        </dd>
+    </dl>
+</div>*@

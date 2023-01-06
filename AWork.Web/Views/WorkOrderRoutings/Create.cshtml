@@ -1,0 +1,63 @@
+﻿@model AWork.Domain.Models.WorkOrderRouting
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>WorkOrderRouting</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div style="display:flex;margin-bottom:15px">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group" style="margin-right:20px">
+                    <label asp-for="WorkOrderId" class="control-label"></label>
+                    <input asp-for="WorkOrderId" value="@ViewBag.WorkOrderId" class="form-control" readonly />
+                    @*<input asp-for="ProductId" class="form-control" value="ViewBag.WorkOrderId" />*@
+                    <span asp-validation-for="ProductId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProductId" class="control-label"></label>
+                    <input asp-for="ProductId" value="@ViewBag.ProductId" class="form-control" readonly />
+                    @*<input asp-for="ProductId" class="form-control" value="ViewBag.ProductId" />*@
+                    <span asp-validation-for="ProductId" class="text-danger"></span>
+                </div>
+            </div>
+            <div style="display:flex;margin-bottom:15px">
+                <div class="form-group" style="margin-right:25px">
+                    <label asp-for="ScheduledStartDate" class="control-label"></label>
+                    <input asp-for="ScheduledStartDate" class="form-control" />
+                    <span asp-validation-for="ScheduledStartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="margin-right:25px">
+                    <label asp-for="ScheduledEndDate" class="control-label"></label>
+                    <input asp-for="ScheduledEndDate" class="form-control" />
+                    <span asp-validation-for="ScheduledEndDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div style="display:flex;margin-bottom:15px">
+                <div class="form-group" style="margin-right:20px">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+                <div>
+                    <button type="button" class="btn btn-outline-warning float-right">
+                        <a asp-controller="WorkOrders" asp-action="Index" asp-route-id="@ViewBag.ProductId" style="color:black">Back to List</a>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

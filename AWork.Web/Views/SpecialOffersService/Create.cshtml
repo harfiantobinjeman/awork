@@ -1,0 +1,197 @@
+﻿@model AWork.Contracts.Dto.Sales.SpecialOffer.SpecialOfferForCreateDto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div>
+    <form class="row g-3" method="post" asp-controller="SpecialOffersService" asp-action="Create">
+        <div class="card">
+            <div class="card-header">
+                <div class="row row-bordered g0">
+                    <h3 class="mb-3" style="text-align: center">Create Special Offers</h3>
+                    @*<form class="row g-3" method="post" asp-controller="SpecialOffersService" asp-action="Create">*@
+                    @Html.ValidationSummary(true,"",new{@class="text-danger"})
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new{@class ="form-label"})
+                            @Html.TextBox("Description",string.Empty,new{@placeholder="Description", @class="form-control"})
+                            @Html.ValidationMessage("Description", new{@class="text-danger"})
+                        </div>
+                        <div class="col-6 col-sm-6">
+                            @Html.LabelFor(model => model.Category, htmlAttributes: new{@class ="form-label"})
+                            @Html.DropDownListFor(model => model.Category, new List<SelectListItem>
+                            {
+                            new SelectListItem{ Text="Reseller", Value = "Reseller" },
+                            new SelectListItem{ Text="Customer", Value = "Customer" }},
+                            "Select Category", htmlAttributes: new { @class = "form-control" })
+
+                        </div>
+                        <div class="col-6 col-sm-6">
+                            @Html.LabelFor(model => model.Type, htmlAttributes: new{@class ="form-label"})
+                            @Html.DropDownListFor(model => model.Type, new List<SelectListItem>
+                            {
+                            new SelectListItem{ Text="Discontinued Product", Value = "Discontinued Product" },
+                            new SelectListItem{ Text="Excess Inventory", Value = "Excess Inventory" },
+                            new SelectListItem{ Text="New Product", Value = "New Product" },
+                            new SelectListItem{ Text="No Discount", Value = "No Discount" },
+                            new SelectListItem{ Text="Seasonal Discount", Value = "Seasonal Discount" },
+                            new SelectListItem{ Text="Volume Discount", Value = "Volume Discount" }},
+                            "Select Type", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <label asp-for="DiscountPct" class="control-label"></label>
+                            <input type="Number" min="0" class="form-control" placeholder="Discount" />
+                            <span asp-validation-for="DiscountPct" class="text-danger"></span>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <label asp-for="MinQty" class="control-label"></label>
+                            <input asp-for="MinQty" min="0" class="form-control" />
+                            <span asp-validation-for="MinQty" class="text-danger"></span>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <label asp-for="MaxQty" class="control-label"></label>
+                            <input asp-for="MaxQty" min="0" class="form-control" />
+                            <span asp-validation-for="MaxQty" class="text-danger"></span>
+                        </div>
+                        <div class="col-6 col-sm-6">
+                            <label asp-for="StartDate" class="control-label"></label>
+                            <input asp-for="StartDate" class="form-control" />
+                            <span asp-validation-for="StartDate" class="text-danger"></span>
+                        </div>
+                        <div class="col-6 col-sm-6">
+                            <label asp-for="EndDate" class="control-label"></label>
+                            <input asp-for="EndDate" class="form-control" />
+                            <span asp-validation-for="EndDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @*</form>*@
+                </div>
+            </div>
+        </div>
+
+        <div class="btn float-end">
+
+            <div class="form-group">
+                <div class='container'>
+                    <button type="reset" class="btn btn-outline-danger">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon-fill" viewBox="0 0 16 16">
+                            <path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zm-6.106 4.5L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"></path>
+                        </svg>
+                        Reset
+                    </button>
+                    <button id="btnSave" class="btn btn-outline-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save-fill" viewBox="0 0 16 16">
+                            <path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v7.793L4.854 6.646a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l3.5-3.5a.5.5 0 0 0-.708-.708L8.5 9.293V1.5z"></path>
+                        </svg>
+                        Save
+                    </button>
+                    <button id="btnAdd" class="btn btn-outline-warning">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"></path>
+                        </svg>
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card">
+
+
+            <table id="myTable" class="table">
+                <thead>
+                <th>ProductId</th>
+                <th>Name</th>
+                <th>Stock</th>
+                </thead>
+                <tbody>
+                    <tr class="myrow">
+                        <td class="teritory">
+                            <input name="productIdRow" />
+                            <input type="button" value="..." id="lookupRow" class="myLookupRow">
+                        </td>
+                        <td class="name"><input name="nameRow" value="" /></td>
+                        <td class="name"><input name="stockRow" value="" /></td>
+                        <td> <button class="btnRemove">  Remove  </button> </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="output"></div>
+        </div>
+    </form>
+</div>
+
+
+
+
+@section Scripts {
+<script>
+    $(document).ready(function () {
+        $("#lookup").lookupbox({
+            title: 'Search Product',
+            url: '/SpecialOffersService/GetFilterProduct/?name=',
+            imgLoader: '<img src="../images/loader.gif">',
+            onItemSelected: function (data) {
+                console.log(data);
+
+                $('#Name').val(data.productId);
+                //$('input[name=name]').val(data.name);
+            },
+            tableHeader: ['ProductId', 'Name'],
+            colWidth: ['65px', null, '100px']
+        });
+
+    });
+
+
+
+    $(document).on('click', '#btnAdd', () => {
+        console.log('btnAdd onClick');
+        //$(this).find('tbody').append('<tr><td>hello</td></tr>')
+        $('#myTable > tbody').append(`<tr class="myrow">
+                <td class="teritory">
+                    <input name="productIdRow" />
+                    <input type="button" value="..." id="lookupRow" class="myLookupRow">
+                </td>
+                <td class="name"><input name="nameRow" value="" /></td>
+                <td class="name"><input name="stockRow" value="" /></td>
+                <td> <button class="btnRemove"> Remove  </button></td>
+            </tr>`);
+
+        
+    });
+
+     $(document).on('click', '.myLookupRow', function() {
+        console.log('show lookup');
+        var productId = $(this).closest("tr").find('input[name="productIdRow"]');
+        var name = $(this).closest("tr").find('input[name="nameRow"]');
+        var stock = $(this).closest("tr").find('input[name="stockRow"]');
+
+        console.log(productId);
+
+        $(this).lookupbox({
+            title: 'Search Product',
+            url: '/SpecialOffersService/GetFilterProduct/?name=',
+            imgLoader: '<img src="../images/loader.gif">',
+            onItemSelected: function (data) {
+                console.log(data);
+                console.log(data.productId);
+                $(productId).val(data.productId);
+                $(name).val(data.name);
+                $(stock).val(data.safetyStockLevel);
+
+            },
+            tableHeader: ['ProductId', 'Name'],
+            colWidth: ['65px', null, '100px']
+        });
+
+    });
+
+    $(document).on('click', '.btnRemove', function() {
+        $(this).closest('tr').remove();
+    });
+
+</script>
+}

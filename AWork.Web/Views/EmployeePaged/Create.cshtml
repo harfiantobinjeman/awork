@@ -1,0 +1,355 @@
+﻿@model AWork.Contracts.Dto.HumanResources.EmployeeGroupDto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<form class="row g-3" method="post" asp-controller="EmployeePaged" asp-action="Create">
+
+    <h2 class="text-center mb-3">CREATE EMPLOYEE</h2>
+
+    <div class="container p-3 my-3">
+
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center mb-3">Personal Info</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            @*<label class="form-label">Employee BusinessEntity</label>*@
+                            @*<div class="input-group input-group-merge">
+                            @Html.DropDownList("employeeForCreateDto.BusinessEntityId",ViewBag.BusinessEntityId,"--Choose Employee--",
+                            new{@class="form-control"})
+                            </div>*@
+                            @* <input asp-for="employeeForCreateDto.BusinessEntityId"  class="form-control" hide/>*@
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text">
+                                    <i class="fa">&#xf002;</i>
+                                </span>
+                                @*<input asp-for="employeeForCreateDto.BusinessEntityId" placeholder="Search Business Entity" class="form-control" id="lookup">*@
+                                <input placeholder="Search Business Entity" class="form-control" id="lookup" >
+                            </div>
+                            <input asp-for="employeeForCreateDto.BusinessEntityId" class="form-control" type="hidden" />
+                            <span asp-validation-for="employeeForCreateDto.BusinessEntityId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <p></p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input id="firstName" class="form-control" placeholder="First Name" readonly />
+                        </div>
+                        <div class="col-md-4">
+                            <input id="lastName" class="form-control" placeholder="Last Name" readonly />
+                        </div>
+                    </div>
+                    <p></p>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label asp-for="employeeForCreateDto.NationalIdnumber" class="control-label"></label>
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text">
+                                    <i class='fas'>&#xf518;</i>
+                                </span>
+                                <input asp-for="employeeForCreateDto.NationalIdnumber" class="form-control" />
+                            </div>
+                            <span asp-validation-for="employeeForCreateDto.NationalIdnumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label asp-for="employeeForCreateDto.BirthDate" class="control-label"></label>
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text">
+                                    <i class='fas'>&#xf073;</i>
+                                </span>
+                                <input asp-for="employeeForCreateDto.BirthDate" class="form-control" />
+                            </div>
+                            <span asp-validation-for="employeeForCreateDto.BirthDate" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-6">
+                            @Html.LabelFor(model => model.employeeForCreateDto.MaritalStatus, htmlAttributes: new{@class ="form-label"})
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text">
+                                    <i class='fas'>&#xf500;</i>
+                                </span>
+                                @Html.DropDownListFor(model => model.employeeForCreateDto.MaritalStatus, new List<SelectListItem>
+                                {
+                                new SelectListItem{ Text="Married", Value = "M" },
+                                new SelectListItem{ Text="Single", Value = "S" }},
+                                "Select your type", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group col-6">
+                            @Html.LabelFor(model => model.employeeForCreateDto.Gender, htmlAttributes: new{@class ="form-label"})
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text">
+                                    <i class='fas'>&#xf228;</i>
+                                </span>
+                                @Html.DropDownListFor(model => model.employeeForCreateDto.Gender, new List<SelectListItem>
+                                {
+                                new SelectListItem{ Text="Male", Value = "M" },
+                                new SelectListItem{ Text="Female", Value = "F" }},
+                                "Select your type", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center mb-3">Work Hour Info</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-4">
+                            <label asp-for="employeeForCreateDto.HireDate" class="control-label"></label>
+                            <input asp-for="employeeForCreateDto.HireDate" class="form-control" />
+                            <span asp-validation-for="employeeForCreateDto.HireDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-4">
+                            <label asp-for="employeeForCreateDto.VacationHours" class="control-label"></label>
+                            <input asp-for="employeeForCreateDto.VacationHours" class="form-control" />
+                            <span asp-validation-for="employeeForCreateDto.VacationHours" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-4">
+                            <label asp-for="employeeForCreateDto.SickLeaveHours" class="control-label"></label>
+                            <input asp-for="employeeForCreateDto.SickLeaveHours" class="form-control" />
+                            <span asp-validation-for="employeeForCreateDto.SickLeaveHours" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center mb-3">Salary Info</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-4">
+                            <label asp-for="employeePHForCreateDto.Rate" class="control-label"></label>
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text">
+                                    <i class='fas'>&#xf3d1;</i>
+                                </span>
+                                <input asp-for="employeePHForCreateDto.Rate" class="form-control" />
+                            </div>
+                            <span asp-validation-for="employeePHForCreateDto.Rate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-4">
+                            <label asp-for="employeePHForCreateDto.PayFrequency" class="control-label"></label>
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text">
+                                    <i class='fas'>&#xf4c0;</i>
+                                </span>
+                                <input asp-for="employeePHForCreateDto.PayFrequency" class="form-control" />
+                            </div>
+                            <span asp-validation-for="employeePHForCreateDto.PayFrequency" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center mb-3">Departement info</h4>
+                </div>
+                <div class="card-body">
+                    <div class="col-md-6">
+                        <label class="form-label">Employee JobTitle</label>
+                        <div class="input-group input-group-merge">
+                            @Html.DropDownList("employeeForCreateDto.JobTitle",ViewBag.JobTitle,"--Choose JobTitle--",
+                            new{@class="form-control"})
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Employee Departement</label>
+                        <div class="input-group input-group-merge">
+                            @Html.DropDownList("employeeDepartmentForCreateDto.DepartmentId",ViewBag.DepartementId,"--Choose Departement--",
+                            new{@class="form-control"})
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Employee Shift</label>
+                        <div class="input-group input-group-merge">
+                            @Html.DropDownList("employeeDepartmentForCreateDto.ShiftId",ViewBag.ShiftoId,"--Choose Shift--",
+                            new{@class="form-control"})
+                        </div>
+                    </div>
+
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a asp-action="Index">
+            <input type="button" class="btn btn-secondary" value="Back" />
+        </a>
+    </div>
+</form>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#lookup").lookupbox({
+                title: 'Search Business Enitity',
+                url: '/EmployeePaged/GetPersonByType/?name=',
+                imgLoader: '<img src="../images/loader.gif">',
+                onItemSelected: function (data) {
+                    console.log(data);
+                    $('#employeeForCreateDto_BusinessEntityId').val(data.businessEntityId);
+                    $('#firstName').val(data.firstName);
+                    $('#lastName').val(data.lastName);
+                    /*$('input[name=territoryDescription]').val(data.territoryDescription);
+                    $('input[name=regionId]').val(data.regionId);*/
+                },
+                tableHeader: ['BusinessEntityId', 'FirstName', 'LastName'],
+                colWidth: ['65px', null, '100px']
+            });
+
+            // $(this).closest('.teritory').find('#lookupRow').click();
+
+     
+    </script>
+
+
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
+
+
+
+    @*@model AWork.Contracts.Dto.HumanResources.EmployeeGroupDto
+
+    @{
+    ViewData["Title"] = "IndexAsync";
+    }
+
+    <h1>Create</h1>
+
+
+    <form class="row g-3" asp-action="Create">
+    <div class="col-md-8">
+    <label for="specificSizeSelect">Business Entity</label>
+    <select asp-for="employeeForCreateDto.BusinessEntityId" class="form-control" asp-items="ViewBag.BusinessEntityId">
+    </select>
+    </div>
+    <div class="col-6">
+    <label for="inputAddress" class="form-label">Full Name</label>
+    <input type="text" class="form-control" id="inputAddress" placeholder="full Name">
+    </div>
+    <div class="col-4">
+    <label for="inputAddress2" class="form-label">Suffix</label>
+    <input type="text" class="form-control" id="inputAddress2" placeholder="Suffix">
+    </div>
+
+    <div class="form-group col-6">
+    <label asp-for="employeeForCreateDto.NationalIdnumber" class="control-label"></label>
+    <input asp-for="employeeForCreateDto.NationalIdnumber" class="form-control" />
+    <span asp-validation-for="employeeForCreateDto.NationalIdnumber" class="text-danger"></span>
+    </div>
+    <div class="form-group col-6">
+    <label asp-for="employeeForCreateDto.BirthDate" class="control-label"></label>
+    <input asp-for="employeeForCreateDto.BirthDate" class="form-control" />
+    <span asp-validation-for="employeeForCreateDto.BirthDate" class="text-danger"></span>
+    </div>
+    <div class="form-group col-6">
+    @Html.LabelFor(model => model.employeeForCreateDto.MaritalStatus, htmlAttributes: new{@class ="form-label"})
+    @Html.DropDownListFor(model => model.employeeForCreateDto.MaritalStatus, new List<SelectListItem>
+    {
+    new SelectListItem{ Text="Married", Value = "M" },
+    new SelectListItem{ Text="Single", Value = "S" }},
+    "Select your type", htmlAttributes: new { @class = "form-control" })
+
+    </div>
+    <div class="form-group col-6">
+    @Html.LabelFor(model => model.employeeForCreateDto.Gender, htmlAttributes: new{@class ="form-label"})
+    @Html.DropDownListFor(model => model.employeeForCreateDto.Gender, new List<SelectListItem>
+    {
+    new SelectListItem{ Text="Male", Value = "M" },
+    new SelectListItem{ Text="Female", Value = "F" }},
+    "Select your type", htmlAttributes: new { @class = "form-control" })
+
+    </div>
+    <div class="form-group col-4">
+    <label asp-for="employeeForCreateDto.HireDate" class="control-label"></label>
+    <input asp-for="employeeForCreateDto.HireDate" class="form-control" />
+    <span asp-validation-for="employeeForCreateDto.HireDate" class="text-danger"></span>
+    </div>
+    <div class="form-group col-4">
+    <label asp-for="employeePHForCreateDto.Rate" class="control-label"></label>
+    <input asp-for="employeePHForCreateDto.Rate" class="form-control" />
+    <span asp-validation-for="employeePHForCreateDto.Rate" class="text-danger"></span>
+    </div>
+    <div class="form-group col-4">
+    <label asp-for="employeePHForCreateDto.PayFrequency" class="control-label"></label>
+    <input asp-for="employeePHForCreateDto.PayFrequency" class="form-control" />
+    <span asp-validation-for="employeePHForCreateDto.PayFrequency" class="text-danger"></span>
+    </div>
+    <div class="form-group col-6">
+    <label asp-for="employeeForCreateDto.VacationHours" class="control-label"></label>
+    <input asp-for="employeeForCreateDto.VacationHours" class="form-control" />
+    <span asp-validation-for="employeeForCreateDto.VacationHours" class="text-danger"></span>
+    </div>
+    <div class="form-group col-6">
+    <label asp-for="employeeForCreateDto.SickLeaveHours" class="control-label"></label>
+    <input asp-for="employeeForCreateDto.SickLeaveHours" class="form-control" />
+    <span asp-validation-for="employeeForCreateDto.SickLeaveHours" class="text-danger"></span>
+    </div>
+
+
+    <div class="col-md-8">
+    <label for="specificSizeSelect">Departement</label>
+    <select asp-for="employeeDepartmentForCreateDto.DepartmentId" class="form-control" asp-items="ViewBag.DepartementId">
+    </select>
+    </div>
+    <div class="col-md-8">
+    <label for="specificSizeSelect">Job Title</label>
+    <select asp-for="employeeForCreateDto.JobTitle" class="form-control" asp-items="ViewBag.JobTitle">
+    </select>
+    </div>
+    <div class="col-md-8">
+    <label for="specificSizeSelect">Shift</label>
+    <select asp-for="employeeDepartmentForCreateDto.ShiftId" class="form-control" asp-items="ViewBag.ShiftId">
+    </select>
+    </div>
+
+
+    <div class="col-md-3">
+    @Html.LabelFor(model=> model.employeeForCreateDto.BusinessEntityId, htmlAttributes : new{@class="form-label"})
+    @Html.TextBox("salesPersonForCreateDto.BusinessEntityId",String.Empty,
+    new{@placeholder="BusinessEntityId",@class="form-control"})
+    </div>
+    <div class="col-md-3">
+    <label for="inputAddress" class="form-label">Fullname</label>
+    <input type="text" class="form-control" placeholder="Fullname">
+    </div>
+    <div class="col-md-3">
+    @Html.LabelFor(model=> model.employeeDto.NationalIdnumber, htmlAttributes : new{@class="form-label"})
+    @Html.TextBox("employeeDto.NationalIdnumber",string.Empty,
+    new{@placeholder="National ID Number",@class="form-control"})
+    </div>
+    <div class="col-md-3">
+    @Html.LabelFor(model=> model.employeeDto.JobTitle, htmlAttributes : new{@class="form-label"})
+    @Html.TextBox("employeeDto.JobTitle",string.Empty,
+    new{@placeholder="Job Title",@class="form-control"})
+    </div>
+    </form>*@

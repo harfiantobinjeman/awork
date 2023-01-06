@@ -1,0 +1,199 @@
+﻿@model AWork.Contracts.Dto.Production.UploadImages
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="~/css/style.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+@{
+    ViewData["Title"] = "Create";
+}
+
+@using (Html.BeginForm("CreateProductPhoto"
+, "ProductsSercvice"
+, FormMethod.Post
+, new { @enctype = "multipart/form-data" }))
+{
+    
+    @Html.AntiForgeryToken()
+    <center><h4 class="mb-3">Add/Edit Product</h4></center>
+
+    <button type="submit" class="btn btn-secondary" align="right">Save</button> 
+             
+    @Html.ValidationSummary(true,"",new {@class="text-danger"})
+    <div class="row g-3">
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.Name, htmlAttributes : new{@class="form-label"}  )
+            @Html.TextBox("ProductFCDto.Name",string.Empty,new{@placeholder="Product Name",@class="form-control",required = "required"})
+            @Html.ValidationMessage("ProductFCDto.Name",new{@class="text-danger"})
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.ProductNumber, htmlAttributes : new{@class="form-label"})
+            @Html.TextBox("ProductFCDto.ProductNumber",string.Empty,new{@placeholder="Product Number",@class="form-control", required = "required"})
+            @Html.ValidationMessage("ProductFCDto.ProductNumber",new{@class="text-danger"})
+        </div>
+        @*<div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.Color, htmlAttributes : new{@class="form-label"})
+            @Html.TextBox("ProductFCDto.Color",string.Empty,new{@placeholder="Color",@class="form-control", required = "required"})
+            @Html.ValidationMessage("ProductFCDto.Color",new{@class="text-danger"})
+        </div>*@
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.Color, htmlAttributes : new{@class="form-label"})
+            @Html.DropDownList("ProductFCDto.Color",ViewBag.Color,"--Choose Color--",new{@class="form-control", required = "required"})
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.SafetyStockLevel, htmlAttributes : new{@class="form-label"})
+            @Html.TextBox("ProductFCDto.SafetyStockLevel",string.Empty,new{@placeholder="SafetyStockLevel",@class="form-control", required = "required"})
+            @Html.ValidationMessage("ProductFCDto.SafetyStockLevel",new{@class="text-danger"})
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.ListPrice, htmlAttributes : new{@class="form-label"})
+            @Html.TextBox("ProductFCDto.ListPrice",string.Empty,new{@placeholder="ListPrice",@class="form-control", required = "required"})
+            @Html.ValidationMessage("ProductFCDto.ListPrice",new{@class="text-danger"})
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.StandardCost, htmlAttributes : new{@class="form-label"})
+            @Html.TextBox("ProductFCDto.StandardCost",string.Empty,new{@placeholder="StandardCost",@class="form-control", required = "required"})
+            @Html.ValidationMessage("ProductFCDto.StandardCost",new{@class="text-danger"})
+        </div>
+        @*<div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.Size, htmlAttributes : new{@class="form-label"})
+            @Html.TextBox("ProductFCDto.Size",string.Empty,new{@placeholder="Size",@class="form-control"})
+            @Html.ValidationMessage("ProductFCDto.Size",new{@class="text-danger"})
+        </div>*@
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.Size, htmlAttributes : new{@class="form-label"})
+            @Html.DropDownList("ProductFCDto.Size",ViewBag.Size,"--Choose Size--",new{@class="form-control",  required = "required"})
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.SizeUnitMeasureCode, htmlAttributes : new{@class="form-label"})
+            @Html.DropDownList("ProductFCDto.SizeUnitMeasureCode",ViewBag.SizeUnitMeasureCode,"--Choose Size Unit Measure--",new{@class="form-control", required = "required"})
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.WeightUnitMeasureCode, htmlAttributes : new{@class="form-label"})
+            @Html.DropDownList("ProductFCDto.WeightUnitMeasureCode",ViewBag.WeightUnitMeasureCode,"--Choose Weight Unit Measure--",new{@class="form-control", required = "required"})
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.Weight, htmlAttributes : new{@class="form-label"})
+            @Html.TextBox("ProductFCDto.Weight",string.Empty, new{@placeholder="Weight",@class="form-control",required = "required"})
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.DaysToManufacture, htmlAttributes : new{@class="form-label"})
+            @Html.EditorFor(model => model.ProductFCDto.DaysToManufacture, new { htmlAttributes = new { @class = "form-control", required = "required"} })
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.ProductLine, htmlAttributes : new{@class="form-label"})
+            @Html.DropDownList("ProductFCDto.ProductLine",ViewBag.ProductLine,"--Choose ProductLine--",new{@class="form-control", required = "required"})
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.Class, htmlAttributes : new{@class="form-label"})
+            @Html.DropDownList("ProductFCDto.Class",ViewBag.Class,"--Choose Class--",new{@class="form-control", required = "required"})
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.Style, htmlAttributes : new{@class="form-label"})
+            @Html.DropDownList("ProductFCDto.Style",ViewBag.Style,"--Choose Style--",new{@class="form-control", required = "required"})
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.ProductSubcategoryId, htmlAttributes : new{@class="form-label"})
+            @Html.DropDownList("ProductFCDto.ProductSubcategoryId",ViewBag.ProductSubcategoryId,"--Choose ProductSubCategoryId--",new{@class="form-control", required = "required"})
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.ReorderPoint, htmlAttributes : new{@class="form-label"})
+            @Html.TextBox("ProductFCDto.ReorderPoint",string.Empty,new{@placeholder="ReorderPoint",@class="form-control", required = "required"})
+        </div>
+        <div class="col-md-4">
+            @Html.CheckBox("ProductFCDto.MakeFlag",false,new{@class="form-check-input"})
+            @Html.LabelFor(model => model.ProductFCDto.MakeFlag, htmlAttributes : new{@class="form-label"})
+        </div>
+        <div class="col-md-4">
+            @Html.CheckBox("ProductFCDto.FinishedGoodsFlag",false,new{@class="form-check-input"})
+            @Html.LabelFor(model => model.ProductFCDto.FinishedGoodsFlag, htmlAttributes : new{@class="form-label"})
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.SellStartDate, htmlAttributes : new{@class="form-label"})
+            @Html.TextBoxFor(x => x.ProductFCDto.SellStartDate, "{0:yyyy-MM-ddTHH}", new
+                       {
+                           @class = "form-control",
+                           required = "required",
+                           @type = "datetime-local"
+                       })            
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.SellEndDate, htmlAttributes : new{@class="form-label"})
+            @Html.TextBoxFor(x => x.ProductFCDto.SellEndDate, "{0:yyyy-MM-ddTHH}", new
+                       {
+                           @class = "form-control",
+                           required = "required",
+                           @type = "datetime-local"
+                       })            
+        </div>
+         <div class="col-md-4">
+            @Html.LabelFor(model => model.ProductFCDto.DiscontinuedDate, htmlAttributes : new{@class="form-label"})
+            @Html.TextBoxFor(x => x.ProductFCDto.DiscontinuedDate, "{0:yyyy-MM-ddTHH}", new
+                       {
+                           @class = "form-control",
+                           required = "required",
+                           @type = "datetime-local"
+                       })            
+        </div>
+   </div>
+   <br />
+                        
+
+        <div class="row text-center text-lg-start">
+            <div class="col-lg-4 col-md-4 col-6">
+                <img id="preview1" src="../Resources/Images/icon.png" style="width:100px;height:100px;" />
+                <br>
+                @Html.TextBoxFor(model => model.FileImages,"",
+                new{@type="file",@accept="image/*", @onchange="previewImage(this,'preview1')"})
+                <button type="button" onclick="clearPhoto('FileImages','preview1')" style="width:100px">Clear</button>
+                @Html.ValidationMessage("Photo1",new{@class="text-danger"})
+            </div>
+            <div class="col-lg-4 col-md-4 col-6">
+                <img id="preview2" src="../Resources/Images/icon.png" style="width:100px;height:100px">
+                <br>
+                @Html.TextBoxFor(model => model.FileImages,"",
+                new{@type="file",@accept="image/*", @onchange="previewImage(this,'preview2')"})
+                <button type="button" onclick="clearPhoto('FileImages','preview2')" style="width:100px">Clear</button>
+                @Html.ValidationMessage("Photo2",new{@class="text-danger"})
+            </div>
+            <div class="col-lg-4 col-md-4 col-6">
+                <img id="preview3" src="../Resources/Images/icon.png" style="width:100px;height:100px">
+                <br>
+                @Html.TextBoxFor(model => model.FileImages,"",
+                new{@type="file",@accept="image/*", @onchange="previewImage(this,'preview3')"})
+                <button type="button" onclick="clearPhoto('FileImages','preview3')" style="width:100px">Clear</button>
+                @Html.ValidationMessage("Photo3",new{@class="text-danger"})
+            </div>
+        </div>
+ 
+
+    <div class="col-lg-4 col-md-4 col-6">
+        <div class="col-md-12">
+            @Html.CheckBox("ProductProductPhotoFCDto.Primary",false,new{@class="form-check-input"})
+            @Html.LabelFor(model => model.ProductProductPhotoFCDto.Primary, htmlAttributes : new{@class="form-label"})
+        </div>
+    </div>
+   
+}
+
+
+<script>
+        function clearPhoto(photo,preview)
+    {
+        //isi element input type 
+        document.getElementById(photo).value='';
+        document.getElementById(preview).src = "../Resources/Images/icon.png"
+    }
+
+    function previewImage(elemen, value) {
+        //store file image to variable files
+        const files = elemen.files[0];
+        //create object FileReader
+        const fileReader = new FileReader();
+        //read files from element input type
+        fileReader.readAsDataURL(files);
+        //send result base64 image to element html preview1
+        fileReader.onload = function(event){
+            document.getElementById(value).src = event.target.result;
+        }
+    }
+</script>

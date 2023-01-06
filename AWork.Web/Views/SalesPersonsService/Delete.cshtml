@@ -1,0 +1,21 @@
+﻿@model AWork.Contracts.Dto.Sales.SalesPerson.SalesPersonDto
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>@Model.BusinessEntity.BusinessEntity.FirstName @Model.BusinessEntity.BusinessEntity.LastName</h4>
+    <hr />
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="BusinessEntityId" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-action="Index">
+            <input type="button" value="Back" class="btn btn-secondary"/>
+        </a>
+    </form>
+</div>

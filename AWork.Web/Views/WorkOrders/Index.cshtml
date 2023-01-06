@@ -1,0 +1,358 @@
+﻿@model X.PagedList.IPagedList<AWork.Contracts.Dto.Production.WorkOrderDto>
+@using X.PagedList.Mvc.Core
+<link href="~/css/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/css/Workorderouting.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+
+
+@{
+    ViewData["Title"] = "Index";
+    var no = 1;
+}
+
+<h1 style="text-align: center">Work Order Information</h1>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+
+<div>
+    
+    @*<a asp-action="Create">Create New</a>*@
+</div>
+    <div class="card">
+    <div style="width:60%">
+        <h4 class="card-header" style="margin:5px;padding:5px">Product</h4>
+    </div>
+            <div class="control-group" style="display:flex;padding:10px;">
+                <div style="margin-right:10px">
+                    @*@Html.LabelFor(model => model.FirstOrDefault().workOrderDto.Product.Name, htmlAttributes : new{@class="form-label"})
+                    @Html.DropDownList("WorkOrder.Product.Name",ViewBag.Name,"Name",new {@class="form-control"})*@
+                    @*<label>sasdasd : </label> @ViewBag.Name
+                    @Html.DropDownList("WorkOrder.Product.Name",ViewBag.Name,"--Choose Employee--",new{@class="form-control"})*@
+                    @*<select>
+                    <option>@ViewBag.Name</option>
+                    </select>*@
+                    @Html.LabelFor(model => model.FirstOrDefault().Product.ProductId, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("Product.Name",(int)ViewBag.Id ,new { @style = "width: 90px;", @class="form-control", @readonly="true", })
+                </div>
+                <div style="margin-right:10px">
+                    @Html.LabelFor(model => model.FirstOrDefault().Product.Name, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("Product.Name",(string)ViewBag.Name ,new { @style = "width: 150px;", @class="form-control", @readonly="true" })
+                </div>
+                <div style="margin-right:10px">
+                    @Html.LabelFor(model => model.FirstOrDefault().Product.ProductNumber, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("Product.Name",(string)ViewBag.Number ,new { @style = "width: 150px;", @class="form-control", @readonly="true" })
+                </div>
+                <div style="margin-right:10px">
+                    @Html.LabelFor(model => model.FirstOrDefault().Product.DaysToManufacture, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("Product.Name",(int)ViewBag.Date ,new { @style = "width: 150px;", @class="form-control", @readonly="true" })
+                </div>
+                <div style="margin-right:10px">
+                    @Html.LabelFor(model => model.FirstOrDefault().Product.ListPrice, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("Product.Name",(int)ViewBag.ListPrice ,new { @style = "width: 150px;", @class="form-control", @readonly="true" })
+                </div>
+                
+            </div>
+            <div class="control-group" style="display:flex;padding:10px">
+                <div style="margin-right:10px">
+                    @Html.LabelFor(model => model.FirstOrDefault().Product.SafetyStockLevel, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("Product.Name",(int)ViewBag.SafetyStockLevel ,new { @style = "width: 150px;", @class="form-control", @readonly="true" })
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.FirstOrDefault().Product.ReorderPoint, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("Product.Name",(int)ViewBag.ReorderPoint ,new { @style = "width: 150px;", @class="form-control", @readonly="true" })
+                </div>
+            </div>
+    </div>
+<div class="card" style="margin-top:10px">
+    <div style="display:flex">
+        <div style="width:60%;display:flex">
+            <h4 class="card-header" style="margin:5px;padding:5px;margin-right:50px;">Work Order</h4>
+            <input class="form-control" style="width:200px;margin-right:20px;margin:5px;padding:5px" placeholder="Cari Sesuai WorkOrderID" id="cari" type="number" />
+            <a><button class="btn btn-info float-end" onclick="getPencarianData(@ViewBag.Id)" style="margin:5px;padding:5px">Cari</button></a>
+        </div>
+        <div>
+            <a><button class="btn btn-secondary" type="button" onclick="getWorkOrder(@ViewBag.Id)" style="margin:5px;padding:5px">Show WorkOrders</button></a>
+            <a asp-action="Create" asp-route-id="@ViewBag.Id"><button class="btn btn-success"> Create WorkOrder </button></a>
+        </div>
+    </div>
+    <div class="card-body" style="padding:5px">
+            <div class="table-responsive text-nowrap" style="height:200px">
+            @*<div style="display:flex">
+                <input class="form-control" style="width:200px;margin-right:20px" placeholder="Cari Sesuai WorkOrderID" id="cari" type="number" />
+                <button class="btn btn-info float-end" onclick="getPencarianData(@ViewBag.Id)">Cari</button>
+            </div>
+                *@
+                <table class="table table-bordered table-hover">
+                <thead class="table-secondary">
+                        <tr>
+                            <th>
+                                Nomor
+                            </th>
+                            <th>
+                                WorkOrderId
+                            </th>
+                            <th>
+                                StockedQty
+                            </th>
+                            <th>
+                                ScrappedQty
+                            </th>
+                            <th>
+                                StartDate
+                            </th>
+                            <th>
+                                EndDate
+                            </th>
+                            <th>
+                                DueDate
+                            </th>
+                            <th>
+                                ACTION
+                            </th>
+                        </tr>
+                    </thead>
+                <tbody class="table-border" id="isiian">
+                    <p id="GFG_DOWN" style="
+                color:green; font-size: 20px; font-weight: bold;">
+                    </p>
+                </tbody>
+            </table>
+            @*@Html.PagedListPager(Model, page => Url.Action("Index", new{page, CurrentFilter = ViewBag.CurrentFilter}))*@        
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div style="width:60%">
+        <h4 class="card-header" style="margin:5px;padding:5px">Work Order Routing</h4>
+    </div>
+    <div class="card-body" style="padding:0px">
+        <div class="table-responsive text-nowrap" style="height:200px">
+            <table class="table table-bordered table-hover">
+                <thead class="table-secondary">
+                    <tr class="text-nowrap">
+                        <th>WorkOrderId</th>
+                        <th>LocationId</th>
+                        <th>ScheduledStartDate</th>
+                        <th>ScheduledEndDate</th>
+                        <th>ActualStartDate</th>
+                        <th>ActualEndDate</th>
+                        <th>ActualResourceHrs</th>
+                        <th>PlannedCost</th>
+                        <th>ActualCost</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border" id="isi">
+                    <p id="GFG_DOWNII" style="
+                color:green; font-size: 20px; font-weight: bold;">
+                    </p>
+                </tbody>
+            </table>
+            @*<p id="GFG_DOWN" style="
+                color:green; font-size: 20px; font-weight: bold;">
+            </p>*@
+        </div>
+    </div>
+</div>
+    @*<div style="margin-top:20px">
+        <form>
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">ScrapReason</legend>
+                <div class="control-group" style="display:flex;padding:20px">
+                    <div>
+                        <label>ScrapReseonId</label>
+                        <select class="form-control" style="width:100px">
+                            @foreach (var item in @ViewBag.IdSc)
+                            {
+                                <option>@item</option>
+                            }
+                        </select>
+                    </div>
+                    <div style="margin-left:20px;margin-right:20px">
+                        <label>ScrapReseonName</label>
+                        <input class="form-control" placeholder="Name" />
+                    </div>
+                    <div style="margin-left:20px;margin-right:20px">
+                        <button class="btn btn-outline-primary float-right">Save Reason</button>
+                        @*<select>
+                            @foreach (var item in @ViewBag.NamesSc)
+                            {
+                                <option style="width:50px">@item</option>
+                            }
+                        </select>*@
+                        @*@Html.DropDownList("WorkOrder.ScrapReason.Name",ViewBag.Test, String.Empty, new {@class="form-control"})
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>*@
+    @*<div>
+        <form>
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Allocate To Inventory</legend>
+                <div class="control-group" style="display:flex;padding:10px">
+                    <p>
+                        <a class="text-decoration-none" id="add">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"></path>
+                            </svg>
+                            Allocate To Location
+                        </a>
+                    </p>
+                    <div style="margin-left:60%;margin-right:10%">
+                        <button class="btn btn-outline-primary float-right">Save Inventory</button>
+                    </div>
+                </div>
+                <div class="control-group" style="display:flex">
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <form name="add_name" id="add_name">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dynamic_field">
+                                    <tr>
+                                        <td><input class="form-control" placeholder="@Model.FirstOrDefault().ProductId" /></td>
+                                        <td><input class="form-control" placeholder="Shelf" /></td>
+                                        <td><input class="form-control" placeholder="" /></td>
+                                        <td><input class="form-control" placeholder="Quantyty" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                @*<div class="control-group" style="display:flex;padding:20px">
+            <div>
+            <input class="form-control" placeholder="ReasonId" />
+            </div>
+            <div style="margin-left:20px;margin-right:20px">
+            <input class="form-control" placeholder="Name" />
+            </div>
+            <div style="margin-left:20px;margin-right:20px">
+            <input class="form-control" placeholder="Name" />
+            </div>
+            <div style="margin-left:20px;margin-right:20px">
+            <button class="btn btn-outline-primary float-right">Save Reason</button>
+            </div>
+            </div>
+            </fieldset>
+        </form>
+    </div>
+}*@
+
+<script>
+    function getFetchSize(value) {
+        console.log(document.location.href = "/ProductsPagedServer?&FetchSize=" + value);
+
+    }
+    $(document).ready(function () {
+        var i = 1;
+        $('#add').click(function () {
+            i++;
+            $('#dynamic_field').append('<tr id="row' + i +
+                '"></td><td><input class="form-control" placeholder="LocationId" /></td><td><input class="form-control" placeholder="Shelf" /></td><td><input class="form-control" placeholder="" /></td><td><input class="form-control" placeholder="Quantyty" /></td><td><button type="button" name="remove" id="' + i +
+                '" class="btn btn-danger btn_remove">X</button></td></tr>');
+        });
+        $(document).on('click', '.btn_remove', function () {
+            var button_id = $(this).attr("id");
+            $('#row' + button_id + '').remove();
+        });
+    });
+
+
+    function getWorkOrder(b) {
+        $(document).ready(function () {
+            let id = b;
+            $.ajax({
+                type: 'GET',
+                url: '/WorkOrders/GetWorkOrder/?id=' + id,
+                success: function (result) {
+                    console.log(result);
+                    var no = 1;
+                    $("#isiian tr").remove();
+                    if (result.length == 0) {
+                        $("#GFG_DOWN").text("data not found..!Please Create WorkOrder...!");
+                        $("#isiian tr").remove();
+                    }
+                    for (let i = 0; i < result.length; i++) {
+                        $('#isiian').append('<tr class="selectedRow" id="tables"><td onclick="getWorkId(' + result[i].workOrderId + ')">' + no + '</td><td onclick="getWorkId(' + result[i].workOrderId + ')">' + result[i].workOrderId
+                            + '<td onclick="getWorkId(' + result[i].workOrderId + ')">' + result[i].stockedQty + '</td><td onclick="getWorkId(' + result[i].workOrderId + ')">' + result[i].scrappedQty + '</td><td onclick="getWorkId(' + result[i].workOrderId + ')">' + new Date(result[i].startDate).toLocaleDateString('en-US') + '</td><td onclick="getWorkId(' + result[i].workOrderId + ')">' + new Date(result[i].endDate).toLocaleDateString('en-US') + '</td><td onclick="getWorkId(' + result[i].workOrderId + ')">' + new Date(result[i].dueDate).toLocaleDateString('en-US')
+                            + '</td><td><a href="/WorkOrderRoutings/create/?id1=' + result[i].workOrderId + '&id2=' + result[i].productId + '">Create WorkOrderRouting</a></td></tr>')
+                        no++
+                    }
+                },
+                error: function (result) {
+                    console.log('failed to fetch data');
+                }
+            });
+        });
+    }
+    //cari
+    function getPencarianData(a) {
+        $(document).ready(function () {
+            let workId = $('#cari').val();
+            let productId = a;
+            console.log(a)
+            console.log(workId);
+            $.ajax({
+                type: 'GET',
+                url: '/WorkOrders/GetPencarian/?workId=' + workId + '&productId=' + productId,
+                success: function (resultCari) {
+                    console.log(resultCari);
+                    var nom = 1;
+                    $("#isiian tr").remove();
+                    if(resultCari.length == 0){
+                        $("#GFG_DOWN").text("data not found..!");
+                        $("#isiian tr").remove();
+                    }                    
+                    for (let i = 0; i < resultCari.length; i++) {
+                        $("#GFG_DOWN").text(" ");
+                        $('#isiian').append('<tr class="selectedRow" id="tables"><td onclick="getWorkId(' + resultCari[i].workOrderId + ')">' + nom + '</td><td onclick="getWorkId(' + resultCari[i].workOrderId + ')">' + resultCari[i].workOrderId + '</td><td onclick="getWorkId(' + resultCari[i].workOrderId + ')">' + resultCari[i].stockedQty + '</td><td onclick="getWorkId(' + resultCari[i].workOrderId + ')">' + resultCari[i].scrappedQty + '</td><td onclick="getWorkId(' + resultCari[i].workOrderId + ')">' + new Date(resultCari[i].startDate).toLocaleDateString('en-US') + '</td><td onclick="getWorkId(' + resultCari[i].workOrderId + ')">' + new Date(resultCari[i].endDate).toLocaleDateString('en-US') + '</td><td onclick="getWorkId(' + resultCari[i].workOrderId + ')">' + new Date(resultCari[i].dueDate).toLocaleDateString('en-US') + '</td><td><a href="/WorkOrderRoutings/create/?id1=' + resultCari[i].workOrderId + '&id2=' + resultCari[i].productId + '">Create WorkOrderRouting</a></td></tr>')
+                        nom++
+                    }
+                },
+                error: function (resultCari) {
+                    console.log('failed to fetch data');
+                    $("#GFG_DOWN").text("data not found");
+                }
+            });
+        });
+    }
+
+    
+    function getWorkId(a){
+        $(document).ready(function () {
+            //get narik data
+            let id = a
+            $.ajax({
+                type: 'GET',
+                url: '/WorkOrders/GetIncludeWOR/?id=' + id,
+                success: function (result) {
+                    console.log(result);
+
+                    $("#isi tr").remove();
+                    if (result.length == 0) {
+                        $("#GFG_DOWNII").text("No data Empty.....! Please Create WorkOrderRouting...!");
+                        $("#isi tr").remove();
+                    }
+                    for(let i = 0; i < result.length; i++){
+                    $("#GFG_DOWNII").text(" ");
+                        $('#isi').append('<tr class="selectedRow"  id="table"><td>' + result[i].workOrderId + '</td><td>' + result[i].locationId + '</td><td>' + new Date(result[i].scheduledStartDate).toLocaleDateString('en-US') +
+                            '</td><td>' + new Date(result[i].scheduledEndDate).toLocaleDateString('en-US') + '</td><td>' + new Date(result[i].actualStartDate).toLocaleDateString('en-US') + '</td><td>' + new Date(result[i].actualEndDate).toLocaleDateString('en-US') +
+                       '</td><td>' + result[i].actualResourceHrs + '</td><td>' + result[i].plannedCost + '</td><td>' + result[i].actualCost + '</td></tr>')
+                    }
+                },
+                error: function (result) {
+                    console.log('failed to fetch data');
+                }
+            });
+        });
+    }
+
+
+
+</script>

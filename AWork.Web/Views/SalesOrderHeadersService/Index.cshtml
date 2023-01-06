@@ -1,0 +1,258 @@
+﻿@model X.PagedList.IPagedList<AWork.Contracts.Dto.Sales.SalesOrderHeader.SalesOrderHeaderDto>
+@using X.PagedList.Mvc.Core
+<link href="~/css/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>
+    <box-icon name='shopify' type='logo'>Sales Order Header </box-icon>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAABIdJREFUaEPtmoGRjTEQx/9XASpABagAFaACVIAKUAEqQAWoABWgAlSACpifyc7kIslmc/meN3dvZ97cufcl3/52N7ubxJHOmBydMV4dgE+7xw8ePnj4lFlg1yF9XdJ5SV8kffsfttwFMIAPJD1MsMbJv1/sGnpr4EuS3ki6Kum1pLcJ+mUG+kHSU0n83Fy2BMazX6W/tf6GpM+S7kl6lqB/SfqZPlck3UkG2RR6S+BPybPXEixe5m+AYgBC+m4yCJ5nfV9OBtgMeitgPEnYPpL0PGmPty9k3gYYb99MCYzvCe0nm9Em666e30L5e/Iw89cMgJffJ2DWL95nzRPmGOqWpPurldvCw+a5fE0CQ7hiDBMDBpZwz7/D048lvVoNvQWwJSq8hQDyI5UgwhXP3U6flgMNmO+B5kPEnLh2rwa2xJSvXQtnlDUjeJGaA5fPfkx5wJuj+v1qYDxIKBLOlBo8iRGigsFIaC2Z1nt6YEUTQpWMPOrFnhHI3CS0lpDtSW5hOSlwvh7zpBNWpBhAhNChtQSDTHVms8BWelZC5nC9NcxzeY4IGXcW2EpK6GWBhz3g6QZlFthqbYAh9KgHPJ2pZ4EtG3sUKEafzHpj82BCYiNKmOdiMQn1lrpLtm8Jc9Gjh2UWGACa/ZawQaAk9RKLNSTlHBiJcT1gxkzpPjUoKdQCxkN4z+uKWssCYMayk+oJrar3jn/GzwL/bmhiW788fFtK2/ax5mH+1osgvp8qTauBR7Mna5ieuyZ4eAR49F3H3jED3CtJZZixTmkgGIPQHbE++UmPfRJgzsNYFiGZASYZ1bogTiLLvplWkwO8iADCPF5IT5WmGeBWSaopMFq+coMQqkSEB0zCIqJCMgPc8loNmJC286pRxQAmKkba1rD+4QGdktRrBiKe9rqs3HB2QDhqzKni3SonvLRXG0lSRMc5R7sIcLg0zXi4VYPhIAOjREtGNh0R4HBpigL36qdBegdvXnh7m//cmNxmtMpb1ehR4BEPmafZxNdOJUhGZNhWaEeAw6UpCmwHciNJgiSG8jXo3ubDO8/K383cHPcMSxTYC8fyxa2TCUoVx0M1iaxhxocYQg+nfWptF9NqFlpJpefhKHAoU0eBW4paObJLMrzHNpE2tLZz6pW2SEjj4dCtYxSYG4SyAwIscjTb2vhbeEeSFmNCpSkKXKvB0V2LlweiwO+ca5tjeSICbNcoZaIhZAmrkdOH1hz5nNE1HCpNEeBeDaY80Dbi7daNAMmOZ7xNQRQ4lKkjwCNHs7bBx+t8gGN9R+6YZoCHr14iwN7aGy7+nQc5RKBGeyeW5RTDpSkKjKe4FdxKRo9oy/fzPwXo4V2JAOeTsZ5JQITryHGMq0h6AGCWQvRYaLg0zQLXAHIDmEG8vW85z+iJpY2jB8BALINNPTzqMZIWhjAD8Ht5tZLP5QFbBNjVzUgpnK7Do5Ajz+UGYFnYgV0OTAKzbF/eTY28o/rMypCeViINxPuUNdsvT93we0rsE7Cn65LvD8BLzLjHkxw8vMfOWaLawcNLzLjHk/wBlbb0Pf4KgaQAAAAASUVORK5CYII=" />
+</h1>
+@using (Html.BeginForm("Index", "SalesOrderHeadersService", FormMethod.Get))
+{
+    <div class="input-group mb-2">
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new{@class="form-control", @placeholder="Looking For?"})
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+
+        @*@Html.DropDownList("PersonType", ViewBag.PersonType as SelectList, new{@placeholder="Person Type", @onchange="getPersonType(personType)"})
+    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Filter</button>*@
+    </div>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                @*<th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().RevisionNumber)
+            </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().OrderDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().DueDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().ShipDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Status)
+                </th>
+                @*<th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().OnlineOrderFlag)
+            </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().SalesOrderNumber)
+                </th>
+                @* <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().PurchaseOrderNumber)
+            </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().AccountNumber)
+                </th>
+                @*  <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().CreditCardApprovalCode)
+            </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().SubTotal)
+                </th>
+                @*  <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().TaxAmt)
+            </th>*@
+                @* <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Freight)
+            </th>*@
+                @*  <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().TotalDue)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Comment)
+            </th>*@
+                @* <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Rowguid)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().ModifiedDate)
+            </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().BillToAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().CreditCard)
+                </th>
+                @* <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().CurrencyRate)
+            </th>*@
+                @* <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Customer)
+            </th>*@
+                @*  <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().SalesPerson)
+            </th>*@
+                @*    <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().ShipMethod)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().ShipToAddress)
+            </th>*@
+                @* <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Territory)
+            </th>*@
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @*  <td>
+            @Html.DisplayFor(modelItem => item.RevisionNumber)
+            </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DueDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShipDate)
+                    </td>
+                    <td>
+                        @*                        @Html.DisplayFor(modelItem => item.Status, new{id="Status"})
+                *@                        @if (item.Status == 1)
+                        {
+                            <span class="badge bg-label-primary me-1 hover">Prosses</span>
+                        }
+                        else if (item.Status == 2)
+                        {
+                            <span class="badge bg-label-info me-1">Approve</span>
+                        }
+                        else if (item.Status == 3)
+                        {
+                            <span class="badge bg-label-danger me-1">Reject</span>
+                        }
+                        else if (item.Status == 4)
+                        {
+                            <span class="badge bg-label-danger me-1">Back Ordered</span>
+                        }
+                        else if (item.Status == 5)
+                        {
+                            <span class="badge bg-label-warning me-1">Shipped</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-label-danger me-1">Cancelled</span>
+
+                        }
+                    </td>
+                    @* <td>
+            @Html.DisplayFor(modelItem => item.OnlineOrderFlag)
+            </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SalesOrderNumber)
+                    </td>
+                    @* <td>
+            @Html.DisplayFor(modelItem => item.PurchaseOrderNumber)
+            </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountNumber)
+                    </td>
+                    @*  <td>
+            @Html.DisplayFor(modelItem => item.CreditCardApprovalCode)
+            </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubTotal)
+                    </td>
+                    @* <td>
+            @Html.DisplayFor(modelItem => item.TaxAmt)
+            </td>*@
+                    @*<td>
+            @Html.DisplayFor(modelItem => item.Freight)
+            </td>*@
+                    @* <td>
+            @Html.DisplayFor(modelItem => item.TotalDue)
+            </td>*@
+                    @*    <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+            </td*@>
+                    @* <td>
+            @Html.DisplayFor(modelItem => item.Rowguid)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.ModifiedDate)
+            </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BillToAddress.AddressLine1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreditCard.CardNumber)
+                    </td>
+                    @*<td>
+            @Html.DisplayFor(modelItem => item.CurrencyRate.FromCurrencyCode)
+            </td>*@
+                    @*  <td>
+            @Html.DisplayFor(modelItem => item.Customer.AccountNumber)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.SalesPerson.BusinessEntityId)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.ShipMethod.Name)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.ShipToAddress.AddressLine1)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.Territory.CountryRegionCode)
+            </td>*@
+                    <td>
+
+                        <div class="dropdown">
+                            <button type="button"
+                            class="btn p-0 dropdown-toggle hide-arrow"
+                            data-bs-toggle="dropdown">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.SalesOrderId"><i class="bx bx-edit-alt me-1"></i>Edit</a>
+                                <a class="dropdown-item" asp-action="Details" asp-route-id="@item.SalesOrderId"><i class="bx bx-detail me-1"></i>Details</a>
+                                <a class="dropdown-item" asp-action="Delete" asp-route-id="@item.SalesOrderId"><i class="bx bx-trash me-1"></i>Delete</a>
+                            </div>
+                        </div>
+                        @* <a asp-action="Edit" asp-route-id="@item.SalesOrderId">
+                <button class="btn btn-success me-md-2" type="button">Edit</button>
+                </a>
+                <a asp-action="Details" asp-route-id="@item.SalesOrderId">
+                <button class="btn btn-success me-md-2" type="button">Detail</button
+                </a>
+                <a asp-action="Delete" asp-route-id="@item.SalesOrderId">
+                <button class="btn btn-secondary me-md-2" type="button">Delete</button>
+                </a>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    <div>
+        Page Size : @Html.DropDownList("PageSize",
+    ViewBag.PageSize as SelectList,
+    new{
+    @placeholder="Page Size",
+    @onchange="getPagedSize(this.value)"
+    }
+    )
+    </div>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new{page, PageSize = ViewBag.psize, currentFilter = ViewBag.CurrentFilter, sortOrder = ViewBag.CurrentSort}))
+}
+
+
+
+@section Scripts{
+    <script>
+        function getPagedSize(value) {
+            document.location.href = "/SalesOrderHeadersService?&PageSize=" + value + "&currentFilter=@ViewBag.CurrentFilter&sortOrder=@ViewBag.Current    Sort";
+        }
+    </script>
+    }

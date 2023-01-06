@@ -1,0 +1,156 @@
+﻿@using X.PagedList.Mvc.Core
+@model  AWork.Contracts.Dto.Production.ProductSubCategoryDto
+
+<div class="container p-3 my-3">
+    <div class="col-md-6">
+        <div class="col-sm-4">
+                <label class="control-label">CategoryName</label>
+                @Html.DropDownList("ProductSubcategoryId",ViewBag.Name,"",
+            new{@class="form-select", id="subcategory"})
+            @*<select asp-for="Name" class="form-select" id="category" asp-items="ViewBag.Name"></select>*@
+        </div>
+    </div>
+</div>
+
+<div class="container p-3 my-3">
+    <div class="card">
+        <div id="chart"></div>
+    </div>
+</div>
+<div>
+    <tr>
+        <td>
+            <button class="btn btn-sm btn-primary" onClick="window.location.reload();"><i class='bx bx-refresh'></i></button>
+        </td>
+    </tr>
+</div>
+<div class="container p-3 my-3">
+    <div class="card">
+        <div id="chart2"></div>
+    </div>
+</div>
+
+
+
+
+
+@section scripts{
+
+<script>
+    $(document).ready(function () {
+         //renderChart();
+         let totalProduct =[];
+         let categoris =[];
+         let category= $('#category').val();
+          $.ajax({
+               type : 'GET',
+               url: '/ProductCategoriesService/GetSubcategoriesById/?category='+category,
+               success : function (result){
+               console.log(result);
+                   for (let i=0; i < result.length; i++){
+                   totalProduct.push(result[i].totalProduct);
+                   categoris.push(result[i].subCategory);
+                   }
+                   console.log(totalProduct);
+                   console.log(categoris);
+                   renderBarChart(totalProduct,categoris);
+                 //renderPieChart(totalProduct,categories);
+
+                        let totProduct =[];
+                        let categories =[];
+                        let subcategory = $("#subcategory");
+                            subcategory.change(function () {
+                                $.ajax({
+                                    type: "GET",
+                                    url: '/ProductCategoriesService/GetTotalProductBySub/?subcategory='+subcategory.val(),
+                                    success: function (result) {
+                                        console.log(result);
+                                        for (let i = 0; i < result.length; i++) {
+                                            totProduct.push(result[i].totalProduct)
+                                            categories.push(result[i].subcategory)
+                                        }
+                                        console.log(totProduct);
+                                        console.log(categories);
+                                        renderBarChart1(totProduct,categories);
+                                        //renderPieChart(totalProducts,categories);
+                                    },
+                                    error: function (result) {
+                                        console.log(result);
+                                    }
+                                });
+              
+                          })
+                }
+               })
+         function renderBarChart(dataSeries, dataCategories) {
+               var options = {
+               series: [{
+               data: dataSeries
+               }],
+               chart: {
+               height: 350,
+               type: 'bar',
+               events: {
+               click: function(chart, w, e) {
+               // console.log(chart, w, e)
+               }
+               }
+               },
+               plotOptions: {
+                    bar: {
+                      columnWidth: '45%',
+                      distributed: true,
+                      }
+                      },
+                      dataLabels: {
+                      enabled: false
+                      },
+                      legend:
+                      {
+                      show: false
+                      },
+                  xaxis: {
+                  categories: dataCategories,
+                  }
+                  };
+                  var chart = new ApexCharts(document.querySelector("#chart"), options);
+                  chart.render();
+                  }
+
+
+
+                  function renderBarChart1(dataSeries, dataCategories) {
+            var options = {
+                series: [{
+                    data: dataSeries
+                }],
+                 chart: {
+                    type: 'bar',
+                    height: 350
+                },
+                plotOptions: {
+                        bar: {
+                    borderRadius: 4,
+                    horizontal: true,
+                    }
+                },
+                dataLabels: {
+                   enabled: false
+                },
+                xaxis: {
+                categories: dataCategories,
+                }
+                };
+
+                var chart = new ApexCharts(document.querySelector("#chart2"), options);
+                chart.render();
+                }
+
+    })
+   
+
+   
+
+
+</script>
+    }

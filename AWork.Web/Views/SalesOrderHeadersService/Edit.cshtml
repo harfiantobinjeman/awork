@@ -1,0 +1,331 @@
+﻿@model AWork.Contracts.Dto.Sales.SalesOrderHeader.SalesOrderHeaderDto
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<div class="card">
+    <div class="card-body">
+
+        <form asp-action="Edit">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="SalesOrderId" />
+            <div class="form-group">
+
+                <label asp-for="AccountNumber" class="control-label"></label>
+                <input asp-for="AccountNumber" class="form-control" />
+                <span asp-validation-for="AccountNumber" class="text-danger"></span>
+            </div>
+            <br>
+
+
+                @*  <div class="col-md-3">
+            <label asp-for="CustomerId" class="control-label"></label>
+            <select asp-for="CustomerId" class="form-control" asp-items="ViewBag.CustomerId"></select>
+            <span asp-validation-for="CustomerId" class="text-danger"></span>
+            *@
+            <div class="row g-3">
+                <div class="col-md-3">
+
+                    <label class="form-label">CustomerId</label>
+                          <input type="button" value="..." id="lookup3">
+                                <input asp-for="CustomerId" class="form-control" />
+                    <span asp-validation-for="CustomerId" class="text-danger"></span>
+                </div>
+                    @* </div>*@
+                    @*                <div class="col-md-3">
+                <label asp-for="SalesPersonId" class="control-label"></label>
+                <select asp-for="SalesPersonId" class="form-control" asp-items="ViewBag.SalesPersonId"></select>
+                <span asp-validation-for="SalesPersonId" class="text-danger"></span>*@
+
+                <div class="col-md-3">
+                    
+                    <label class="form-label">SalesPersonId</label>
+                    <input type="button" value="..." id="lookup2">
+                    <input asp-for="SalesPersonId" class="form-control" />
+                    <span asp-validation-for="SalesPersonId" class="text-danger"></span>
+
+                </div>
+
+
+                <div class="col-md-3">
+                    <input type="button" value="..." id="lookup">
+                    <label class="form-label">TeritorryId</label>
+                    <input asp-for="TerritoryId" class="form-control" />
+                    <span asp-validation-for="TerritoryId" class="text-danger"></span>
+
+                </div>
+                <div class="col-md-3">
+
+                        @*<div class="input-group input-group-merge">
+                    @Html.DropDownList("employeeForCreateDto.BusinessEntityId",ViewBag.BusinessEntityId,"--Choose Employee--",
+                    new{@class="form-control"})
+                    </div>*@
+
+
+
+                    <label class="form-label">CreditCardId</label>
+                    <input type="button" value="..." id="lookup1">
+                    <input asp-for="CreditCardId" class="form-control" />
+                    <span asp-validation-for="CreditCardId" class="text-danger"></span>
+
+
+
+
+
+
+                </div>
+            </div>
+            <br>
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label asp-for="RevisionNumber" class="control-label"></label>
+                    <input asp-for="RevisionNumber" class="form-control" />
+                    <span asp-validation-for="RevisionNumber" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="OrderDate" class="control-label"></label>
+                    <input asp-for="OrderDate" class="form-control" />
+                    <span asp-validation-for="OrderDate" class="text-danger"></span>
+
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="DueDate" class="control-label"></label>
+                    <input asp-for="DueDate" class="form-control" />
+                    <span asp-validation-for="DueDate" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="ShipDate" class="control-label"></label>
+                    <input asp-for="ShipDate" class="form-control" />
+                    <span asp-validation-for="ShipDate" class="text-danger"></span>
+                </div>
+            </div>
+            <br>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="Status" class="control-label"></label>
+                    <input asp-for="Status" class="form-control" />
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="OnlineOrderFlag" class="control-label"></label>
+                    <input asp-for="OnlineOrderFlag" class="form-control" />
+                    <span asp-validation-for="OnlineOrderFlag" class="text-danger"></span>
+                </div>
+                <div class="col-md-12">
+                    <label asp-for="PurchaseOrderNumber" class="control-label"></label>
+                    <input asp-for="PurchaseOrderNumber" class="form-control" />
+                    <span asp-validation-for="PurchaseOrderNumber" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label class="form-label">BillToAddressId</label>
+                    <input type="button" value="..." id="lookup6">
+                    <input asp-for="BillToAddressId" class="form-control" />
+                    <span asp-validation-for="BillToAddressId" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label class="form-label">ShipToAddressId</label>
+                    <input type="button" value="..." id="lookup4">
+                    <input asp-for="ShipToAddressId" class="form-control" />
+                    <span asp-validation-for="ShipToAddressId" class="text-danger"></span>
+                </div>
+                <div>
+                    <label class="form-label">ShipMethodId</label>
+                    <input type="button" value="..." id="lookup5">
+                    <input asp-for="ShipMethodId" class="form-control" />
+                    <span asp-validation-for="ShipMethodId" class="text-danger"></span>
+                </div>
+
+
+
+                <br>
+                <div class="row g-3">
+
+
+
+
+
+                                @* <div class="col-md-3">
+                    <label asp-for="CreditCardId" class="control-label"></label>
+                    <select asp-for="CreditCardId" class="form-control" asp-items="ViewBag.CreditCardId"></select>
+                    <span asp-validation-for="CreditCardId" class="text-danger"></span>
+                    *@
+
+                    <div class="col-md-3">
+                        <label asp-for="CreditCardApprovalCode" class="control-label"></label>
+                        <input asp-for="CreditCardApprovalCode" class="form-control" />
+                        <span asp-validation-for="CreditCardApprovalCode" class="text-danger"></span>
+
+                    </div>
+                      <div class="col-md-3">
+                        >
+                        <label asp-for="SubTotal" class="control-label"></label>
+                        <input asp-for="SubTotal" class="form-control" />
+                        <span asp-validation-for="SubTotal" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="TaxAmt" class="control-label"></label>
+                        <input asp-for="TaxAmt" class="form-control" />
+                        <span asp-validation-for="TaxAmt" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="Freight" class="control-label"></label>
+                        <input asp-for="Freight" class="form-control" />
+                        <span asp-validation-for="Freight" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <br>
+
+              
+                            @* <div class="row-g3">
+                <div class="form-group">
+                <label asp-for="Comment" class="control-label"></label>
+                <input asp-for="Comment" class="form-control" />
+                <span asp-validation-for="Comment" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                <label asp-for="Rowguid" class="control-label"></label>
+                <input asp-for="Rowguid" class="form-control" />
+                <span asp-validation-for="Rowguid" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                <label asp-for="ModifiedDate" class="control-label"></label>
+                <input asp-for="ModifiedDate" class="form-control" />
+                <span asp-validation-for="ModifiedDate" class="text-danger"></span>
+                </div>
+
+                </div>*@
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+
+        </form>
+    </div>
+</div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#lookup").lookupbox({
+                title: ' Search Territory',
+                url: '/SalesOrderHeadersService/GetTerritory/?name=',
+                imgLoader: '<img src="../../images/loader.gif">',
+                onItemSelected: function (data) {
+                    console.log(data);
+                    console.log(data.name);
+                    $('#TerritoryId').val(data.territoryId);
+                    //$('#firstName').val(data.firstName);
+                    //$('#lastName').val(data.lastName);
+                    /*$('input[name=territoryDescription]').val(data.territoryDescription);
+                    $('input[name=regionId]').val(data.regionId);*/
+                },
+                tableHeader: ['TerritoryId', 'Name', 'Group'],
+                colWidth: ['100px', null, '100px']
+            });
+
+            // $(this).closest('.teritory').find('#lookupRow').click();
+
+
+            $("#lookup1").lookupbox({
+                title: ' Loking For CreditCard ? ',
+                url: '/SalesOrderHeadersService/GetCreditCardById/?name=',
+                imgLoader: '<img src="../../images/loader.gif">',
+                onItemSelected: function (data) {
+                    console.log(data);
+                    console.log(data.creditCardId);
+                    $('#CreditCardId').val(data.creditCardId);
+                },
+                tableHeader: ['CreaditCardId', 'CardType', 'CreditCardNumber', 'Expire Moth', 'Expire Year'],
+                colWidth: ['100px', null, '100px']
+            });
+
+            $("#lookup2").lookupbox({
+                title: ' Loking For Sales Person ? ',
+                url: '/SalesOrderHeadersService/GetSalesPerson/?name=',
+                imgLoader: '<img src="../../images/loader.gif">',
+                onItemSelected: function (data) {
+                    console.log(data);
+                    console.log(data.businessEntityId);
+                    $('#SalesPersonId').val(data.businessEntityId);
+                },
+                tableHeader: ['FirstName', 'LastName', 'BusinessEntityId', 'TerritoryId '],
+                colWidth: ['100px', null, '100px']
+            });
+            $("#lookup3").lookupbox({
+                title: ' Loking For Customer  ? ',
+                url: '/SalesOrderHeadersService/GetCustomerId/?name=',
+                imgLoader: '<img src="../../images/loader.gif">',
+                onItemSelected: function (data) {
+                    console.log(data);
+                    console.log(data.customerId);
+                    $('#CustomerId').val(data.customerId);
+                },
+                tableHeader: ['FirstName', 'LastName', 'CustomerId', 'TerritoryId '],
+                colWidth: ['100px', null, '100px']
+            });
+            $("#lookup6").lookupbox({
+                title: ' Loking For Bill To Address  ? ',
+                url: '/SalesOrderHeadersService/GetBillToAddres/?name=',
+                imgLoader: '<img src="../../images/loader.gif">',
+                onItemSelected: function (data) {
+                    console.log(data);
+                    console.log(data.billToAddressId);
+                    $('#BillToAddressId').val(data.billToAddressId);
+                },
+                tableHeader: ['Address', 'addressLine1', 'billToAddressId'],
+                colWidth: ['100px', null, '100px']
+            });
+            $("#lookup4").lookupbox({
+                title: ' Loking For Address  ? ',
+                url: '/SalesOrderHeadersService/GetShipToAddress/?name=',
+                imgLoader: '<img src="../../images/loader.gif">',
+                onItemSelected: function (data) {
+                    console.log(data);
+                    console.log(data.shipToAddressId);
+                    $('#ShipToAddressId').val(data.shipToAddressId);
+                },
+                tableHeader: ['Address', 'AddressID', 'ShipToAddressId'],
+                colWidth: ['100px', null, '100px']
+            });
+            $("#lookup5").lookupbox({
+                title: ' Loking For Ship Method  ? ',
+                url: '/SalesOrderHeadersService/GetShipMetthod/?name=',
+                imgLoader: '<img src="../../images/loader.gif">',
+                onItemSelected: function (data) {
+                    console.log(data);
+                    console.log(data.name);
+                    $('#ShipMethodId').val(data.shipMethodId);
+                },
+                tableHeader: ['Jasa Pengiriman', 'shipMethodId'],
+                colWidth: ['100px', null, '100px']
+            });
+      
+
+        });
+
+
+
+
+
+
+    </script>
+
+
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
+

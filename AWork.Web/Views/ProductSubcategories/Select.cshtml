@@ -1,0 +1,50 @@
+﻿@model IEnumerable<AWork.Contracts.Dto.Production.ProductSubCategoryDto>
+
+@using (Html.BeginForm("Select","ProductSubCategoryService", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card">
+    <h5 class="card-header">Responsive Table</h5>
+    <div class="table-responsive text-nowrap">
+        <table class="table">
+            <thead>
+                <tr class="text-nowrap">
+                    <th>No</th>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.ProductCategoryId)</th>
+                    <th>@Html.DisplayNameFor(model => model.ProductSubcategoryId)</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductCategoryId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductSubcategoryId)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.ProductSubcategoryId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.ProductSubcategoryId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.ProductSubcategoryId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <a class="menu-link" asp-area="" asp-controller="ProductSubcategories" asp-action="Index">Select</a>
+    </div>
+</div>
+}
+
+

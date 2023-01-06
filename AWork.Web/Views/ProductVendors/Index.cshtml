@@ -1,0 +1,101 @@
+﻿@model X.PagedList.IPagedList<AWork.Contracts.Dto.Purchasing.ProductVendorDto>
+@using X.PagedList.Mvc.Core
+
+<link href="~/css/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@*@using (Html.BeginForm("AddToCart", "ProductVendors", FormMethod.Post))
+{*@
+@Html.AntiForgeryToken()
+<h2>Product Vendors</h2>
+<div class="row mb-5">
+    <div class="col-sm-10">
+        <br />
+        @using (Html.BeginForm("Index", "ProductVendors", FormMethod.Get))
+        {
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="input-group mb-1">
+                                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new{@class="form-control", @placeholder="Search by AccountNumber, Name, Vendor"})
+                                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-sm-2">
+        Show Data @Html.DropDownList("PageSize",
+        ViewBag.PageSize as SelectList,
+        new{
+        @class="form-control search-slt",
+        @placeholder="Page Size",
+        @onchange="getPagedSize(this.value)"
+        }
+        )
+    </div>
+</div>
+    @using (Html.BeginForm("AddToCart", "PurchaseOrderHeaders", FormMethod.Post))
+    {
+        @Html.HiddenFor(model=>model.FirstOrDefault().BusinessEntityId)
+        @Html.HiddenFor(model=>model.FirstOrDefault().ProductId)
+        @Html.HiddenFor(model=>model.FirstOrDefault().UnitMeasureCode)
+        @Html.HiddenFor(model=>model.FirstOrDefault().StandardPrice)
+        @Html.HiddenFor(model=>model.FirstOrDefault().LastReceiptCost)
+        @Html.HiddenFor(model=>model.FirstOrDefault().AverageLeadTime)
+        @Html.HiddenFor(model=>model.FirstOrDefault().MinOrderQty)
+        @Html.HiddenFor(model=>model.FirstOrDefault().MaxOrderQty)
+        @Html.HiddenFor(model=>model.FirstOrDefault().Product.PurchaseOrderDetails)
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 col-lg-3 mb-3">
+                <div class="card">
+                    <img class="card-img-top" style="width:200px;height:200px" src="@Url.Content("~/Resources/Images/" + item.Product.ProductProductPhotos.FirstOrDefault().ProductPhoto.ThumbnailPhotoFileName)" alt="Card image cap" />
+                    <div class="card-body">
+                        <p class="card-title">
+                            <center><b>@Html.DisplayFor(modelItem => item.Product.Name)</b></center>
+                        </p>
+                        <p class="card-text">
+                            Name : @Html.DisplayFor(modelItem => item.Product.Name) <br>
+                            Price : $ @Html.DisplayFor(modelItem => item.StandardPrice) <br>
+                            UnitMeasure : @Html.DisplayFor(modelItem => item.UnitMeasureCode) <br>
+                            Availabe Stock : @Html.DisplayFor(modelItem => item.Product.SafetyStockLevel) <br>
+                            Vendor : @Html.DisplayFor(modelItem => item.BusinessEntity.Name)<br>
+                        </p>
+                        <input type="submit" value="Add to cart" class="btn btn-primary" />
+                        @*<div class="product-buttons mt-4">
+                            <div class="row align-items-center">*@
+                                @*<div class="col-4">
+                        @Html.TextBox("UnitsOnOrder", 1, new{@class="form-control", @type="number", @id="html5-number-input", @min=1, @max=item.MaxOrderQty})
+                        </div>*@
+                                @*<div class="col-8">*@
+                                    @*<button type="button" class="btn btn-block btn-primary btn-circle btn-icon-left">
+                            <i class="fa fa-shopping-cart"></i> Add to cart
+                            </button>*@
+                                    @*<button type="submit" value="Add to cart" class="btn btn-primary" />
+                                </div>*@
+                            @*</div>
+                        </div>*@
+
+                    </div>
+                </div>
+            </div>
+            @*</a>*@
+            }
+        }
+    <center>
+        @Html.PagedListPager(Model, page => Url.Action("Index", new{page, PageSize = ViewBag.psize, currentFilter = ViewBag.CurrentFilter}))
+    </center>
+
+
+<script>
+    function getPagedSize(value) {
+        document.location.href = "/ProductVendors?&PageSize=" + value + "&currentFilter=@ViewBag.CurrentFilter";
+    }
+</script>

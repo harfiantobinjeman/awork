@@ -1,0 +1,113 @@
+﻿@model AWork.Contracts.Dto.Purchasing.PurchaseOrderHeaderDto
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>PurchaseOrderHeader</h4>
+<hr />
+<div class="col-xxl">
+    <div class="card mb-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PurchaseOrderId" />
+            <input type="hidden" asp-for="EmployeeId" />
+            <div class="card-body">
+                <div class="row">
+                    <div class="col md-6">
+                        <label class="col-form-label"> REVISION NUMBER</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <input asp-for="RevisionNumber" class="form-control" placeholder="Revision Number" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col md-6">
+                        <label class="col-form-label">STATUS</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <input asp-for="Status" class="form-control" placeholder="Status" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col md-6">
+                        <label class="col-form-label"> VENDOR ID</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <select asp-for="VendorId" class="form-control" asp-items="ViewBag.VendorId"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col md-6">
+                        <label class="col-form-label">SHIP METHOD</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <select asp-for="ShipMethodId" class="form-control" asp-items="ViewBag.ShipMethodId"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col md-6">
+                        <label class="col-form-label"> ORDER DATE</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <input asp-for="OrderDate" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col md-6">
+                        <label class="col-form-label">SHIP DATE</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <input asp-for="ShipDate" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col md-6">
+                        <label class="col-form-label"> SUB TOTAL</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <input asp-for="SubTotal" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col md-6">
+                        <label class="col-form-label">TAX AMNESTY</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <input asp-for="TaxAmt" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col md-6">
+                        <label class="col-form-label">FREIGHT</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <input asp-for="Freight" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" asp-for="ModifiedDate" class="form-control" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

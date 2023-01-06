@@ -1,0 +1,132 @@
+﻿@model AWork.Contracts.Dto.Sales.SalesPerson.SalesPersonGroupDto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container p-3 my-3">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="text-center mb-3">CREATE SALES PERSON</h3>
+        </div>
+        <div class="card-body">
+            <form class="row g-3" method="post" asp-controller="SalesPersonsService" asp-action="CreateSalesPerson">
+                <div class="col-md-6">
+                    <label for="txtAutoComplete" class="form-label">Search New Sales Person</label>
+                    <input id="lookup" placeholder="Search Sales Person" class="form-control">
+                </div>
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model=> model.salesPersonForCreateDto.BusinessEntityId, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("salesPersonForCreateDto.BusinessEntityId",String.Empty,
+                    new{@placeholder="BusinessEntityId",@class="form-control", id="businessEntityId", @readonly="readonly"})
+                </div>
+                <div class="col-md-3">
+                    <label for="inputAddress" class="form-label">Fullname</label>
+                    <input type="text" class="form-control" placeholder="Fullname" id="firstName" readonly>
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model=> model.salesPersonDto.BusinessEntity.NationalIdnumber, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("salesPersonDto.BusinessEntity.NationalIdnumber",string.Empty,
+                    new{@placeholder="National ID Number",@class="form-control", id="nationalIdNumber", @readonly="readonly"})
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model=> model.salesPersonDto.BusinessEntity.JobTitle, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("salesPersonDto.BusinessEntity.JobTitle",string.Empty,
+                    new{@placeholder="Job Title",@class="form-control", id="jobTitle", @readonly="readonly"})
+                </div>
+                <div class="col-md-6">
+                    <label for="txtAutoComplete" class="form-label">Search Territory</label>
+                    <input id="lookupTerritory" placeholder="Search Territory" class="form-control">
+                </div>
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Territory</label>
+                    <div class="input-group input-group-merge">
+                        @Html.TextBox("salesPersonForCreateDto.TerritoryId",string.Empty,
+                        new{@placeholder="Territory ID",@class="form-control", id="territoryId", @readonly="readonly"})
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model=> model.salesPersonDto.Territory.Name, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("salesPersonDto.Territory.Name",string.Empty,
+                    new{@placeholder="Name",@class="form-control", id="name", @readonly="readonly"})
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model=> model.salesPersonDto.Territory.CountryRegionCode, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("salesPersonDto.Territory.CountryRegionCode",string.Empty,
+                    new{@placeholder="Country Region Code",@class="form-control", id="countryRegionCode", @readonly="readonly"})
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model=> model.salesPersonDto.Territory.Group, htmlAttributes : new{@class="form-label"})
+                    @Html.TextBox("salesTerritoryDto.Group",string.Empty,
+                    new{@placeholder="Group",@class="form-control", id="group", @readonly="readonly"})
+                </div>
+                <br />
+                @{
+                    for (int i = 0; i < 3; i++)
+                    {
+                            <div class="col-md-4">
+                                <label class="form-label">Store</label>
+                                <div class="input-group input-group-merge">
+                                    @Html.TextBoxFor(model => model.storeForCreateDto[i].Name,"",new{@class="form-control", @placeholder="Search"})
+                                </div>
+                            </div>
+                    }
+                }
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a asp-action="Index">
+                        <input type="button" class="btn btn-secondary" value="Back" />
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#lookup").lookupbox({
+                title: 'Search Business Enitity',
+                url: '/SalesPersonsService/GetDataEmployeeTypeSP/?name=',
+                imgLoader: '<img src="../images/loader.gif">',
+                onItemSelected: function (data) {
+                    console.log(data);
+                    $("#lookup").val(data.fullName)
+                    $("#businessEntityId").val(data.businessEntityId)
+                    $("#firstName").val(data.fullName)
+                    $("#nationalIdNumber").val(data.nationalIDNumber)
+                    $("#jobTitle").val(data.jobTitle)
+                },
+                tableHeader: ['Business Entity ID', 'Full Name', 'National ID Number', 'Job Title'],
+                colWidth: ['65px', null, '100px']
+            });
+
+        });
+        
+        $(document).ready(function () {
+            $("#lookupTerritory").lookupbox({
+                title: 'Search Business Enitity',
+                url: '/SalesPersonsService/GetDataTerritory/?name=',
+                imgLoader: '<img src="../images/loader.gif">',
+                onItemSelected: function (data) {
+                    console.log(data);
+                    $("#lookupTerritory").val(data.name)
+                    $("#territoryId").val(data.territoryId)
+                    $("#name").val(data.name)
+                    $("#countryRegionCode").val(data.countryRegionCode)
+                    $("#group").val(data.group)
+                },
+                tableHeader: ['Territory ID', 'Name', 'Country Region Code', 'Group'],
+                colWidth: ['65px', null, '100px']
+            });
+
+        });
+    </script>
+}
+
+
