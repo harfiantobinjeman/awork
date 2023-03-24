@@ -25,6 +25,7 @@ namespace AWork.Persistence.Repositories.Production
         {
 
             return await FindAll(trackChanges).OrderBy(p => p.ProductSubcategoryId)
+                .Take(10)
                 .Include(r=>r.SpecialOfferProducts)
                 .Include(x => x.WorkOrders)
                 .Include(z => z.ProductProductPhotos)
